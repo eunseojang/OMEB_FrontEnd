@@ -1,0 +1,72 @@
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+  width: 100%;
+  border-bottom: 1px solid #cdcdcd;
+  margin-bottom: 20px; /* 기존 177px에서 20px로 수정 */
+}
+
+.logo {
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
+  font-size: 28px;
+  color: #000000;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 640px;
+  height: 40px;
+  padding: 11px;
+  background-color: #ffffff;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 0 40px 0 20px;
+  border-radius: 30px;
+  font-size: 16px;
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  width: 17.5px;
+  height: 17.5px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  width: 277px;
+}
+
+.menu-item {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.85);
+  margin-right: 20px;
+}
+
+.notification-icon {
+  width: 20.4px;
+  height: 23.3px;
+}
