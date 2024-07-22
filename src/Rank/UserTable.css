@@ -1,0 +1,26 @@
+.user-table {
+  width: 50%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin: 20px auto 0 auto;
+}
+
+.user-table th,
+.user-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.user-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.user-table td img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+  vertical-align: middle;
+}
