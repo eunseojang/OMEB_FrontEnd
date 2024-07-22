@@ -11,10 +11,11 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 20px 40px;
   width: 100%;
   border-bottom: 1px solid #cdcdcd;
-  margin-bottom: 20px; /* 기존 177px에서 20px로 수정 */
+  margin-bottom: 20px;
 }
 
 .logo {
@@ -27,9 +28,10 @@
 .search-bar {
   display: flex;
   align-items: center;
-  width: 640px;
+  width: 45%;
   height: 40px;
   padding: 11px;
+  margin: 0 20px 0 20px;
   background-color: #ffffff;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
@@ -69,4 +71,20 @@
 .notification-icon {
   width: 20.4px;
   height: 23.3px;
+}
+
+@media (max-width: 768px) {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 수직 정렬 추가 */
+    padding: 20px 20px;
+    width: 100%;
+    border-bottom: 1px solid #cdcdcd;
+    margin-bottom: 20px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
 }

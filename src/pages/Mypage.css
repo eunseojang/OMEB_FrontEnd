@@ -1,12 +1,13 @@
 .mypages {
   padding: 20px;
-  margin-top: 0; /* 헤더와의 빈 공간 제거 */
+  margin-top: 0;
 }
 
+/* 프로필이 있을 곳 */
 .profile-section {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: center;
   border-bottom: 1px solid #cdcdcd;
   padding-bottom: 20px;
   margin-bottom: 20px;
@@ -14,9 +15,9 @@
 
 .profile-image {
   border-radius: 50%;
-  width: 25%; /* 프로필 이미지 크기 */
-  height: 25%; /* 프로필 이미지 크기 */
-  margin-right: 80px;
+  width: 200px;
+  height: 200px;
+  margin-right: 40px;
 }
 
 .profile-details {
@@ -26,8 +27,8 @@
 }
 
 .profile-details h2 {
-  font-size: 100px; /* 글자 크기 */
-  margin: 0 60px 30px 0;
+  font-size: 48px;
+  margin: 0 30px 0 0;
 }
 
 .level-xp {
@@ -36,44 +37,45 @@
 }
 
 .level {
-  font-size: 30px; /* 글자 크기 */
+  font-size: 24px;
   padding: 5px 10px;
   border: 2px solid black;
   border-radius: 15px;
-  margin: 0;
 }
 
 .xp {
-  font-size: 40px; /* 글자 크기 */
-  margin: 10px 0 20px 0;
+  font-size: 24px;
+  margin-bottom: 10px;
   color: #777;
 }
 
 .edit-profile {
   padding: 10px 20px;
-  border: 5px solid black;
+  border: 2px solid black;
   border-radius: 10px;
   background-color: white;
   cursor: pointer;
-  font-size: 20px; /* 글자 크기 */
+  font-size: 20px;
 }
 
+/* 리뷰 두는 곳 */
 .reviews-section {
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .review-card {
   display: flex;
   align-items: center;
-  border: 1px solid #cdcdcd;
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 10px;
+  border: 2px solid #cdcdcd;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
 }
 
 .book-cover {
-  width: 10%; /* 이미지 크기 */
+  width: 120px; /* 이미지 크기 */
+  height: 150px; /* 이미지 크기 */
   margin-right: 20px;
 }
 
@@ -86,23 +88,114 @@
 .review-title-rating {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* 수직 중앙 정렬 */
+  align-items: center;
   width: 100%; /* 부모 요소의 넓이를 설정 */
 }
 
 .review-title {
-  font-size: 20px; /* 글자 크기 */
+  font-size: 24px;
   font-weight: bold;
 }
 
 .review-rating {
-  font-size: 16px; /* 글자 크기 */
+  font-size: 20px;
   color: #777;
   margin-left: auto; /* 자동 왼쪽 마진 추가 */
-  margin-right: 30px;
 }
 
 .review-content {
   margin-top: 10px;
-  font-size: 14px; /* 글자 크기 */
+  font-size: 18px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .profile-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-image {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .profile-details h2 {
+    font-size: 36px;
+  }
+
+  .level {
+    font-size: 20px;
+  }
+
+  .xp {
+    font-size: 18px;
+  }
+
+  .edit-profile {
+    font-size: 16px;
+  }
+
+  .review-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .book-cover {
+    width: 100px;
+    height: 120px;
+    margin-bottom: 20px;
+  }
+
+  .review-title {
+    font-size: 20px;
+  }
+
+  .review-rating {
+    font-size: 16px;
+  }
+
+  .review-content {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-details h2 {
+    font-size: 24px;
+  }
+
+  .level {
+    font-size: 18px;
+  }
+
+  .xp {
+    font-size: 16px;
+  }
+
+  .edit-profile {
+    font-size: 14px;
+  }
+
+  .review-card {
+    padding: 10px;
+  }
+
+  .book-cover {
+    width: 70px;
+    height: 90px;
+  }
+
+  .review-title {
+    font-size: 18px;
+  }
+
+  .review-rating {
+    font-size: 14px;
+  }
+
+  .review-content {
+    font-size: 12px;
+  }
 }
