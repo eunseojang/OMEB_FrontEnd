@@ -1,0 +1,83 @@
+.top-users {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.top-user {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.crown {
+  margin-left: -10px;
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.rank-number {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.rank-1 .rank-number {
+  font-size: 60px;
+}
+
+.rank-2 .rank-number {
+  font-size: 50px;
+}
+
+.rank-3 .rank-number {
+  font-size: 40px;
+}
+
+.rank-icon {
+  margin-right: 10px;
+}
+
+.rank-1 .rank-icon img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.rank-2 .rank-icon img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.rank-3 .rank-icon img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.rank-1 .user-name {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.rank-2 .user-name {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.rank-3 .user-name {
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.user-level {
+  font-size: 14px;
+  color: gray;
+}
