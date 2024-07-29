@@ -1,11 +1,9 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './components/Main';
 import Mainpage from './pages/Mainpage';
 import Mypages from './pages/Mypage';
 import './App.css';
 import LankingPage from './Rank/RankingPage';
-import LoginPage from './components/LoginPage.jsx';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter , Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
