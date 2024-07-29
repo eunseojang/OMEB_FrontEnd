@@ -1,0 +1,112 @@
+.bookshelf-section {
+  position: relative;
+  width: 1000px; /* 넓이 조정 */
+  height: 400px; /* 높이 조정 */
+  margin: 0 auto; /* 중간 정렬y */
+  z-index: 1;
+}
+
+.shelf-img {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.bookshelf {
+  display: flex;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 125px; /* 책 위치 조정 */
+  left: 50%;
+  transform: translateX(-50%);
+  padding-right: 0;
+  z-index: 2; /*우선 순위*/
+}
+
+.book {
+  width: 50px;
+  border-radius: 5px;
+  margin: 0 2px;
+  /* transition: transform 0.3s ease; */
+}
+
+.pot {
+  width: 80px;
+  margin-left: 60px;
+}
+
+.book:hover {
+  /* transform: translateY(-50px); */
+  cursor: pointer;
+  transform: scale(1.4);
+  transition-duration: 0.5s;
+}
+
+@media (max-width: 1200px) {
+  .bookshelf-section {
+    max-width: 800px;
+  }
+  .bookshelf {
+    bottom: 25%;
+  }
+
+  .book {
+    width: 40px;
+    border-radius: 5px;
+    margin: 0 2px;
+    /* transition: transform 0.3s ease; */
+  }
+
+  .pot {
+    margin-left: 50px;
+    width: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bookshelf-section {
+    max-width: 600px;
+  }
+  .bookshelf {
+    bottom: 19%;
+  }
+
+  .book {
+    width: 26px;
+    border-radius: 5px;
+    margin: 0 2px;
+    /* transition: transform 0.3s ease; */
+  }
+
+  .pot {
+    margin-left: 40px;
+    width: 38px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bookshelf-section {
+    max-width: 300px;
+  }
+  .bookshelf {
+    bottom: 9%;
+  }
+  .book {
+    width: 10vw;
+    max-width: 40px;
+  }
+
+  .book {
+    width: 15px;
+    border-radius: 5px;
+    margin: 0 2px;
+    /* transition: transform 0.3s ease; */
+  }
+
+  .pot {
+    margin-left: 10px;
+    width: 20px;
+  }
+}
