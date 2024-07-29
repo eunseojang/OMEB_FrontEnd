@@ -3,19 +3,18 @@ import './Mainpage.css';
 
 const sections = [
   { title: '#리뷰 많은 책', books: [] },
-  { title: '#별점 높은 책', books: [] },
-  { title: '#북마크가 많이 된 책', books: [] },
+  { title: '#북마크 된 책', books: [] },
 ];
 
 function Mainpage() {
   return (
     <>
       <div className="mainpage">
-        <h2>#감정 기반 추천</h2>
+        <h2 className="main-h2">#감정 기반 추천</h2>
         <Bookshelf />
         {sections.map((section, index) => (
           <div key={index} className="section">
-            <h2>{section.title}</h2>
+            <h2 className="main-h2">{section.title}</h2>
             <div className="book-list">
               {section.books.map((book, idx) => (
                 <div key={idx} className="book-item">
