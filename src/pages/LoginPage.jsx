@@ -1,9 +1,9 @@
-import React from 'react'
-import { useState } from 'react'
-import './LoginPage.css'
-import google_logo from '../assets/logo/google_logo.png'
-import naver_logo from '../assets/logo/naver_logo.png'
-import kakao_logo from '../assets/logo/kakao_logo.png'
+import React from "react"
+import { useState } from "react"
+import "./LoginPage.css"
+import google_logo from "../assets/logo/google_logo.png"
+import naver_logo from "../assets/logo/naver_logo.png"
+import kakao_logo from "../assets/logo/kakao_logo.png"
 
 
 const LoginPage = () => {
