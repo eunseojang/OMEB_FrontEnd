@@ -1,0 +1,119 @@
+.back {
+  color: #3E3E3E;
+  background: linear-gradient(135deg, #1B8AF1, #B58DED);
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.login {
+  display: inline-block;
+  background: #FFFFFF;
+  width: 444px;
+  height: 650px;
+  border-radius: 22px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.login h4{
+  font-family: 'Segoe UI', bold;
+  font-size: 35px;
+  margin-top: 7rem;
+  margin-bottom: 3rem;
+}
+
+.login form {
+  display: inline-block;
+  align-items: center;
+  width: 350px;
+  height: 220px;
+}
+.login form .text_area {
+  align-content: center;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  height: 50px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(0, 0, 0, 0.19);
+}
+.login form .text_input {
+  font-family: 'Montserrat regular';
+  font-size: 20px;
+  border: none;
+  width: 90%;
+  vertical-align: middle;
+}
+.login form .btn {
+  margin-top: 10px;
+  width: 350px;
+  height: 45px;
+  border-radius: 10px;
+  background: #B58DED;
+  border: none;
+  font-family: 'Montserrat';
+  font-size: 20px;
+  color: #FFFFFF;
+  box-shadow: 0 4px 8px 0 rgba(181, 141, 237, 0.7), 0 6px 20px 0 rgba(181, 141, 237, 0.9);
+  cursor: pointer;
+}
+
+.login .social_login {
+  width: 350px;
+  height: 30px;
+  margin-bottom: 20px;
+  align-items: center;
+  display: inline-block;
+}
+.login .social_login p {
+  font-size: 15px;
+  font-family: 'Segoe UI';
+  height: 100%;
+  float: left;
+  margin: 0;
+  vertical-align: middle;
+}
+.login .social_login .social {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  display: flex;
+  float: right;
+}
+.login .social_login .social img {
+  width: 100%;
+  height: 100%;
+}
+.login .social_login .social .circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  background-color: red;
+}
+
+.login .sub {
+  width: 350px;
+  height: 10px;
+  /* margin-bottom: 7rem; */
+  align-items: center;
+  display: inline-block;
+}
+.login .sub :first-child {
+  float: left;
+}
+.login .sub :nth-child(2),
+.login .sub :nth-child(3) {
+  float: right;
+  margin-left: 20px;
+}
+.login .sub .link {
+  color: #656565;
+  font-family: 'Montserrat light';
+  font-size: 10px;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+}

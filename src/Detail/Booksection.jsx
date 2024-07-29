@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const BookSection = () => {
   const [book, setBook] = useState(null);
   const [error, setError] = useState(null);
-  const bookId = 1;
+  const { bookId } = useParams();
 
   useEffect(() => {
     axios
