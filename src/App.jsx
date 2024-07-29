@@ -1,10 +1,10 @@
 import "./App.css";
-import LankingPage from "./Rank/RankingPage";
+import DetailPage from "./Detail/DetailPage";
 
 function App() {
   return (
     <>
-      <LankingPage />
+      <DetailPage />
     </>
   );
 }
