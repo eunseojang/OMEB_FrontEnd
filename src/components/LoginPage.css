@@ -1,8 +1,12 @@
-body {
+.back {
+  color: #3E3E3E;
   background: linear-gradient(135deg, #1B8AF1, #B58DED);
   height: 100vh;
   width: 100%;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -11,7 +15,6 @@ body {
   background: #FFFFFF;
   width: 444px;
   height: 650px;
-  vertical-align: middle;
   border-radius: 22px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -107,7 +110,7 @@ body {
   margin-left: 20px;
 }
 .login .sub .link {
-  color: #0E4579;
+  color: #656565;
   font-family: 'Montserrat light';
   font-size: 10px;
   cursor: pointer;
