@@ -17,14 +17,14 @@ function Header() {
           <img className="search-icon" src={searchIcon} alt="Search" />
         </div>
         <div className="menu">
-          <NavLink to="/LankingPage" style={{ textDecoration: 'none' }}>
+          <NavLink to="/Ranking" style={{ textDecoration: 'none' }}>
             <span className="menu-item">랭킹</span>
           </NavLink>
           <NavLink to="/Mypages" style={{ textDecoration: 'none' }}>
             <span className="menu-item">마이페이지</span>
           </NavLink>
-          <NavLink style={{ textDecoration: 'none' }}>
-            <span className="menu-item">로그아웃</span>
+          <NavLink to="/login" style={{ textDecoration: 'none' }}>
+            <span className="menu-item">로그인</span>
           </NavLink>
           <NavLink>
             <img
