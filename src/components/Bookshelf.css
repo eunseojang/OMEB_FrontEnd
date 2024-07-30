@@ -47,9 +47,10 @@
 @media (max-width: 1200px) {
   .bookshelf-section {
     max-width: 800px;
+    max-height: 300px;
   }
   .bookshelf {
-    bottom: 25%;
+    bottom: 100px;
   }
 
   .book {
@@ -68,9 +69,10 @@
 @media (max-width: 768px) {
   .bookshelf-section {
     max-width: 600px;
+    max-height: 225px;
   }
   .bookshelf {
-    bottom: 19%;
+    bottom: 75px;
   }
 
   .book {
@@ -89,9 +91,10 @@
 @media (max-width: 480px) {
   .bookshelf-section {
     max-width: 300px;
+    max-height: 120px;
   }
   .bookshelf {
-    bottom: 9%;
+    bottom: 38px;
   }
   .book {
     width: 10vw;

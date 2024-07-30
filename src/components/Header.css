@@ -2,10 +2,14 @@
   box-sizing: border-box;
 }
 
-.App {
+.header-section {
+  position: sticky; /*헤더 고정*/
+  top: 0px; /* 도달했을때 고정시킬 위치 */
   text-align: center;
   margin: 0;
   padding: 0;
+  z-index: 10; /*제일 뒤로 가야함*/
+  background-color: white;
 }
 
 .header {
@@ -15,7 +19,6 @@
   padding: 20px 40px;
   width: 100%;
   border-bottom: 1px solid #cdcdcd;
-  margin-bottom: 20px;
 }
 
 .logo {
@@ -81,7 +84,6 @@
     padding: 20px 20px;
     width: 100%;
     border-bottom: 1px solid #cdcdcd;
-    margin-bottom: 20px;
   }
 
   .logo {
