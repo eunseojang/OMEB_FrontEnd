@@ -1,4 +1,8 @@
+import { useEffect } from 'react';
 import './Bookshelf.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 import shelfImage from '../assets/선반.png';
 import potImage from '../assets/화분.png';
 
@@ -25,8 +29,17 @@ const books = [
 ];
 
 function Bookshelf() {
+  useEffect(() => {
+    AOS.init();
+  });
+
   return (
-    <div className="bookshelf-section">
+    <div
+      className="bookshelf-section"
+      data-aos="fade-right"
+      data-aos-duration="2000"
+      data-aos-easing="ease-out-back"
+    >
       <div className="bookshelf">
         {books.map((book) => (
           <img key={book.id} src={book.image} alt={book.id} className="book" />

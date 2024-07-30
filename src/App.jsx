@@ -16,8 +16,9 @@ function App() {
           <Route path="Mypages" element={<Mypages />} />
           <Route path="Ranking" element={<RankingPage />} />
           <Route path="Detail/:bookId" element={<DetailPage />} />
-          <Route path="/login" element={<LoginPage />} />
         </Route>
+        {/* 로그인 창은 헤더 제거 함 */}
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>
   );

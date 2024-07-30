@@ -7,7 +7,7 @@ import notificationIcon from '../assets/notificationIcon.png';
 
 function Header() {
   return (
-    <div className="App">
+    <div className="header-section">
       <header className="header">
         <Link to="/" style={{ textDecoration: 'none' }}>
           <span className="logo">OMEB</span>
