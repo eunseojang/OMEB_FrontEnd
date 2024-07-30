@@ -6,7 +6,7 @@
   min-height: 100vh;
 }
 
-h2 {
+.main-h2 {
   font-size: 24px;
   margin-bottom: 20px;
   text-align: left;
@@ -22,8 +22,9 @@ h2 {
 
 .book-list {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 20px;
+  overflow-x: auto;
 }
 
 .book-item {
@@ -31,6 +32,7 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 0 0 auto;
 }
 
 .book-image {
@@ -54,4 +56,9 @@ h2 {
 .book-price {
   font-size: 14px;
   margin-bottom: 5px;
+}
+
+.no-books {
+  font-size: 16px;
+  color: #888;
 }
