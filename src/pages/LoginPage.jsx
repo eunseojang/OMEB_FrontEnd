@@ -12,6 +12,7 @@ const LoginPage = () => {
   return (
     <div className="back">
       <div className="login">
+        
         <h4>일심동책</h4>
         <form>
           <div className="text_area">
