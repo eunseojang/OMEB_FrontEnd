@@ -1,11 +1,13 @@
-import './App.css';
-import Main from './components/Main';
-import Mainpage from './pages/Mainpage';
-import Mypages from './pages/Mypage';
-import RankingPage from './Rank/RankingPage';
-import DetailPage from './Detail/DetailPage';
-import LoginPage from './pages/LoginPage.jsx';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import "./App.css";
+import Main from "./components/Main";
+import Mainpage from "./pages/Mainpage";
+import Mypages from "./pages/Mypage";
+import RankingPage from "./Rank/RankingPage";
+import DetailPage from "./Detail/DetailPage";
+import LoginPage from "./pages/LoginPage.jsx"
+import RecommendPage from "./pages/RecommendPage.jsx"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
           <Route path="Ranking" element={<RankingPage />} />
           <Route path="Detail/:bookId" element={<DetailPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/recommend" element={<RecommendPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
