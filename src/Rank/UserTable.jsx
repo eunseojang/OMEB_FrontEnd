@@ -1,33 +1,46 @@
 import React from "react";
 import "./UserTable.css";
 
+
 const UserTable = ({ users }) => {
   return (
-    <table className="user-table">
-      <thead>
-        <tr>
-          <th>랭킹</th>
-          <th>사용자 이름</th>
-          <th>레벨</th>
-        </tr>
-      </thead>
-      <tbody>
-        {users.map((user, index) => (
-          <tr key={index}>
-            <td>{index + 4}</td>
-            <td>
-              <img
-                src={user.img}
-                alt={`${user.name}'s profile`}
-                className="user-img"
-              />
-              {user.name}
-            </td>
-            <td>LV.{user.level}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    // 4위 ~ 10위
+    <div className="user-tables">
+
+      {/* material-icons info */}
+      <div className="info-container">
+        <span className="material-icons"
+        data-tooltip="하루에 한번 로그인,
+        책 리뷰를 남기기,
+        좋아요 누르기/받기 등으로
+        레벨을 올릴 수 있어요">
+          info
+        </span>
+      </div>
+
+      {users.map((user, index) => (
+
+        // 순위 별 박스
+        <div key={index} className="user-table">
+          
+          <div className="user-rank">{index + 4}</div>
+          
+          <div className="user-info">
+            <img
+              src={user.img}
+              alt={`${user.name}'s profile`}
+              className="user-img"
+            />
+          </div>
+
+          <div className="user-name">{user.name}</div>
+          
+          <div className="user-level">LV. {user.level}</div>
+
+        </div>
+      
+      ))}
+    </div>
   );
 };
 

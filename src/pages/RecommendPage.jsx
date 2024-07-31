@@ -60,7 +60,6 @@ const RecommendPage = ({ id }) => {
 
         </div>
         
-
         {/* 오른쪽 페이지 */}
         <div className="right">
 
