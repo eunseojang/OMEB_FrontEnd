@@ -6,22 +6,16 @@ import kakao_logo from "../assets/logo/kakao_logo.png";
 import "./LoginPage.css";
 
 const LoginPage = () => {
-  const handleLogin = async (provider) => {
-    try {
-      const redirectUri = "https://localhost:3000/auth/callback"; // 실제 리다이렉트 URI로 변경
-      const response = await axios.post(
-        `${
-          import.meta.env.VITE_TEST_URL
-        }/oauth2/authorization/${provider}?redirect_uri=${redirectUri}`
-      );
-      console.log(response);
+  const handleLogin = (provider) => {
+    const redirectUri = "https://localhost:3000/auth/callback"; // Your app's redirect URI
+    // Redirect the user to the OAuth authorization endpoint
+    const authUrl = `${
+      import.meta.env.VITE_TEST_URL
+    }/oauth2/authorization/${provider}?redirect_uri=${encodeURIComponent(
+      redirectUri
+    )}`;
 
-      if (response.data && response.data.login_url) {
-        window.location.href = response.data.login_url;
-      }
-    } catch (error) {
-      console.error("Login request failed", error);
-    }
+    window.location.href = authUrl;
   };
 
   return (
