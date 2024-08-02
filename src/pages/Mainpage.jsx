@@ -15,7 +15,6 @@ import bannerImage from '../assets/Bannerbooks.jpg';
 function Mainpage() {
   // 북마크 책
   const [bookmarkedBooks, setBookmarkedBooks] = useState([]);
-
   // 임시 나중에 수정해야 함, 북마크 책을 가져올 수 가 없음... 리뷰가 많은 책도 마찬가지
   useEffect(() => {
     AOS.init({

@@ -25,25 +25,42 @@ const ProfileModal = ({ closeModal, token }) => {
         const presignedUrl = presignedUrlResponse.data.data.url;
         console.log('Presigned URL:', presignedUrl);
 
-        // Upload file to S3 using presigned URL
-        const uploadResponse = await axios.put(presignedUrl, file, {
-          withCredentials: true,
-          headers: { 'Content-Type': 'file.type' },
-        });
-        console.log('File uploaded to S3', uploadResponse);
+        // Convert file to binary
+        const reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onload = async () => {
+          const binary = reader.result;
 
-        // Send the S3 URL to backend to save as profile image URL
-        const s3Url = presignedUrl.split('?')[0];
-        const profileUpdateResponse = await axios.patch(
-          `${import.meta.env.VITE_TEST_URL}/api/v1/profile`,
-          { url: s3Url },
-          {
-            headers: { Authorization: `Bearer ${token}` },
+          // presigned url을 이용해서 3s에 이미지 업로드
+          const uploadResponse = await axios.put(presignedUrl, binary);
+
+          if (uploadResponse.status !== 200) {
+            throw new Error('Failed to upload file to S3');
           }
-        );
-        console.log('Profile image URL updated:', profileUpdateResponse);
+          console.log('File uploaded to S3', uploadResponse);
 
-        alert('Profile image updated successfully');
+          // 백엔드한테 이미지 url 보내기
+          const s3Url = presignedUrl.split('?')[0];
+          console.log(s3Url);
+          const profileUpdateResponse = await axios.patch(
+            `${import.meta.env.VITE_TEST_URL}/api/v1/profile`,
+            {},
+            {
+              params: { url: s3Url },
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          console.log(profileUpdateResponse);
+
+          if (profileUpdateResponse.status !== 200) {
+            throw new Error('Failed to update profile image URL');
+          }
+
+          console.log('Profile image URL updated:', profileUpdateResponse);
+          alert('Profile image updated successfully');
+        };
       } catch (error) {
         console.error('Error uploading file:', error);
         alert('Failed to upload file');
@@ -53,13 +70,21 @@ const ProfileModal = ({ closeModal, token }) => {
 
   const handleSave = async () => {
     try {
-      await axios.patch(
+      const response = await axios.patch(
         `${import.meta.env.VITE_TEST_URL}/api/v1/profile`,
         { nickname },
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
         }
       );
+
+      if (response.status !== 200) {
+        throw new Error('Failed to update profile');
+      }
+
       alert('Profile updated successfully');
       closeModal();
     } catch (error) {

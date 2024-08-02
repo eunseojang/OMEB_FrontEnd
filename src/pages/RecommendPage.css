@@ -1,13 +1,12 @@
 /* 기존 인터페이스 어두운 색으로 가림 */
 .recommend_back {
   background: rgb(62, 62, 62, 0.9);
-  height: 90vh;
+  height: 100vh;
   width: 100%;
   text-align: center;
   display: flex;
   justify-content: center;
 }
-
 
 /* 콘텐츠 */
 .recommend {
@@ -61,7 +60,6 @@
   outline-offset: 20px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
-
 
 /* 왼쪽 페이지 */
 .recommend .left {
@@ -220,14 +218,14 @@
   right: 14%;
 }
 /* 마우스 효과 */
-.recommend .right .btns .like:active ,
+.recommend .right .btns .like:active,
 .recommend .right .btns .new:active {
-  color: #DEE2E1;
+  color: #dee2e1;
   box-shadow: inset 5px 5px 10px #9e9e9e, inset -5px -5px 10px #f9f9f9;
 }
 .recommend .right .btns .like:active .material-icons,
 .recommend .right .btns .new:active .material-icons {
-  color: #DEE2E1;
+  color: #dee2e1;
 }
 /* 클릭했을 때 */
 .recommend .right .btns .like.active {
@@ -235,7 +233,7 @@
   box-shadow: inset 5px 5px 10px #9e9e9e, inset -5px -5px 10px #f9f9f9;
 }
 .recommend .right .btns .like.active .material-icons {
-  color: #DB4455;
+  color: #db4455;
 }
 /* 클릭했을 때 애니메이션 */
 @keyframes particle {
