@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage.jsx';
 
 import RecommendPage from './pages/RecommendPage.jsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import SingupPage from './pages/SingupPage.jsx';
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
         </Route>
         {/* 로그인 창은 헤더 제거 함 */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SingupPage />} />
+        <Route path="/recommend" element={<RecommendPage />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
       </Routes>
     </BrowserRouter>

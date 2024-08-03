@@ -8,7 +8,6 @@ import './LoginPage.css';
 const LoginPage = () => {
   const handleLogin = (provider) => {
     const redirectUri = 'https://localhost:3000/auth/callback'; // Your app's redirect URI
-    // Redirect the user to the OAuth authorization endpoint
     const authUrl = `${
       import.meta.env.VITE_TEST_URL
     }/oauth2/authorization/${provider}?redirect_uri=${encodeURIComponent(
