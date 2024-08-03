@@ -42,11 +42,20 @@
 }
 
 .profile-image-placeholder {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   background: #ddd;
   border-radius: 50%;
-  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.profile-image-placeholder img {
+  width: 100%;
+  height: auto;
 }
 
 .upload-button {
@@ -81,8 +90,9 @@
   width: 100%;
 }
 
-.cancel-button,
+.default-img,
 .save-button {
+  width: 45%;
   padding: 10px 20px;
   border: 2px solid black;
   border-radius: 10px;

@@ -12,7 +12,7 @@ function Header() {
         <Link to="/" style={{ textDecoration: 'none' }}>
           <span className="logo">OMEB</span>
         </Link>
-        
+
         <div className="menu">
           <NavLink to="/Ranking" style={{ textDecoration: 'none' }}>
             <span className="menu-item">랭킹</span>

@@ -2,20 +2,20 @@ import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import Bookshelf from '../components/Bookshelf';
 import './Mainpage.css';
-import AOS from 'aos';
+import AOS from 'aos'; // 애니메이션
 import 'aos/dist/aos.css';
 import { Link, NavLink } from 'react-router-dom';
 
 
-// 리소스가 너무 많아서 로딩창 만들어야 할 듯
-// 잘못된 라우팅 : 오류 페이지 제작..?
-// 로그인 언제 완성?
+// 로딩창 만들어야 할 듯?
+// 잘못된 라우팅 : 오류 페이지 제작...
 // 반응형
 // About us?
 
 function Mainpage() {
   // 북마크 책
   const [bookmarkedBooks, setBookmarkedBooks] = useState([]);
+  const [topReviewedBooks, setTopReviewedBooks] = useState([]);
 
   // 임시 나중에 수정해야 함, 북마크 책을 가져올 수 가 없음... 리뷰가 많은 책도 마찬가지
   useEffect(() => {
@@ -30,14 +30,30 @@ function Mainpage() {
           `${import.meta.env.VITE_TEST_URL}/api/v1/bookmark`
         );
         if (response.status === 200) {
-          setBookmarkedBooks(response.data.bookTitleInfoResponseList);
+          setBookmarkedBooks(response.data.data.bookTitleInfoResponseList);
         }
       } catch (error) {
         console.error('Error fetching bookmarked books:', error);
       }
     };
 
+    const fetchTopReviewedBooks = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_TEST_URL}/api/v1/book/review-rank`
+        );
+
+        // console.log(response);
+        if (response.status === 200) {
+          setTopReviewedBooks(response.data.data.bookTitleInfoResponseList);
+        }
+      } catch (error) {
+        console.error('Error fetching top reviewed books:', error);
+      }
+    };
+
     fetchBookmarkedBooks();
+    fetchTopReviewedBooks();
   }, []);
 
 
@@ -166,9 +182,8 @@ function Mainpage() {
 
         <h4>#리뷰 많은 책</h4>
         <div className="book-list">
-          {/* 수정 해야 함 */}
-          {bookmarkedBooks.length ? (
-            bookmarkedBooks.map((book, idx) => (
+          {topReviewedBooks.length ? (
+            topReviewedBooks.map((book, idx) => (
               <div key={idx} className="book-item">
                 <img
                   src={book.bookImage}
@@ -178,7 +193,9 @@ function Mainpage() {
                 <div className="book-info">
                   <h5 className="book-title">{book.title}</h5>
                   <p className="book-author">{book.author}</p>
-                  <p className="book-price">{book.price}</p>
+                  <p className="book-price">
+                    {book.price === '0' ? '재고 없음' : `${book.price}원`}
+                  </p>
                 </div>
               </div>
             ))
@@ -205,7 +222,9 @@ function Mainpage() {
                 <div className="book-info">
                   <h5 className="book-title">{book.title}</h5>
                   <p className="book-author">{book.author}</p>
-                  <p className="book-price">{book.price}</p>
+                  <p className="book-price">
+                    {book.price === '0' ? '재고 없음' : `${book.price}원`}
+                  </p>
                 </div>
               </div>
             ))

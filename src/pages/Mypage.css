@@ -11,6 +11,7 @@
   border-bottom: 1px solid #cdcdcd;
   padding-bottom: 20px;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .profile-image {
@@ -70,26 +71,27 @@
   border-radius: 15px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .book-cover {
-  width: 120px; /* 이미지 크기 */
-  height: 150px; /* 이미지 크기 */
+  width: 120px;
+  height: 150px;
   margin-right: 20px;
 }
 
 .review-details {
   display: flex;
   flex-direction: column;
-  width: 100%; /* 부모 요소의 넓이를 설정 */
+  width: 100%;
 }
 
 .review-title-rating {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%; /* 부모 요소의 넓이를 설정 */
+  width: 100%;
 }
 
 .review-title {
@@ -100,12 +102,70 @@
 .review-rating {
   font-size: 20px;
   color: #777;
-  margin-left: auto; /* 자동 왼쪽 마진 추가 */
 }
 
 .review-content {
   margin-top: 10px;
   font-size: 18px;
+}
+
+.review-actions {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.edit-button,
+.delete-button {
+  font-size: 12px;
+  padding: 5px 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.edit-button {
+  color: #4caf50;
+}
+
+.delete-button {
+  color: #f44336;
+}
+
+.like-count {
+  font-size: 14px;
+  color: #777;
+  margin-left: auto;
+}
+
+.review-date {
+  font-size: 12px;
+  color: #999;
+  margin-left: 10px;
+}
+
+/* 리뷰가 없을 때 */
+.no-reviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+  padding: 20px;
+  border: 2px dashed #cdcdcd;
+  border-radius: 15px;
+  background-color: #f9f9f9;
+}
+
+.no-reviews-image {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.no-reviews-text {
+  font-size: 20px;
+  color: #777;
+  text-align: center;
 }
 
 /* 반응형 디자인 */
@@ -159,6 +219,19 @@
   .review-content {
     font-size: 14px;
   }
+
+  .no-reviews {
+    padding: 10px;
+  }
+
+  .no-reviews-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .no-reviews-text {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -197,5 +270,18 @@
 
   .review-content {
     font-size: 12px;
+  }
+
+  .no-reviews {
+    padding: 10px;
+  }
+
+  .no-reviews-image {
+    width: 70px;
+    height: 70px;
+  }
+
+  .no-reviews-text {
+    font-size: 14px;
   }
 }
