@@ -1,5 +1,5 @@
-import React from 'react';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import './RecommendPage.css';
 import open_book from '../assets/recommend/open_book.png';
 
@@ -14,8 +14,19 @@ import 질투_label from '../assets/recommend/질투_label.png';
 
 import book_cover from '../assets/recommend/book_cover(ex).jpeg';
 
+const labels = {
+  무기력: 무기력_label,
+  분노: 분노_label,
+  불안: 불안_label,
+  사랑: 사랑_label,
+  성취감: 성취감_label,
+  외로움: 외로움_label,
+  우울: 우울_label,
+  질투: 질투_label,
+};
 
-const RecommendPage = ({ id }) => {
+const RecommendPage = () => {
+  const { id } = useParams();
   // 창 닫기
   const [isVisible, setIsVisible] = useState(true);
   const handleClose = () => {
@@ -23,7 +34,7 @@ const RecommendPage = ({ id }) => {
   };
   if (!isVisible) {
     return null;
-  };
+  }
 
   // 좋아요 버튼 클릭 효과
   const [isLiked, setIsLiked] = useState(false);
@@ -49,14 +60,11 @@ const RecommendPage = ({ id }) => {
     return particles;
   };
 
-
   return (
     // 기존 인터페이스 어두운 색으로 가림
     <div className="recommend_back">
-
       {/* 콘텐츠 */}
       <div className="recommend">
-
         {/* 펼쳐진 책 이미지 */}
         <div className="image">
           <img src={open_book} alt="open_book" />
@@ -65,13 +73,12 @@ const RecommendPage = ({ id }) => {
         {/* 감정 책갈피 */}
         <div className="recommend_book">
           <div className="book_label">
-            <img src={분노_label} alt="무기력" />
-            <p>분노</p>
+            <img src={labels[id]} alt={id} />
+            <p>{id}</p>
             {/* 선택한 책의 감정이 들어감
             <p>{id}</p> */}
           </div>
         </div>
-
 
         {/* 왼쪽 페이지 */}
         <div className="left">
@@ -83,72 +90,96 @@ const RecommendPage = ({ id }) => {
           </div>
 
           {/* 뒤로가기 */}
-          <span className='material-icons'>chevron_left</span>
+          <span className="material-icons">chevron_left</span>
 
           {/* 책 상세 페이지 버튼 */}
           <button>책 보러가기</button>
         </div>
 
-
         {/* 오른쪽 페이지 */}
         <div className="right">
-          
           {/* 창 닫기 */}
           <div className="close">
-            <span className='material-icons' onClick={handleClose}>close</span>
+            <span className="material-icons" onClick={handleClose}>
+              close
+            </span>
           </div>
 
           {/* 앞으로 가기 */}
           <div className="chevron_right">
-            <span className='material-icons'>chevron_right</span>
+            <span className="material-icons">chevron_right</span>
           </div>
 
           {/* 리뷰 */}
           {/* 어떻게 가져와야 할 지 모르겠다 */}
           <div className="review">
             <p>
-              I'm like some kind of supernova<br />
-              Watch out<br />
-              Look at me go<br />
-              재미 좀 볼 빛의 core<br />
-              So hot, hot<br />
-              문이 열려 서로의 존재를 느껴<br />
-              마치 discord<br />
-              날 닮은 너, 너 누구야? (Drop)<br />
-              사건은 다가와 ah, oh, ayy<br />
-              거세게 커져가 ah, oh, ayy<br />
-              That tick, that tick, tick bomb<br />
-              That tick, that tick, tick bomb<br />
-              감히 건드리지 못할 걸 (누구도 말이야)<br />
-              지금 내 안에선 su-su-su-supernova<br />
-              Nova<br />
-              Can't stop hyperstellar<br />
-              원초 그걸 찾아<br />
-              Bring the light of a dying star<br />
+              I'm like some kind of supernova
+              <br />
+              Watch out
+              <br />
+              Look at me go
+              <br />
+              재미 좀 볼 빛의 core
+              <br />
+              So hot, hot
+              <br />
+              문이 열려 서로의 존재를 느껴
+              <br />
+              마치 discord
+              <br />
+              날 닮은 너, 너 누구야? (Drop)
+              <br />
+              사건은 다가와 ah, oh, ayy
+              <br />
+              거세게 커져가 ah, oh, ayy
+              <br />
+              That tick, that tick, tick bomb
+              <br />
+              That tick, that tick, tick bomb
+              <br />
+              감히 건드리지 못할 걸 (누구도 말이야)
+              <br />
+              지금 내 안에선 su-su-su-supernova
+              <br />
+              Nova
+              <br />
+              Can't stop hyperstellar
+              <br />
+              원초 그걸 찾아
+              <br />
+              Bring the light of a dying star
+              <br />
               불러낸 내 우주를 봐 봐<br />
-              Supernova<br />
-              Ah, body bang<br />
-              Make it feel too right<br />
+              Supernova
+              <br />
+              Ah, body bang
+              <br />
+              Make it feel too right
+              <br />
             </p>
           </div>
 
           {/* 버튼 */}
           <div className="btns">
             {/* 좋아요 버튼 */}
-            <button className={`like ${isLiked ? 'active' : ''}`} onClick={handleLikeClick}>
+            <button
+              className={`like ${isLiked ? 'active' : ''}`}
+              onClick={handleLikeClick}
+            >
               좋아요&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <span className='material-icons'>favorite</span>
-              {isLiked && <div className="particles">{generateParticles()}</div>}
+              <span className="material-icons">favorite</span>
+              {isLiked && (
+                <div className="particles">{generateParticles()}</div>
+              )}
             </button>
             {/* 추천받기 */}
-            <button className='new'>
+            <button className="new">
               추천받기&nbsp;&nbsp;&nbsp;&nbsp;
-              <span className='material-icons'>featured_play_list</span>
+              <span className="material-icons">featured_play_list</span>
             </button>
           </div>
-
         </div>
-
       </div>
     </div>
   );

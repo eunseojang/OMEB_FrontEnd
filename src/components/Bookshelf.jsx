@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Bookshelf.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -29,9 +30,15 @@ const books = [
 ];
 
 function Bookshelf() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     AOS.init();
   });
+
+  const handleBookClick = (id) => {
+    navigate(`/recommend/${id}`);
+  };
 
   return (
     <div
@@ -42,7 +49,13 @@ function Bookshelf() {
     >
       <div className="bookshelf">
         {books.map((book) => (
-          <img key={book.id} src={book.image} alt={book.id} className="book" />
+          <img
+            key={book.id}
+            src={book.image}
+            alt={book.id}
+            className="book"
+            onClick={() => handleBookClick(book.id)}
+          />
         ))}
         <img src={potImage} alt="pot" className="pot" />
       </div>
