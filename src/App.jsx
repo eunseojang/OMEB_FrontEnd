@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 
 import RecommendPage from "./pages/RecommendPage.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import SingupPage from "./pages/SingupPage.jsx";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="Ranking" element={<RankingPage />} />
         <Route path="Detail/:bookId" element={<DetailPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SingupPage />} />
         <Route path="/recommend" element={<RecommendPage />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
       </Routes>

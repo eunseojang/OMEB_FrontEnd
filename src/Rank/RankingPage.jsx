@@ -1,68 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import TopUsers from "./TopUsers";
 import UserTable from "./UserTable";
 
+const RankingPage = () => {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-const mockData = [
-  {
-    name: "김일등",
-    level: 90,
-    img: "https://image.idus.com/image/files/da17e0c53a4e480284c5d49932722e5a.jpg",
-  },
-  {
-    name: "김이등",
-    level: 80,
-    img: "https://image.idus.com/image/files/da17e0c53a4e480284c5d49932722e5a.jpg",
-  },
-  {
-    name: "김삼등",
-    level: 76,
-    img: "https://image.idus.com/image/files/da17e0c53a4e480284c5d49932722e5a.jpg",
-  },
-  {
-    name: "김사등",
-    level: 90,
-    img: "https://image.idus.com/image/files/da17e0c53a4e480284c5d49932722e5a.jpg",
-  },
-  {
-    name: "김오등",
-    level: 90,
-    img: "https://image.idus.com/image/files/da17e0c53a4e480284c5d49932722e5a.jpg",
-  },
-  {
-    name: "김육등",
-    level: 90,
-    img: "https://image.idus.com/image/files/da17e0c53a4e480284c5d49932722e5a.jpg",
-  },
-  {
-    name: "김칠등",
-    level: 90,
-    img: "https://image.idus.com/image/files/da17e0c53a4e480284c5d49932722e5a.jpg",
-  },
-  {
-    name: "김팔등",
-    level: 90,
-    img: "https://image.idus.com/image/files/da17e0c53a4e480284c5d49932722e5a.jpg",
-  },
-  {
-    name: "김구등",
-    level: 90,
-    img: "https://image.idus.com/image/files/da17e0c53a4e480284c5d49932722e5a.jpg",
-  },
-  {
-    name: "김십등",
-    level: 90,
-    img: "https://image.idus.com/image/files/da17e0c53a4e480284c5d49932722e5a.jpg",
-  },
-];
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_TEST_URL}/api/v1/user/rank`,
+          {
+            params: {
+              page: 1,
+              size: 10,
+            },
+          }
+        );
+        setUsers(response.data.data.userRankInfoResponseList || []);
+      } catch (err) {
+        setError("Failed to fetch user rankings.");
+        setUsers([]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-function RankingPage() {
+    fetchUsers();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  console.log(users);
+
+  const topUsers = users.slice(0, 3);
+  console.log(topUsers);
+  const restOfUsers = users.slice(3);
+  console.log(restOfUsers);
+
   return (
     <div className="rank">
-      <TopUsers users={mockData} />
-      <UserTable users={mockData.slice(3)} />
+      <TopUsers users={topUsers} />
+      <UserTable users={restOfUsers} />
     </div>
   );
-}
+};
 
 export default RankingPage;
