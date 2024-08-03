@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const ProfileModal = ({ closeModal, token }) => {
   const [nickname, setNickname] = useState('김oo');
+  const [ImageUrl, setImageUrl] = useState('');
 
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
@@ -42,6 +43,8 @@ const ProfileModal = ({ closeModal, token }) => {
           // 백엔드한테 이미지 url 보내기
           const s3Url = presignedUrl.split('?')[0];
           console.log(s3Url);
+          setImageUrl(s3Url);
+
           const profileUpdateResponse = await axios.patch(
             `${import.meta.env.VITE_TEST_URL}/api/v1/profile`,
             {},
@@ -101,7 +104,9 @@ const ProfileModal = ({ closeModal, token }) => {
         </button>
         <div className="modal-body">
           <div className="profile-image-upload">
-            <div className="profile-image-placeholder"></div>
+            <div className="profile-image-placeholder">
+              {ImageUrl && <img src={ImageUrl} alt="Profile" />}
+            </div>
             <label className="upload-button">
               사진 업로드
               <input

@@ -98,7 +98,11 @@ function Header() {
                     <div className="search-book-info">
                       <p className="search-book-title">{book.title}</p>
                       <p className="search-book-author">{book.author}</p>
-                      <p className="search-book-price">{book.discount}원</p>
+                      <p className="search-book-price">
+                        {book.discount === '0'
+                          ? '재고 없음'
+                          : `${book.discount}원`}
+                      </p>
                     </div>
                     <a
                       href={book.link}

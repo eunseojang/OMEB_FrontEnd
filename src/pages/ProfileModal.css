@@ -46,7 +46,16 @@
   height: 200px;
   background: #ddd;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
   margin-bottom: 40px;
+}
+
+.profile-image-placeholder img {
+  width: 100%;
+  height: auto;
 }
 
 .upload-button {

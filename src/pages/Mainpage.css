@@ -1,3 +1,10 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 .mainpage {
   display: flex;
   flex-direction: column;
@@ -57,6 +64,15 @@
   flex-wrap: nowrap;
   gap: 20px;
   overflow-x: auto;
+  scrollbar-width: none; /* 스크롤 없애기 */
+}
+
+.book-list::-webkit-scrollbar {
+  display: none; /* 스크롤 없애기 */
+}
+
+.book-list:hover {
+  overflow-x: scroll;
 }
 
 .book-item {
