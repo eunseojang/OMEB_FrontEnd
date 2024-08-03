@@ -1,63 +1,141 @@
-.mainpage {
-  display: flex;
+.main_page {
+  width: 100%;
+  height: 100vh;
+  background-color: #f9f9f9;
   flex-direction: column;
   align-items: center;
-  margin: 0;
-  min-height: 100vh;
+  border: 1px solid #f9f9f9;
 }
 
-.banner-section {
-  width: 100%;
-  position: relative;
-  text-align: center;
-  margin-bottom: 100px;
-}
 
-.banner-img {
-  width: 100%;
-  height: auto;
-}
-
-.banner-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-}
-
-.banner-text h1 {
-  font-size: 60px;
-  margin: 0;
-  margin-bottom: 50px;
-}
-
-.banner-text p {
-  font-size: 20px;
-  margin: 10px 0 0;
-}
-
-.main-h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
+/* 인트로 */
+.intro {
+  padding-top: 50px;
   text-align: left;
   width: 90%;
+  height: 400px;
   max-width: 1200px;
+  margin-top: 4%;
+  margin-left: 10%;
+  /* border: 1px solid red; */
+}
+.intro>h2 {
+  font-style: italic;
+  font-size: 500%;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.intro>p {
+  color: #9e9e9e;
+  font-style: italic;
+  font-weight: 100;
+  margin-left: 1%;
 }
 
-.section {
+
+/* 검색창 */
+.intro .search-bar {
+  width: 25%;
+  /* height: 40px; */
+  /* padding: 11px; */
+  margin-top: 3%;
+  /* align-items: center; */
+  position: relative;
+  display: flex;
+}
+.intro .search-bar input {
+  font-size: 16px;
+  background-color: #f9f9f9;
+  width: 100%;
+  border: none;
+  margin-right: 10px;
+  border-radius: 50px;
+  padding: 10px 20px;
+  box-shadow: inset 5px 5px 10px #DEE2E1, inset -5px -5px 10px #ffffff;
+}
+/* 검색창 돋보기 아이콘 */
+.intro .search-bar .material-icons {
+  margin: auto 0;
+  margin-left: -15%;
+}
+/* 겸색 결과 창 */
+.intro .search-results {
+  position: absolute;
+  border-radius: 50px;
+  top: 50px;
+  left: 0;
+  right: 0;
+  background-color: f9f9f9;
+  border-radius: 4px;
+  max-height: 600px;
+  overflow-y: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+.intro .search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+.intro .search-result-item img {
+  width: 49px;
+  height: 73px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+.intro .search-book-info {
+  flex-grow: 1;
+}
+.intro .search-book-info .search-book-title {
+  font-weight: bold;
+  font-size: 13px;
   width: 90%;
-  max-width: 1200px;
-  margin: 40px 0;
+}
+.intro .search-book-info .search-book-author,
+.intro .search-book-info .search-book-price,
+.intro .search-book-info .search-book-publisher {
+  font-size: 12px;
+  color: #5D5E61;
+}
+.intro .search-result-item .material-icons {
+  font-size: 20px;
+  margin-top: 18%;
+}
+  .intro .error-message {
+  padding: 10px;
+  color: #5D5E61;
 }
 
+
+/* 리뷰 많은 책 */
+.main_page .section-1 {
+  width: 100%;
+  background-color: #DEE2E1;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  margin-top: 2%;
+}
+.main_page h4 {
+  font-size: 130%;
+  font-weight: 500;
+  margin-left: 5%;
+}
+/* 좋아요 많이 받은 책 */
+.main_page .section-2 {
+  width: 100%;
+  background-color: #DEE2E1;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+/* 책 목록 */
 .book-list {
+  margin-left: 5%;
   display: flex;
   flex-wrap: nowrap;
   gap: 20px;
   overflow-x: auto;
 }
-
 .book-item {
   width: 150px;
   display: flex;
@@ -65,32 +143,26 @@
   align-items: center;
   flex: 0 0 auto;
 }
-
 .book-image {
   width: 100px;
   height: 150px;
   object-fit: cover;
   margin-bottom: 10px;
 }
-
 .book-info {
   text-align: center;
 }
-
 .book-title {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 5px;
 }
-
 .book-author,
 .book-price {
   font-size: 14px;
   margin-bottom: 5px;
 }
-
 .no-books {
   font-size: 16px;
   color: #888;
-  margin-left: 20px;
 }

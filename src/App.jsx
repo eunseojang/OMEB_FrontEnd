@@ -14,13 +14,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route Path="/" element={<Main />} />
-        <Route index element={<Mainpage />} />
-        <Route path="Mypages" element={<Mypages />} />
-        <Route path="Ranking" element={<RankingPage />} />
-        <Route path="Detail/:bookId" element={<DetailPage />} />
+        <Route Path="/" element={<Main />} >
+          <Route index element={<Mainpage />} />
+          <Route path="Mypages" element={<Mypages />} />
+          <Route path="Ranking" element={<RankingPage />} />
+          <Route path="recommend/:id" element={<RecommendPage />} />
+          <Route path="Detail/:bookId" element={<DetailPage />} />
+        </Route>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/recommend" element={<RecommendPage />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
       </Routes>
     </BrowserRouter>

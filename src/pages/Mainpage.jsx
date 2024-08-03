@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import Bookshelf from '../components/Bookshelf';
 import './Mainpage.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import bannerImage from '../assets/Bannerbooks.jpg';
+import { Link, NavLink } from 'react-router-dom';
+
 
 // 리소스가 너무 많아서 로딩창 만들어야 할 듯
 // 잘못된 라우팅 : 오류 페이지 제작..?
@@ -39,31 +40,131 @@ function Mainpage() {
     fetchBookmarkedBooks();
   }, []);
 
+
+  // 검색창
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [error, setError] = useState('');
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  const searchRef = useRef();
+
+  // 검색 기능 추가
+  const handleSearch = async (event) => {
+    const term = event.target.value;
+    setSearchTerm(term);
+
+    if (term.length > 0) {
+      try {
+        const response = await axios.put(
+          `${import.meta.env.VITE_TEST_URL}/api/v1/books/application`,
+          {
+            title: term,
+          }
+        );
+
+        if (response.status === 200 && response.data.success === 'true') {
+          setSearchResults(response.data.data.naverBookDTOList);
+          setError('');
+        }
+      } catch (error) {
+        if (error.response && error.response.data) {
+          const errorCode = error.response.data.code;
+          if (errorCode === 'BOOK_0003') {
+            setError(
+              '검색 결과가 너무 많습니다. 검색어를 더 구체적으로 입력해주세요.'
+            );
+          } else if (errorCode === 'BOOK_0002') {
+            setError('해당 책 제목에 대한 검색 결과가 없습니다.');
+          } else {
+            setError('서버 에러입니다.');
+          }
+        } else {
+          setError('서버 에러입니다.');
+        }
+        setSearchResults([]);
+      }
+    } else {
+      setSearchResults([]);
+      setError('');
+    }
+  };
+
+  // 검색 상자 밖에 누르면 비활성화 상자를 다시 누르면 활성화
+  const handleClickOutside = (event) => {
+    if (searchRef.current && !searchRef.current.contains(event.target)) {
+      setIsSearchActive(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+
   return (
-    <div className="mainpage">
-      <div
-        className="banner-section"
-        data-aos="fade-down"
-        data-aos-duration="500"
-        data-aos-easing="ease"
-      >
-        <img src={bannerImage} alt="Banner" className="banner-img" />
-        <div className="banner-text">
-          <h1>Welcome to OMEB</h1>
-          <p>오늘의 감정에 맞춘 책 추천 서비스</p>
-          {/* <p>
-            OMEB는 오늘 당신이 느끼는 감정을 바탕으로 최고의 책을 추천해드리는
-            맞춤형 도서 추천 서비스입니다. 각 감정에 맞춘 다양한 책들로, 당신의
-            하루를 풍요롭게 만들어 드립니다. 기분이 좋든 나쁘든, OMEB는 언제나
-            당신 곁에 있어 마음의 위로와 즐거움을 선사합니다. 감정을 입력하고,
-            나만의 특별한 책을 만나보세요!
-          </p> */}
+    <div className="main_page">
+      
+      {/* 인트로 */}
+      <div className="intro">
+        <h2 className="title">일심동책</h2>
+        <p>힘든 하루로 지친 당신의 감정에<br/>위로를 건네는는 책 추천 서비스</p>
+
+        {/* 검색창 */}
+        <div
+          className="search-bar"
+          ref={searchRef}
+          onClick={() => setIsSearchActive(true)}
+        >
+          <input
+            type="text"
+            placeholder="Search…"
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+          <span className="material-icons">search</span>
+          {isSearchActive && searchTerm && (
+            <div className="search-results">
+              {error ? (
+                <div className="error-message">{error}</div>
+              ) : (
+                searchResults.map((book, index) => (
+                  // 검색한 도서 정보
+                  <a
+                    key={index} className="search-result-item"
+                    href={book.link}
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    
+                    <img src={book.image} alt={book.title} />
+                    <div className="search-book-info">
+                      <p className="search-book-title">{book.title}</p>
+                      <p className="search-book-author">{book.author}</p>
+                      <p className="search-book-price">{book.discount}원</p>
+                    </div>
+                    {/* 쇼핑 카트 이미지 */}
+                    <span className="material-icons">shopping_cart</span>
+                  </a>
+                ))
+              )}
+            </div>
+          )}
         </div>
+
       </div>
-      <h2 className="main-h2">#감정 기반 추천</h2>
+
+
+      {/* 첵 */}
       <Bookshelf />
-      <div className="section">
-        <h2 className="main-h2">#리뷰 많은 책</h2>
+
+
+      {/* 리뷰 많은 책 */}
+      <div className="section-1">
+
+        <h4>#리뷰 많은 책</h4>
         <div className="book-list">
           {/* 수정 해야 함 */}
           {bookmarkedBooks.length ? (
@@ -75,7 +176,7 @@ function Mainpage() {
                   className="book-image"
                 />
                 <div className="book-info">
-                  <h3 className="book-title">{book.title}</h3>
+                  <h5 className="book-title">{book.title}</h5>
                   <p className="book-author">{book.author}</p>
                   <p className="book-price">{book.price}</p>
                 </div>
@@ -85,9 +186,13 @@ function Mainpage() {
             <div className="no-books">책이 없습니다.</div>
           )}
         </div>
+        
       </div>
-      <div className="section">
-        <h2 className="main-h2">#북마크 된 책</h2>
+
+      
+      <div className="section-2">
+
+        <h4>#좋아요 많은 책</h4>
         <div className="book-list">
           {bookmarkedBooks.length ? (
             bookmarkedBooks.map((book, idx) => (
@@ -98,17 +203,19 @@ function Mainpage() {
                   className="book-image"
                 />
                 <div className="book-info">
-                  <h3 className="book-title">{book.title}</h3>
+                  <h5 className="book-title">{book.title}</h5>
                   <p className="book-author">{book.author}</p>
                   <p className="book-price">{book.price}</p>
                 </div>
               </div>
             ))
           ) : (
-            <div className="no-books">북마크된 책이 없습니다.</div>
+            <div className="no-books">좋아요 받은 책이 없습니다.</div>
           )}
         </div>
+
       </div>
+    
     </div>
   );
 }
