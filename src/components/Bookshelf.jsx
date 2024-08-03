@@ -4,29 +4,28 @@ import './Bookshelf.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-import shelfImage from '../assets/선반.png';
-import potImage from '../assets/화분.png';
 
-import 우울Image from '../assets/emotion/우울.png';
-import 분노Image from '../assets/emotion/분노.png';
-import 불안Image from '../assets/emotion/불안.png';
-import 외로움Image from '../assets/emotion/외로움.png';
-import 질투Image from '../assets/emotion/질투.png';
-import 행복Image from '../assets/emotion/행복.png';
-import 무기력Image from '../assets/emotion/무기력.png';
-import 사랑Image from '../assets/emotion/사랑.png';
-import 성취감Image from '../assets/emotion/성취감.png';
+import t1 from '../assets/books/b_9.png';
+import t2 from '../assets/books/b_8.png';
+import t3 from '../assets/books/b_7.png';
+import t4 from '../assets/books/b_6.png';
+import t5 from '../assets/books/b_5.png';
+import t6 from '../assets/books/b_4.png';
+import t7 from '../assets/books/b_3.png';
+import t8 from '../assets/books/b_2.png';
+import t9 from '../assets/books/b_1.png';
+
 
 const books = [
-  { id: '우울', image: 우울Image },
-  { id: '분노', image: 분노Image },
-  { id: '불안', image: 불안Image },
-  { id: '외로움', image: 외로움Image },
-  { id: '질투', image: 질투Image },
-  { id: '행복', image: 행복Image },
-  { id: '무기력', image: 무기력Image },
-  { id: '사랑', image: 사랑Image },
-  { id: '성취감', image: 성취감Image },
+  { id: '질투', image: t1 },
+  { id: '외로움', image: t2 },
+  { id: '불안', image: t3 },
+  { id: '분노', image: t4 },
+  { id: '성취', image: t5 },
+  { id: '행복', image: t6 },
+  { id: '우울', image: t7 },
+  { id: '사랑', image: t8 },
+  { id: '무기력', image: t9 },
 ];
 
 function Bookshelf() {
@@ -49,17 +48,11 @@ function Bookshelf() {
     >
       <div className="bookshelf">
         {books.map((book) => (
-          <img
-            key={book.id}
-            src={book.image}
-            alt={book.id}
-            className="book"
-            onClick={() => handleBookClick(book.id)}
-          />
+          <div key={book.id} className="book-container">
+            <img src={book.image} alt={book.id} className="book" />
+          </div>
         ))}
-        <img src={potImage} alt="pot" className="pot" />
       </div>
-      <img src={shelfImage} alt="shelf" className="shelf-img" />
     </div>
   );
 }
