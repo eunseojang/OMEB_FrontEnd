@@ -4,7 +4,6 @@ import './Bookshelf.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-
 import t1 from '../assets/books/b_9.png';
 import t2 from '../assets/books/b_8.png';
 import t3 from '../assets/books/b_7.png';
@@ -15,17 +14,16 @@ import t7 from '../assets/books/b_3.png';
 import t8 from '../assets/books/b_2.png';
 import t9 from '../assets/books/b_1.png';
 
-
 const books = [
-  { id: '질투', image: t1 },
-  { id: '외로움', image: t2 },
-  { id: '불안', image: t3 },
-  { id: '분노', image: t4 },
-  { id: '성취', image: t5 },
-  { id: '행복', image: t6 },
-  { id: '우울', image: t7 },
-  { id: '사랑', image: t8 },
-  { id: '무기력', image: t9 },
+  { id: 'depression', image: t1 },
+  { id: 'anger', image: t2 },
+  { id: 'anxiety', image: t3 },
+  { id: 'loneliness', image: t4 },
+  { id: 'jealousy', image: t5 },
+  { id: 'happiness', image: t6 },
+  { id: 'lethargy', image: t7 },
+  { id: 'love', image: t8 },
+  { id: 'accomplishment', image: t9 },
 ];
 
 function Bookshelf() {
@@ -49,7 +47,12 @@ function Bookshelf() {
       <div className="bookshelf">
         {books.map((book) => (
           <div key={book.id} className="book-container">
-            <img src={book.image} alt={book.id} className="book" />
+            <img
+              src={book.image}
+              alt={book.id}
+              className="book"
+              onClick={() => handleBookClick(book.id)}
+            />
           </div>
         ))}
       </div>

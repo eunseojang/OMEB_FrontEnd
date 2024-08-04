@@ -1,40 +1,40 @@
-import React, { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import Cookies from "js-cookie";
+import { useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const AuthCallback = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    console.log("콜백 성공");
+    console.log('콜백 성공');
     const fetchAuthToken = () => {
       const urlParams = new URLSearchParams(location.search);
-      const isLogin = urlParams.get("isLogin") === "true";
-      const accessToken = urlParams.get("accessToken");
-      const refreshToken = urlParams.get("refreshToken");
+      const isLogin = urlParams.get('isLogin') === 'true';
+      const accessToken = urlParams.get('accessToken');
+      const refreshToken = urlParams.get('refreshToken');
 
       if (isLogin && accessToken && refreshToken) {
         try {
-          Cookies.set("accessToken", accessToken, {
+          Cookies.set('accessToken', accessToken, {
             expires: 7,
-            path: "/",
+            path: '/',
             secure: true,
-            sameSite: "Lax",
+            sameSite: 'Lax',
           });
-          Cookies.set("refreshToken", refreshToken, {
+          Cookies.set('refreshToken', refreshToken, {
             expires: 7,
-            path: "/",
+            path: '/',
             secure: true,
-            sameSite: "Lax",
+            sameSite: 'Lax',
           });
 
-          navigate("/");
+          navigate('/');
         } catch (error) {
-          console.error("Error storing tokens", error);
+          console.error('Error storing tokens', error);
         }
       } else {
-        navigate("/signup");
+        navigate('/signup');
       }
     };
 

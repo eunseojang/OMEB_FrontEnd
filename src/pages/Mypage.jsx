@@ -10,6 +10,7 @@ import { getJwtToken } from './getJwtToken';
 const Mypages = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [token, setToken] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
   const [reviews, setReviews] = useState([]);
 
   // 임시 리뷰
@@ -32,6 +33,29 @@ const Mypages = () => {
     fetchToken();
   }, []);
 
+  //  유저 정보 가져오기
+  const fetchUserInfo = async () => {
+    if (token) {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_TEST_URL}/api/v1/user/my-page`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setUserInfo(response.data.data);
+      } catch (error) {
+        console.error('Error fetching user info:', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, [token]);
+
   // 유저 리뷰 가져오기
   useEffect(() => {
     if (token) {
@@ -45,7 +69,7 @@ const Mypages = () => {
               },
             }
           );
-          setReviews(response.data);
+          setReviews(response.data.data);
         } catch (error) {
           console.error('Error fetching reviews:', error);
         }
@@ -65,13 +89,17 @@ const Mypages = () => {
   return (
     <div className="mypages">
       <div className="profile-section">
-        <img className="profile-image" src={profileImage} alt="Profile" />
+        <img
+          className="profile-image"
+          src={userInfo?.profileImageUrl || profileImage}
+          alt="Profile"
+        />
         <div className="profile-details">
           <div className="level-xp">
-            <h2>김oo</h2>
-            <div className="level">LV 100</div>
+            <h2>{userInfo?.nickname || 'unknown'}</h2>
+            <div className="level">LV {userInfo?.level || 'unknown'}</div>
           </div>
-          <div className="xp">10,100xp</div>
+          <div className="xp">{userInfo?.exp || '0'}xp</div>
           <button className="edit-profile" onClick={openModal}>
             프로필 수정하기
           </button>
@@ -134,7 +162,13 @@ const Mypages = () => {
         </div>
         {/* 임시 리뷰 여기까지 */}
       </div>
-      {isModalOpen && <ProfileModal closeModal={closeModal} token={token} />}
+      {isModalOpen && (
+        <ProfileModal
+          closeModal={closeModal}
+          token={token}
+          userProfile={fetchUserInfo}
+        />
+      )}
     </div>
   );
 };

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./Review.css";
-import { useParams } from "react-router-dom";
-import Cookies from "js-cookie";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import './Review.css';
+import { useParams } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const Review = () => {
   const [reviews, setReviews] = useState([]);
-  const [newReview, setNewReview] = useState("");
-  const [tag, setTag] = useState("");
+  const [newReview, setNewReview] = useState('');
+  const [tag, setTag] = useState('');
   const [editingReview, setEditingReview] = useState(null);
   const [showInput, setShowInput] = useState(true);
   const { bookId } = useParams();
@@ -25,9 +25,9 @@ const Review = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -40,11 +40,11 @@ const Review = () => {
 
   const handleCreate = async () => {
     if (!tag) {
-      alert("태그를 선택해 주세요.");
+      alert('태그를 선택해 주세요.');
       return;
     }
 
-    const token = Cookies.get("accessToken");
+    const token = Cookies.get('accessToken');
     try {
       await axios.post(
         `${import.meta.env.VITE_TEST_URL}/api/v1/review/${bookId}`,
@@ -55,12 +55,12 @@ const Review = () => {
           },
         }
       );
-      setNewReview("");
-      setTag("");
+      setNewReview('');
+      setTag('');
       fetchReviews();
     } catch (error) {
-      console.error("Error posting review:", error);
-      alert("리뷰 게시에 실패했습니다.");
+      console.error('Error posting review:', error);
+      alert('리뷰 게시에 실패했습니다.');
     }
   };
 
@@ -81,16 +81,16 @@ const Review = () => {
   };
 
   const tagOptions = [
-    { value: "", label: "선택해주세요" },
-    { value: "DEPRESSION", label: "우울" },
-    { value: "ANGER", label: "분노" },
-    { value: "ANXIETY", label: "불안" },
-    { value: "LONELINESS", label: "외로움" },
-    { value: "JEALOUSY", label: "질투" },
-    { value: "HAPPINESS", label: "행복" },
-    { value: "LETHARGY", label: "무기력" },
-    { value: "LOVE", label: "사랑" },
-    { value: "ACCOMPLISHMENT", label: "성취감" },
+    { value: '', label: '선택해주세요' },
+    { value: 'DEPRESSION', label: '우울' },
+    { value: 'ANGER', label: '분노' },
+    { value: 'ANXIETY', label: '불안' },
+    { value: 'LONELINESS', label: '외로움' },
+    { value: 'JEALOUSY', label: '질투' },
+    { value: 'HAPPINESS', label: '행복' },
+    { value: 'LETHARGY', label: '무기력' },
+    { value: 'LOVE', label: '사랑' },
+    { value: 'ACCOMPLISHMENT', label: '성취감' },
   ];
 
   return (

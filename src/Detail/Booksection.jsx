@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const BookSection = () => {
   const [book, setBook] = useState(null);
@@ -11,14 +11,14 @@ const BookSection = () => {
     axios
       .get(`${import.meta.env.VITE_TEST_URL}/api/v2/book/${bookId}`, {
         headers: {
-          Accept: "application/json",
+          Accept: 'application/json',
         },
       })
       .then((response) => {
         setBook(response.data.data);
       })
       .catch((error) => {
-        console.error("Error fetching the book data:", error);
+        console.error('Error fetching the book data:', error);
         setError(error.message);
       });
   }, []);

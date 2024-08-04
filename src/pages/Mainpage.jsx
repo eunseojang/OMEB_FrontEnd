@@ -4,8 +4,7 @@ import Bookshelf from '../components/Bookshelf';
 import './Mainpage.css';
 import AOS from 'aos'; // 애니메이션
 import 'aos/dist/aos.css';
-import { Link, NavLink } from 'react-router-dom';
-
+import { getJwtToken } from './getJwtToken'; // 임시 토큰 얻기
 
 // 로딩창 만들어야 할 듯?
 // 잘못된 라우팅 : 오류 페이지 제작...
@@ -16,6 +15,7 @@ function Mainpage() {
   // 북마크 책
   const [bookmarkedBooks, setBookmarkedBooks] = useState([]);
   const [topReviewedBooks, setTopReviewedBooks] = useState([]);
+  // const [token, setToken] = useState(null);
 
   // 임시 나중에 수정해야 함, 북마크 책을 가져올 수 가 없음... 리뷰가 많은 책도 마찬가지
   useEffect(() => {
@@ -24,38 +24,44 @@ function Mainpage() {
       easing: 'ease-out-back',
     });
 
-    const fetchBookmarkedBooks = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_TEST_URL}/api/v1/bookmark`
-        );
-        if (response.status === 200) {
-          setBookmarkedBooks(response.data.data.bookTitleInfoResponseList);
+    const fetchTokenAndData = async () => {
+      const fetchedToken = await getJwtToken();
+      // setToken(fetchedToken);
+
+      if (fetchedToken) {
+        try {
+          // 북마크 가져오기
+          const response = await axios.get(
+            `${import.meta.env.VITE_TEST_URL}/api/v1/bookmark`,
+            {
+              headers: {
+                Authorization: `Bearer ${fetchedToken}`,
+              },
+            }
+          );
+          if (response.status === 200) {
+            setBookmarkedBooks(response.data.data.bookTitleInfoResponseList);
+          }
+        } catch (error) {
+          console.error('Error fetching bookmarked books:', error);
         }
-      } catch (error) {
-        console.error('Error fetching bookmarked books:', error);
+
+        try {
+          // 리뷰 많은 책 가져오기
+          const response = await axios.get(
+            `${import.meta.env.VITE_TEST_URL}/api/v1/book/review-rank`
+          );
+          if (response.status === 200) {
+            setTopReviewedBooks(response.data.data.bookTitleInfoResponseList);
+          }
+        } catch (error) {
+          console.error('Error fetching top reviewed books:', error);
+        }
       }
     };
 
-    const fetchTopReviewedBooks = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_TEST_URL}/api/v1/book/review-rank`
-        );
-
-        // console.log(response);
-        if (response.status === 200) {
-          setTopReviewedBooks(response.data.data.bookTitleInfoResponseList);
-        }
-      } catch (error) {
-        console.error('Error fetching top reviewed books:', error);
-      }
-    };
-
-    fetchBookmarkedBooks();
-    fetchTopReviewedBooks();
+    fetchTokenAndData();
   }, []);
-
 
   // 검색창
   const [searchTerm, setSearchTerm] = useState('');
@@ -120,14 +126,16 @@ function Mainpage() {
     };
   }, []);
 
-
   return (
     <div className="main_page">
-      
       {/* 인트로 */}
       <div className="intro">
         <h2 className="title">일심동책</h2>
-        <p>힘든 하루로 지친 당신의 감정에<br/>위로를 건네는는 책 추천 서비스</p>
+        <p>
+          힘든 하루로 지친 당신의 감정에
+          <br />
+          위로를 건네는는 책 추천 서비스
+        </p>
 
         {/* 검색창 */}
         <div
@@ -150,16 +158,21 @@ function Mainpage() {
                 searchResults.map((book, index) => (
                   // 검색한 도서 정보
                   <a
-                    key={index} className="search-result-item"
+                    key={index}
+                    className="search-result-item"
                     href={book.link}
                     target="_blank"
-                    rel="noopener noreferrer">
-                    
+                    rel="noopener noreferrer"
+                  >
                     <img src={book.image} alt={book.title} />
                     <div className="search-book-info">
                       <p className="search-book-title">{book.title}</p>
                       <p className="search-book-author">{book.author}</p>
-                      <p className="search-book-price">{book.discount}원</p>
+                      <p className="search-book-price">
+                        {book.discount === '0'
+                          ? '재고 없음'
+                          : `${book.discount}원`}
+                      </p>
                     </div>
                     {/* 쇼핑 카트 이미지 */}
                     <span className="material-icons">shopping_cart</span>
@@ -169,17 +182,13 @@ function Mainpage() {
             </div>
           )}
         </div>
-
       </div>
-
 
       {/* 첵 */}
       <Bookshelf />
 
-
       {/* 리뷰 많은 책 */}
       <div className="section-1">
-
         <h4>#리뷰 많은 책</h4>
         <div className="book-list">
           {topReviewedBooks.length ? (
@@ -203,12 +212,9 @@ function Mainpage() {
             <div className="no-books">책이 없습니다.</div>
           )}
         </div>
-        
       </div>
 
-      
       <div className="section-2">
-
         <h4>#좋아요 많은 책</h4>
         <div className="book-list">
           {bookmarkedBooks.length ? (
@@ -232,9 +238,7 @@ function Mainpage() {
             <div className="no-books">좋아요 받은 책이 없습니다.</div>
           )}
         </div>
-
       </div>
-    
     </div>
   );
 }
