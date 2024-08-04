@@ -7,7 +7,6 @@
   border: 1px solid #f9f9f9;
 }
 
-
 /* 인트로 */
 .intro {
   padding-top: 50px;
@@ -19,23 +18,22 @@
   margin-left: 10%;
   /* border: 1px solid red; */
 }
-.intro>h2 {
+.intro > h2 {
   font-style: italic;
   font-size: 500%;
   font-weight: 800;
   margin-bottom: 10px;
 }
-.intro>p {
+.intro > p {
   color: #9e9e9e;
   font-style: italic;
   font-weight: 100;
   margin-left: 1%;
 }
 
-
 /* 검색창 */
 .intro .search-bar {
-  width: 25%;
+  width: 30%;
   /* height: 40px; */
   /* padding: 11px; */
   margin-top: 3%;
@@ -51,12 +49,12 @@
   margin-right: 10px;
   border-radius: 50px;
   padding: 10px 20px;
-  box-shadow: inset 5px 5px 10px #DEE2E1, inset -5px -5px 10px #ffffff;
+  box-shadow: inset 5px 5px 10px #dee2e1, inset -5px -5px 10px #ffffff;
 }
 /* 검색창 돋보기 아이콘 */
 .intro .search-bar .material-icons {
   margin: auto 0;
-  margin-left: -15%;
+  margin-left: -12%;
 }
 /* 겸색 결과 창 */
 .intro .search-results {
@@ -67,7 +65,7 @@
   right: 0;
   background-color: f9f9f9;
   border-radius: 4px;
-  max-height: 600px;
+  max-height: 300px;
   overflow-y: auto;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 10;
@@ -96,22 +94,21 @@
 .intro .search-book-info .search-book-price,
 .intro .search-book-info .search-book-publisher {
   font-size: 12px;
-  color: #5D5E61;
+  color: #5d5e61;
 }
 .intro .search-result-item .material-icons {
   font-size: 20px;
   margin-top: 18%;
 }
-  .intro .error-message {
+.intro .error-message {
   padding: 10px;
-  color: #5D5E61;
+  color: #5d5e61;
 }
-
 
 /* 리뷰 많은 책 */
 .main_page .section-1 {
   width: 100%;
-  background-color: #DEE2E1;
+  background-color: #dee2e1;
   padding-top: 5%;
   padding-bottom: 5%;
   margin-top: 2%;
@@ -124,7 +121,7 @@
 /* 좋아요 많이 받은 책 */
 .main_page .section-2 {
   width: 100%;
-  background-color: #DEE2E1;
+  background-color: #dee2e1;
   padding-top: 5%;
   padding-bottom: 5%;
 }
@@ -174,4 +171,32 @@
 .no-books {
   font-size: 16px;
   color: #888;
+}
+
+.pagination-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-buttons button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-buttons button:hover {
+  background-color: #0056b3;
+}
+
+.pagination-buttons button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }

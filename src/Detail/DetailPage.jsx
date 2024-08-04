@@ -1,7 +1,7 @@
-import React, { useEffect } from "react"; // Import useEffect from React
-import "./DetailPage.css";
-import BookSection from "./Booksection";
-import Review from "./Review";
+import React, { useEffect } from 'react'; // Import useEffect from React
+import './DetailPage.css';
+import BookSection from './Booksection';
+import Review from './Review';
 
 const DetailPage = () => {
   // Use useEffect to scroll to the top when the component is mounted

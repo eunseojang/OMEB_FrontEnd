@@ -15,15 +15,15 @@ import t8 from '../assets/books/b_2.png';
 import t9 from '../assets/books/b_1.png';
 
 const books = [
-  { id: 'depression', image: t1 },
-  { id: 'anger', image: t2 },
+  { id: 'jealousy', image: t1 },
+  { id: 'loneliness', image: t2 },
   { id: 'anxiety', image: t3 },
-  { id: 'loneliness', image: t4 },
-  { id: 'jealousy', image: t5 },
+  { id: 'anger', image: t4 },
+  { id: 'accomplishment', image: t5 },
   { id: 'happiness', image: t6 },
-  { id: 'lethargy', image: t7 },
+  { id: 'depression', image: t7 },
   { id: 'love', image: t8 },
-  { id: 'accomplishment', image: t9 },
+  { id: 'lethargy', image: t9 },
 ];
 
 function Bookshelf() {
@@ -46,13 +46,12 @@ function Bookshelf() {
     >
       <div className="bookshelf">
         {books.map((book) => (
-          <div key={book.id} className="book-container">
-            <img
-              src={book.image}
-              alt={book.id}
-              className="book"
-              onClick={() => handleBookClick(book.id)}
-            />
+          <div
+            key={book.id}
+            className="book-container"
+            onClick={() => handleBookClick(book.id)}
+          >
+            <img src={book.image} alt={book.id} className="book" />
           </div>
         ))}
       </div>
