@@ -1,10 +1,11 @@
-import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
-import Bookshelf from '../components/Bookshelf';
-import './Mainpage.css';
-import AOS from 'aos'; // 애니메이션
-import 'aos/dist/aos.css';
-import { getJwtToken } from './getJwtToken'; // 임시 토큰 얻기
+import { useEffect, useState, useRef } from "react";
+import axios from "axios";
+import Bookshelf from "../components/Bookshelf";
+import "./Mainpage.css";
+import AOS from "aos"; // 애니메이션
+import "aos/dist/aos.css";
+import { getJwtToken } from "./getJwtToken"; // 임시 토큰 얻기
+import { useNavigate } from "react-router-dom";
 
 // 로딩창 만들어야 할 듯?
 // 잘못된 라우팅 : 오류 페이지 제작...
@@ -15,13 +16,14 @@ function Mainpage() {
   // 북마크 책
   const [bookmarkedBooks, setBookmarkedBooks] = useState([]);
   const [topReviewedBooks, setTopReviewedBooks] = useState([]);
+  const navigate = useNavigate();
   // const [token, setToken] = useState(null);
 
   // 임시 나중에 수정해야 함, 북마크 책을 가져올 수 가 없음... 리뷰가 많은 책도 마찬가지
   useEffect(() => {
     AOS.init({
       duration: 1000,
-      easing: 'ease-out-back',
+      easing: "ease-out-back",
     });
 
     const fetchTokenAndData = async () => {
@@ -43,7 +45,7 @@ function Mainpage() {
             setBookmarkedBooks(response.data.data.bookTitleInfoResponseList);
           }
         } catch (error) {
-          console.error('Error fetching bookmarked books:', error);
+          console.error("Error fetching bookmarked books:", error);
         }
 
         try {
@@ -55,7 +57,7 @@ function Mainpage() {
             setTopReviewedBooks(response.data.data.bookTitleInfoResponseList);
           }
         } catch (error) {
-          console.error('Error fetching top reviewed books:', error);
+          console.error("Error fetching top reviewed books:", error);
         }
       }
     };
@@ -64,9 +66,9 @@ function Mainpage() {
   }, []);
 
   // 검색창
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [isSearchActive, setIsSearchActive] = useState(false);
   const searchRef = useRef();
 
@@ -84,30 +86,30 @@ function Mainpage() {
           }
         );
 
-        if (response.status === 200 && response.data.success === 'true') {
+        if (response.status === 200 && response.data.success === "true") {
           setSearchResults(response.data.data.naverBookDTOList);
-          setError('');
+          setError("");
         }
       } catch (error) {
         if (error.response && error.response.data) {
           const errorCode = error.response.data.code;
-          if (errorCode === 'BOOK_0003') {
+          if (errorCode === "BOOK_0003") {
             setError(
-              '검색 결과가 너무 많습니다. 검색어를 더 구체적으로 입력해주세요.'
+              "검색 결과가 너무 많습니다. 검색어를 더 구체적으로 입력해주세요."
             );
-          } else if (errorCode === 'BOOK_0002') {
-            setError('해당 책 제목에 대한 검색 결과가 없습니다.');
+          } else if (errorCode === "BOOK_0002") {
+            setError("해당 책 제목에 대한 검색 결과가 없습니다.");
           } else {
-            setError('서버 에러입니다.');
+            setError("서버 에러입니다.");
           }
         } else {
-          setError('서버 에러입니다.');
+          setError("서버 에러입니다.");
         }
         setSearchResults([]);
       }
     } else {
       setSearchResults([]);
-      setError('');
+      setError("");
     }
   };
 
@@ -119,10 +121,10 @@ function Mainpage() {
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -169,8 +171,8 @@ function Mainpage() {
                       <p className="search-book-title">{book.title}</p>
                       <p className="search-book-author">{book.author}</p>
                       <p className="search-book-price">
-                        {book.discount === '0'
-                          ? '재고 없음'
+                        {book.discount === "0"
+                          ? "재고 없음"
                           : `${book.discount}원`}
                       </p>
                     </div>
@@ -193,7 +195,13 @@ function Mainpage() {
         <div className="book-list">
           {topReviewedBooks.length ? (
             topReviewedBooks.map((book, idx) => (
-              <div key={idx} className="book-item">
+              <div
+                key={idx}
+                className="book-item"
+                onClick={() => {
+                  navigate(`/detail/${book.bookId}`);
+                }}
+              >
                 <img
                   src={book.bookImage}
                   alt={book.title}
@@ -203,7 +211,7 @@ function Mainpage() {
                   <h5 className="book-title">{book.title}</h5>
                   <p className="book-author">{book.author}</p>
                   <p className="book-price">
-                    {book.price === '0' ? '재고 없음' : `${book.price}원`}
+                    {book.price === "0" ? "재고 없음" : `${book.price}원`}
                   </p>
                 </div>
               </div>
@@ -219,7 +227,13 @@ function Mainpage() {
         <div className="book-list">
           {bookmarkedBooks.length ? (
             bookmarkedBooks.map((book, idx) => (
-              <div key={idx} className="book-item">
+              <div
+                key={idx}
+                className="book-item"
+                onClick={() => {
+                  navigate(`/detail/${book.bookId}`);
+                }}
+              >
                 <img
                   src={book.bookImage}
                   alt={book.title}
@@ -229,7 +243,7 @@ function Mainpage() {
                   <h5 className="book-title">{book.title}</h5>
                   <p className="book-author">{book.author}</p>
                   <p className="book-price">
-                    {book.price === '0' ? '재고 없음' : `${book.price}원`}
+                    {book.price === "0" ? "재고 없음" : `${book.price}원`}
                   </p>
                 </div>
               </div>
