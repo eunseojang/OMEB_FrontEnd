@@ -60,7 +60,6 @@ const SignupPage = () => {
         secure: true,
         sameSite: "Lax",
       });
-      console.log("회원가입 성공");
       navigate("/");
     } catch (err) {
       if (err.response && err.response.data) {
