@@ -1,18 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './ProfileModal.css';
 import axios from 'axios';
 
-const ProfileModal = ({ closeModal, token }) => {
+const ProfileModal = ({ closeModal, token, userProfile }) => {
   const [nickname, setNickname] = useState('김oo');
   const [ImageUrl, setImageUrl] = useState('');
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      if (token) {
+        try {
+          const response = await axios.get(
+            `${import.meta.env.VITE_TEST_URL}/api/v1/user/my-page`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          setNickname(response.data.data.nickname);
+          setImageUrl(response.data.data.profileImageUrl);
+        } catch (error) {
+          console.error('Error fetching user info:', error);
+        }
+      }
+    };
+    fetchUserInfo();
+  }, [token]);
 
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
       try {
-        console.log('Selected file:', file);
-
-        // Request presigned URL from backend
+        // 백엔드한테 presigned URL 요청
         const presignedUrlResponse = await axios.get(
           `${import.meta.env.VITE_TEST_URL}/api/v1/presigned-url`,
           {
@@ -21,12 +41,9 @@ const ProfileModal = ({ closeModal, token }) => {
           }
         );
 
-        console.log('Presigned URL Response:', presignedUrlResponse.data);
-
         const presignedUrl = presignedUrlResponse.data.data.url;
-        console.log('Presigned URL:', presignedUrl);
 
-        // Convert file to binary
+        // 바이너리 파일로
         const reader = new FileReader();
         reader.readAsArrayBuffer(file);
         reader.onload = async () => {
@@ -38,31 +55,28 @@ const ProfileModal = ({ closeModal, token }) => {
           if (uploadResponse.status !== 200) {
             throw new Error('Failed to upload file to S3');
           }
-          console.log('File uploaded to S3', uploadResponse);
 
           // 백엔드한테 이미지 url 보내기
           const s3Url = presignedUrl.split('?')[0];
-          console.log(s3Url);
           setImageUrl(s3Url);
 
-          const profileUpdateResponse = await axios.patch(
-            `${import.meta.env.VITE_TEST_URL}/api/v1/profile`,
-            {},
-            {
-              params: { url: s3Url },
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          console.log(profileUpdateResponse);
+          // const profileUpdateResponse = await axios.patch(
+          //   `${import.meta.env.VITE_TEST_URL}/api/v1/profile`,
+          //   {},
+          //   {
+          //     params: { url: s3Url },
+          //     headers: {
+          //       Authorization: `Bearer ${token}`,
+          //     },
+          //   }
+          // );
 
-          if (profileUpdateResponse.status !== 200) {
-            throw new Error('Failed to update profile image URL');
-          }
+          // if (profileUpdateResponse.status !== 200) {
+          //   throw new Error('Failed to update profile image URL');
+          // }
 
-          console.log('Profile image URL updated:', profileUpdateResponse);
-          alert('Profile image updated successfully');
+          // console.log('Profile image URL updated:', profileUpdateResponse);
+          // alert('Profile image updated successfully');
         };
       } catch (error) {
         console.error('Error uploading file:', error);
@@ -75,11 +89,11 @@ const ProfileModal = ({ closeModal, token }) => {
     try {
       const response = await axios.patch(
         `${import.meta.env.VITE_TEST_URL}/api/v1/profile`,
-        { nickname },
+        {},
         {
+          params: { url: ImageUrl },
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
           },
         }
       );
@@ -89,10 +103,34 @@ const ProfileModal = ({ closeModal, token }) => {
       }
 
       alert('Profile updated successfully');
-      closeModal();
+      userProfile();
     } catch (error) {
       console.error('Profile update error:', error);
       alert('Profile update failed');
+    }
+  };
+
+  const handleDefaultProfile = async () => {
+    try {
+      const response = await axios.patch(
+        `${import.meta.env.VITE_TEST_URL}/api/v1/profile/default`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status !== 200) {
+        throw new Error('Failed to set default profile image');
+      }
+
+      alert('Profile image reset to default successfully');
+      userProfile();
+    } catch (error) {
+      console.error('Error resetting profile image to default:', error);
+      alert('Failed to reset profile image to default');
     }
   };
 
@@ -126,7 +164,7 @@ const ProfileModal = ({ closeModal, token }) => {
             />
           </div>
           <div className="modal-actions">
-            <button className="default-img" onClick={closeModal}>
+            <button className="default-img" onClick={handleDefaultProfile}>
               기본 프로필
             </button>
             <button className="save-button" onClick={handleSave}>

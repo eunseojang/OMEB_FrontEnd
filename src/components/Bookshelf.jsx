@@ -18,15 +18,15 @@ import 사랑Image from '../assets/emotion/사랑.png';
 import 성취감Image from '../assets/emotion/성취감.png';
 
 const books = [
-  { id: '우울', image: 우울Image },
-  { id: '분노', image: 분노Image },
-  { id: '불안', image: 불안Image },
-  { id: '외로움', image: 외로움Image },
-  { id: '질투', image: 질투Image },
-  { id: '행복', image: 행복Image },
-  { id: '무기력', image: 무기력Image },
-  { id: '사랑', image: 사랑Image },
-  { id: '성취감', image: 성취감Image },
+  { id: 'depression', image: 우울Image },
+  { id: 'anger', image: 분노Image },
+  { id: 'anxiety', image: 불안Image },
+  { id: 'loneliness', image: 외로움Image },
+  { id: 'jealousy', image: 질투Image },
+  { id: 'happiness', image: 행복Image },
+  { id: 'lethargy', image: 무기력Image },
+  { id: 'love', image: 사랑Image },
+  { id: 'accomplishment', image: 성취감Image },
 ];
 
 function Bookshelf() {

@@ -5,6 +5,7 @@ import './Mainpage.css';
 import AOS from 'aos'; // 애니메이션
 import 'aos/dist/aos.css';
 import bannerImage from '../assets/Bannerbooks.jpg';
+import { getJwtToken } from './getJwtToken'; // 임시 토큰 얻기
 
 // 로딩창 만들어야 할 듯?
 // 잘못된 라우팅 : 오류 페이지 제작...
@@ -15,6 +16,7 @@ function Mainpage() {
   // 북마크 책
   const [bookmarkedBooks, setBookmarkedBooks] = useState([]);
   const [topReviewedBooks, setTopReviewedBooks] = useState([]);
+  // const [token, setToken] = useState(null);
 
   // 임시 나중에 수정해야 함, 북마크 책을 가져올 수 가 없음... 리뷰가 많은 책도 마찬가지
   useEffect(() => {
@@ -23,36 +25,43 @@ function Mainpage() {
       easing: 'ease-out-back',
     });
 
-    const fetchBookmarkedBooks = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_TEST_URL}/api/v1/bookmark`
-        );
-        if (response.status === 200) {
-          setBookmarkedBooks(response.data.data.bookTitleInfoResponseList);
+    const fetchTokenAndData = async () => {
+      const fetchedToken = await getJwtToken();
+      // setToken(fetchedToken);
+
+      if (fetchedToken) {
+        try {
+          // 북마크 가져오기
+          const response = await axios.get(
+            `${import.meta.env.VITE_TEST_URL}/api/v1/bookmark`,
+            {
+              headers: {
+                Authorization: `Bearer ${fetchedToken}`,
+              },
+            }
+          );
+          if (response.status === 200) {
+            setBookmarkedBooks(response.data.data.bookTitleInfoResponseList);
+          }
+        } catch (error) {
+          console.error('Error fetching bookmarked books:', error);
         }
-      } catch (error) {
-        console.error('Error fetching bookmarked books:', error);
+
+        try {
+          // 리뷰 많은 책 가져오기
+          const response = await axios.get(
+            `${import.meta.env.VITE_TEST_URL}/api/v1/book/review-rank`
+          );
+          if (response.status === 200) {
+            setTopReviewedBooks(response.data.data.bookTitleInfoResponseList);
+          }
+        } catch (error) {
+          console.error('Error fetching top reviewed books:', error);
+        }
       }
     };
 
-    const fetchTopReviewedBooks = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_TEST_URL}/api/v1/book/review-rank`
-        );
-
-        // console.log(response);
-        if (response.status === 200) {
-          setTopReviewedBooks(response.data.data.bookTitleInfoResponseList);
-        }
-      } catch (error) {
-        console.error('Error fetching top reviewed books:', error);
-      }
-    };
-
-    fetchBookmarkedBooks();
-    fetchTopReviewedBooks();
+    fetchTokenAndData();
   }, []);
 
   return (

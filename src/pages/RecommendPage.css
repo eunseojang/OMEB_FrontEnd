@@ -196,6 +196,11 @@
   cursor: pointer;
   transition: all 0.1s ease;
 }
+
+.new {
+  font-size: 15px;
+}
+
 .recommend .right .btns .like {
   margin-right: 15px;
 }

@@ -19,7 +19,7 @@ function App() {
           <Route index element={<Mainpage />} />
           <Route path="Mypages" element={<Mypages />} />
           <Route path="Ranking" element={<RankingPage />} />
-          <Route path="recommend/:id" element={<RecommendPage />} />
+          <Route path="recommend/:emotion" element={<RecommendPage />} />
           <Route path="Detail/:bookId" element={<DetailPage />} />
         </Route>
         {/* 로그인 창은 헤더 제거 함 */}

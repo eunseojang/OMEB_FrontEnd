@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './RecommendPage.css';
+import axios from 'axios';
 import open_book from '../assets/recommend/open_book.png';
 
 import 무기력_label from '../assets/recommend/무기력_label.png';
@@ -12,35 +13,129 @@ import 외로움_label from '../assets/recommend/외로움_label.png';
 import 우울_label from '../assets/recommend/우울_label.png';
 import 질투_label from '../assets/recommend/질투_label.png';
 
-import book_cover from '../assets/recommend/book_cover(ex).jpeg';
+import { getToken } from './getJwtToken';
 
 const labels = {
-  무기력: 무기력_label,
-  분노: 분노_label,
-  불안: 불안_label,
-  사랑: 사랑_label,
-  성취감: 성취감_label,
-  외로움: 외로움_label,
-  우울: 우울_label,
-  질투: 질투_label,
+  lethargy: 무기력_label,
+  anger: 분노_label,
+  anxiety: 불안_label,
+  love: 사랑_label,
+  accomplishment: 성취감_label,
+  loneliness: 외로움_label,
+  depression: 우울_label,
+  jealousy: 질투_label,
 };
 
 const RecommendPage = () => {
-  const { id } = useParams();
+  const { emotion } = useParams();
   // 창 닫기
   const [isVisible, setIsVisible] = useState(true);
+  const [isLiked, setIsLiked] = useState(false);
+  // 책 추천
+  const [bookRecommendations, setBookRecommendations] = useState([]);
+  const [currentBookIndex, setCurrentBookIndex] = useState(0);
+  // 리뷰
+  const [reviews, setReviews] = useState([]);
+  const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
+
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      const token = getToken();
+      if (!token) {
+        console.error('No token found');
+        return;
+      }
+
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_TEST_URL}/api/v1/book/emotion`,
+          {
+            params: { emotion: emotion.toUpperCase() },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.status === 200) {
+          setBookRecommendations(response.data.data.bookTitleInfoList);
+        }
+      } catch (error) {
+        console.error('Error fetching recommendations:', error);
+      }
+    };
+
+    fetchRecommendations();
+  }, [emotion]);
+
+  // 특정 책 리뷰 가져오기 (나중에 수정 될 것 같음)
+  useEffect(() => {
+    if (bookRecommendations.length > 0) {
+      fetchReviews(currentBookIndex);
+    }
+  }, [bookRecommendations, currentBookIndex]);
+
+  const fetchReviews = async (bookIndex) => {
+    const token = getToken();
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_TEST_URL}/api/v1/reviews/${
+          bookRecommendations[bookIndex].bookId
+        }`,
+        {
+          params: {
+            page: 1,
+            size: 10,
+            sortDirection: 'DESC',
+            sortBy: 'createdAt',
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setReviews(response.data.data.reviewInfoResponseList);
+        setCurrentReviewIndex(0); // Reset to the first review
+      }
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
+  };
+
   const handleClose = () => {
     setIsVisible(false);
   };
-  if (!isVisible) {
-    return null;
-  }
 
-  // 좋아요 버튼 클릭 효과
-  const [isLiked, setIsLiked] = useState(false);
   const handleLikeClick = () => {
     setIsLiked(!isLiked);
   };
+
+  // 다음 버튼 (오른쪽)
+  const handleNextBook = () => {
+    if (currentBookIndex < bookRecommendations.length - 1) {
+      setCurrentBookIndex(currentBookIndex + 1);
+    }
+  };
+
+  // 이전 버튼 (왼쪽)
+  const handlePreviousBook = () => {
+    if (currentBookIndex > 0) {
+      setCurrentBookIndex(currentBookIndex - 1);
+    }
+  };
+
+  // 다음 리뷰
+  const handleNextReview = () => {
+    if (currentReviewIndex < reviews.length - 1) {
+      setCurrentReviewIndex(currentReviewIndex + 1);
+    }
+  };
+
   const generateParticles = () => {
     const particles = [];
     for (let i = 0; i < 10; i++) {
@@ -60,6 +155,10 @@ const RecommendPage = () => {
     return particles;
   };
 
+  if (!isVisible) {
+    return null;
+  }
+
   return (
     // 기존 인터페이스 어두운 색으로 가림
     <div className="recommend_back">
@@ -73,8 +172,8 @@ const RecommendPage = () => {
         {/* 감정 책갈피 */}
         <div className="recommend_book">
           <div className="book_label">
-            <img src={labels[id]} alt={id} />
-            <p>{id}</p>
+            <img src={labels[emotion]} alt={emotion} />
+            <p>{emotion}</p>
             {/* 선택한 책의 감정이 들어감
             <p>{id}</p> */}
           </div>
@@ -83,17 +182,27 @@ const RecommendPage = () => {
         {/* 왼쪽 페이지 */}
         <div className="left">
           {/* 책 표지 */}
-          <div className="book_cover">
-            <img src={book_cover} alt="책표지" />
-            {/* 리뷰한 책의 표지가 나타남
-            <img src={img} alt="" /> */}
-          </div>
-
-          {/* 뒤로가기 */}
-          <span className="material-icons">chevron_left</span>
-
-          {/* 책 상세 페이지 버튼 */}
-          <button>책 보러가기</button>
+          {/* 비동기 방식에 의한 에러 해결 */}
+          {bookRecommendations.length > 0 && (
+            <>
+              <div className="book_cover">
+                <img
+                  src={bookRecommendations[currentBookIndex].imageUrl}
+                  alt="책 표지"
+                />
+              </div>
+              {/* 왼쪽 버튼 */}
+              <span
+                className="material-icons"
+                onClick={handlePreviousBook}
+                disabled={currentBookIndex === 0}
+              >
+                chevron_left
+              </span>
+              {/* 책 보러가기 버튼 */}
+              <button>책 보러가기</button>
+            </>
+          )}
         </div>
 
         {/* 오른쪽 페이지 */}
@@ -107,57 +216,30 @@ const RecommendPage = () => {
 
           {/* 앞으로 가기 */}
           <div className="chevron_right">
-            <span className="material-icons">chevron_right</span>
+            <span
+              className="material-icons"
+              onClick={handleNextBook}
+              disabled={currentBookIndex === bookRecommendations.length - 1}
+            >
+              chevron_right
+            </span>
           </div>
 
           {/* 리뷰 */}
-          {/* 어떻게 가져와야 할 지 모르겠다 */}
+          {/* 나중에 꾸미기 */}
           <div className="review">
-            <p>
-              I'm like some kind of supernova
-              <br />
-              Watch out
-              <br />
-              Look at me go
-              <br />
-              재미 좀 볼 빛의 core
-              <br />
-              So hot, hot
-              <br />
-              문이 열려 서로의 존재를 느껴
-              <br />
-              마치 discord
-              <br />
-              날 닮은 너, 너 누구야? (Drop)
-              <br />
-              사건은 다가와 ah, oh, ayy
-              <br />
-              거세게 커져가 ah, oh, ayy
-              <br />
-              That tick, that tick, tick bomb
-              <br />
-              That tick, that tick, tick bomb
-              <br />
-              감히 건드리지 못할 걸 (누구도 말이야)
-              <br />
-              지금 내 안에선 su-su-su-supernova
-              <br />
-              Nova
-              <br />
-              Can't stop hyperstellar
-              <br />
-              원초 그걸 찾아
-              <br />
-              Bring the light of a dying star
-              <br />
-              불러낸 내 우주를 봐 봐<br />
-              Supernova
-              <br />
-              Ah, body bang
-              <br />
-              Make it feel too right
-              <br />
-            </p>
+            {reviews.length > 0 ? (
+              <div>
+                <p>
+                  <strong>{reviews[currentReviewIndex].userNickname}</strong>:{' '}
+                  {reviews[currentReviewIndex].content}
+                </p>
+                <p>Tag: {reviews[currentReviewIndex].tag}</p>
+                <p>Likes: {reviews[currentReviewIndex].likeCount}</p>
+              </div>
+            ) : (
+              <p>리뷰가 없습니다.</p>
+            )}
           </div>
 
           {/* 버튼 */}
@@ -173,9 +255,9 @@ const RecommendPage = () => {
                 <div className="particles">{generateParticles()}</div>
               )}
             </button>
-            {/* 추천받기 */}
-            <button className="new">
-              추천받기&nbsp;&nbsp;&nbsp;&nbsp;
+            {/* 다른 리뷰 */}
+            <button className="new" onClick={handleNextReview}>
+              다른 리뷰&nbsp;&nbsp;&nbsp;&nbsp;
               <span className="material-icons">featured_play_list</span>
             </button>
           </div>
