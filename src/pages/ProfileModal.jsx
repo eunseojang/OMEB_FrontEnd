@@ -90,7 +90,7 @@ const ProfileModal = ({ closeModal, userProfile }) => {
           },
         }
       );
-      console.log(response);
+      // console.log(response);
       if (response.status !== 200) {
         throw new Error('Failed to update profile');
       }

@@ -74,7 +74,7 @@ const RecommendPage = () => {
             },
           }
         );
-        console.log(response.data.data.bookTitleInfoList);
+        // console.log(response.data.data.bookTitleInfoList);
         if (response.status === 200) {
           setBookRecommendations(response.data.data.bookTitleInfoList);
         }
@@ -99,7 +99,7 @@ const RecommendPage = () => {
       console.error('No token found');
       return;
     }
-    console.log(bookRecommendations[bookIndex].bookId);
+    // console.log(bookRecommendations[bookIndex]);
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_TEST_URL}/api/v2/reviews/${
@@ -118,6 +118,7 @@ const RecommendPage = () => {
           },
         }
       );
+      console.log(response.data.data.reviewInfoResponseList);
       if (response.status === 200) {
         setReviews(response.data.data.reviewInfoResponseList);
         setCurrentReviewIndex(0); // Reset to the first review
@@ -140,7 +141,6 @@ const RecommendPage = () => {
     }
 
     const reviewId = reviews[currentReviewIndex].reviewId;
-    console.log(reviewId);
     if (likedReviews[reviewId]) {
       alert('이미 좋아요를 누른 리뷰입니다.');
       return;
@@ -168,7 +168,7 @@ const RecommendPage = () => {
         );
       }
     } catch (error) {
-      if (error.response && error.response.data === 'REVIEW_0003') {
+      if (error.response && error.response.status === 409) {
         alert('이미 좋아요를 누른 리뷰입니다.');
       } else {
         console.error('Error liking the review:', error);
