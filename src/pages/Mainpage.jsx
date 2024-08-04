@@ -5,7 +5,6 @@ import './Mainpage.css';
 import AOS from 'aos'; // 애니메이션
 import 'aos/dist/aos.css';
 import { getJwtToken } from './getJwtToken'; // 임시 토큰 얻기
-import { Link, NavLink } from 'react-router-dom';
 
 // 로딩창 만들어야 할 듯?
 // 잘못된 라우팅 : 오류 페이지 제작...
@@ -169,7 +168,11 @@ function Mainpage() {
                     <div className="search-book-info">
                       <p className="search-book-title">{book.title}</p>
                       <p className="search-book-author">{book.author}</p>
-                      <p className="search-book-price">{book.discount}원</p>
+                      <p className="search-book-price">
+                        {book.discount === '0'
+                          ? '재고 없음'
+                          : `${book.discount}원`}
+                      </p>
                     </div>
                     {/* 쇼핑 카트 이미지 */}
                     <span className="material-icons">shopping_cart</span>

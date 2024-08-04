@@ -1,5 +1,3 @@
-import React from 'react';
-import axios from 'axios';
 import google_logo from '../assets/logo/google_logo.png';
 import naver_logo from '../assets/logo/naver_logo.png';
 import kakao_logo from '../assets/logo/kakao_logo.png';
@@ -7,7 +5,7 @@ import './LoginPage.css';
 
 const LoginPage = () => {
   const handleLogin = (provider) => {
-    const redirectUri = 'https://localhost:3000/auth/callback'; // Your app's redirect URI
+    const redirectUri = 'http://localhost:3000/auth/callback'; // Your app's redirect URI
     const authUrl = `${
       import.meta.env.VITE_TEST_URL
     }/oauth2/authorization/${provider}?redirect_uri=${encodeURIComponent(
