@@ -13,7 +13,6 @@ const Mypages = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [reviews, setReviews] = useState([]);
 
-  // 임시 리뷰
   const tempReview = {
     reviewId: 1,
     bookTitle: '노인과 바다',
