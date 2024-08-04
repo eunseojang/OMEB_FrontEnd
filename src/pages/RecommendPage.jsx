@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './RecommendPage.css';
 import axios from 'axios';
 import open_book from '../assets/recommend/open_book.png';
@@ -14,6 +14,8 @@ import 우울_label from '../assets/recommend/우울_label.png';
 import 질투_label from '../assets/recommend/질투_label.png';
 
 import { getToken } from './getJwtToken';
+
+// 행복 라벨 없음
 
 const labels = {
   lethargy: 무기력_label,
@@ -39,9 +41,11 @@ const p_emotion = {
 
 const RecommendPage = () => {
   const { emotion } = useParams();
-  // 창 닫기
-  const [isVisible, setIsVisible] = useState(true);
+  const navigate = useNavigate();
+
+  // 좋아요 버튼
   const [isLiked, setIsLiked] = useState(false);
+  const [likedReviews, setLikedReviews] = useState({});
   // 책 추천
   const [bookRecommendations, setBookRecommendations] = useState([]);
   const [currentBookIndex, setCurrentBookIndex] = useState(0);
@@ -67,6 +71,7 @@ const RecommendPage = () => {
             },
           }
         );
+        console.log(response.data.data.bookTitleInfoList);
         if (response.status === 200) {
           setBookRecommendations(response.data.data.bookTitleInfoList);
         }
@@ -118,12 +123,52 @@ const RecommendPage = () => {
     }
   };
 
+  // 좋아요 버튼
   const handleClose = () => {
-    setIsVisible(false);
+    navigate('/');
   };
 
-  const handleLikeClick = () => {
-    setIsLiked(!isLiked);
+  const handleLikeClick = async () => {
+    const token = getToken();
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    const reviewId = reviews[currentReviewIndex].reviewId;
+    if (likedReviews[reviewId]) {
+      alert('이미 좋아요를 누른 리뷰입니다.');
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_TEST_URL}/api/v1/review/${reviewId}/like`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setIsLiked(true);
+        setLikedReviews((prev) => ({ ...prev, [reviewId]: true }));
+        setReviews((prevReviews) =>
+          prevReviews.map((review, index) =>
+            index === currentReviewIndex
+              ? { ...review, likeCount: review.likeCount + 1 }
+              : review
+          )
+        );
+      }
+    } catch (error) {
+      if (error.response && error.response.data === 'REVIEW_0003') {
+        alert('이미 좋아요를 누른 리뷰입니다.');
+      } else {
+        console.error('Error liking the review:', error);
+      }
+    }
   };
 
   // 다음 버튼 (오른쪽)
@@ -147,6 +192,11 @@ const RecommendPage = () => {
     }
   };
 
+  // 책 자세히 보기
+  const handleGoToBook = () => {
+    navigate(`/Detail/${bookRecommendations[currentBookIndex].bookId}`);
+  };
+
   const generateParticles = () => {
     const particles = [];
     for (let i = 0; i < 10; i++) {
@@ -165,10 +215,6 @@ const RecommendPage = () => {
     }
     return particles;
   };
-
-  if (!isVisible) {
-    return null;
-  }
 
   return (
     // 기존 인터페이스 어두운 색으로 가림
@@ -211,7 +257,7 @@ const RecommendPage = () => {
                 chevron_left
               </span>
               {/* 책 보러가기 버튼 */}
-              <button>책 보러가기</button>
+              <button onClick={handleGoToBook}>책 보러가기</button>
             </>
           )}
         </div>
@@ -259,6 +305,7 @@ const RecommendPage = () => {
             <button
               className={`like ${isLiked ? 'active' : ''}`}
               onClick={handleLikeClick}
+              disabled={reviews.length === 0}
             >
               좋아요&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <span className="material-icons">favorite</span>

@@ -68,39 +68,38 @@ function Mainpage() {
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState('');
   const [isSearchActive, setIsSearchActive] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const searchRef = useRef();
 
   // 검색 기능 추가
   const handleSearch = async (event) => {
     const term = event.target.value;
     setSearchTerm(term);
+    setPage(1);
 
     if (term.length > 0) {
       try {
-        const response = await axios.put(
-          `${import.meta.env.VITE_TEST_URL}/api/v1/books/application`,
+        const response = await axios.get(
+          `${import.meta.env.VITE_TEST_URL}/api/v1/book/search`,
           {
-            title: term,
+            params: {
+              title: term,
+              page: 1,
+              size: 10,
+              sortDirection: 'DESC',
+              sortBy: 'createdAt',
+            },
           }
         );
 
         if (response.status === 200 && response.data.success === 'true') {
-          setSearchResults(response.data.data.naverBookDTOList);
+          setSearchResults(response.data.data.bookTitleInfoResponseLists);
+          setTotalPages(response.data.data.totalPage);
           setError('');
         }
       } catch (error) {
         if (error.response && error.response.data) {
-          const errorCode = error.response.data.code;
-          if (errorCode === 'BOOK_0003') {
-            setError(
-              '검색 결과가 너무 많습니다. 검색어를 더 구체적으로 입력해주세요.'
-            );
-          } else if (errorCode === 'BOOK_0002') {
-            setError('해당 책 제목에 대한 검색 결과가 없습니다.');
-          } else {
-            setError('서버 에러입니다.');
-          }
-        } else {
           setError('서버 에러입니다.');
         }
         setSearchResults([]);
@@ -108,6 +107,32 @@ function Mainpage() {
     } else {
       setSearchResults([]);
       setError('');
+    }
+  };
+
+  const loadMoreResults = async (newPage) => {
+    setPage(newPage);
+
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_TEST_URL}/api/v1/book/search`,
+        {
+          params: {
+            title: searchTerm,
+            page: newPage,
+            size: 10,
+            sortDirection: 'DESC',
+            sortBy: 'createdAt',
+          },
+        }
+      );
+
+      if (response.status === 200 && response.data.success === 'true') {
+        setSearchResults(response.data.data.bookTitleInfoResponseLists || []);
+        setError('');
+      }
+    } catch (error) {
+      console.error('서버 에러입니다.', error);
     }
   };
 
@@ -155,29 +180,38 @@ function Mainpage() {
               {error ? (
                 <div className="error-message">{error}</div>
               ) : (
-                searchResults.map((book, index) => (
-                  // 검색한 도서 정보
-                  <a
-                    key={index}
-                    className="search-result-item"
-                    href={book.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img src={book.image} alt={book.title} />
-                    <div className="search-book-info">
-                      <p className="search-book-title">{book.title}</p>
-                      <p className="search-book-author">{book.author}</p>
-                      <p className="search-book-price">
-                        {book.discount === '0'
-                          ? '재고 없음'
-                          : `${book.discount}원`}
-                      </p>
-                    </div>
-                    {/* 쇼핑 카트 이미지 */}
-                    <span className="material-icons">shopping_cart</span>
-                  </a>
-                ))
+                // 도서 정보 검색
+                <>
+                  {searchResults.map((book, index) => (
+                    <a
+                      key={index}
+                      className="search-result-item"
+                      href={`/detail/${book.bookId}`}
+                    >
+                      <img src={book.bookImage} alt={book.title} />
+                      <div className="search-book-info">
+                        <p className="search-book-title">{book.title}</p>
+                        <p className="search-book-author">{book.author}</p>
+                        <p className="search-book-price">
+                          {book.price === '0' ? '재고 없음' : `${book.price}원`}
+                        </p>
+                      </div>
+                      {/* <span className="material-icons">shopping_cart</span> */}
+                    </a>
+                  ))}
+                  <div className="pagination-buttons">
+                    {page > 1 && (
+                      <button onClick={() => loadMoreResults(page - 1)}>
+                        이전 페이지
+                      </button>
+                    )}
+                    {page < totalPages && (
+                      <button onClick={() => loadMoreResults(page + 1)}>
+                        다음 페이지
+                      </button>
+                    )}
+                  </div>
+                </>
               )}
             </div>
           )}
