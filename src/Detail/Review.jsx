@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Review.css";
 import { useParams } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Review = () => {
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState("");
   const [tag, setTag] = useState("");
   const [editingReview, setEditingReview] = useState(null);
-  const [showInput, setShowInput] = useState(true); 
+  const [showInput, setShowInput] = useState(true);
   const { bookId } = useParams();
 
   useEffect(() => {
@@ -34,22 +35,33 @@ const Review = () => {
     const response = await axios.get(
       `${import.meta.env.VITE_TEST_URL}/api/v1/reviews/${bookId}`
     );
-    setReviews(response.data.data || []);
+    setReviews(response.data.data.reviewInfoResponseList || []);
   };
 
   const handleCreate = async () => {
     if (!tag) {
-      alert("태그를 선택해 주세요."); 
+      alert("태그를 선택해 주세요.");
       return;
     }
 
-    await axios.post(
-      `${import.meta.env.VITE_TEST_URL}/api/v1/review/${bookId}`,
-      { content: newReview, tag } 
-    );
-    setNewReview("");
-    setTag("");
-    fetchReviews();
+    const token = Cookies.get("accessToken");
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_TEST_URL}/api/v1/review/${bookId}`,
+        { content: newReview, tag },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setNewReview("");
+      setTag("");
+      fetchReviews();
+    } catch (error) {
+      console.error("Error posting review:", error);
+      alert("리뷰 게시에 실패했습니다.");
+    }
   };
 
   const handleDelete = async (id) => {
@@ -109,7 +121,7 @@ const Review = () => {
             </div>
           ))}
       </div>
-      {showInput && ( 
+      {showInput && (
         <div className="review-input">
           <select value={tag} onChange={(e) => setTag(e.target.value)}>
             {tagOptions.map((option) => (

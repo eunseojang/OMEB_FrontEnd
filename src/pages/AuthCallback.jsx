@@ -14,10 +14,6 @@ const AuthCallback = () => {
       const accessToken = urlParams.get("accessToken");
       const refreshToken = urlParams.get("refreshToken");
 
-      console.log("isLogin:", isLogin);
-      console.log("Access Token:", accessToken);
-      console.log("Refresh Token:", refreshToken);
-
       if (isLogin && accessToken && refreshToken) {
         try {
           Cookies.set("accessToken", accessToken, {

@@ -20,7 +20,6 @@ const BookSection = () => {
       .catch((error) => {
         console.error("Error fetching the book data:", error);
         setError(error.message);
-        //책이 없다는 페이지? 메세지?
       });
   }, []);
 

@@ -15,11 +15,9 @@ const SignupPage = () => {
       const response = await axios.post(
         `${
           import.meta.env.VITE_TEST_URL
-        }/api/v1/auth/check-nickname-duplication`,
-        { nickname: nickname }
+        }/api/v1/auth/check-nickname-duplication?nickname=${nickname}`
       );
-      console.log(response);
-      return response.data.isAvailable;
+      return response.data;
     } catch (err) {
       console.error("Error checking nickname duplication", err);
       setNicknameError("Error checking nickname duplication.");
@@ -40,30 +38,30 @@ const SignupPage = () => {
     }
 
     try {
+      const user = Cookies.get("user");
+      console.log(user);
       const response = await axios.post(
         `${import.meta.env.VITE_TEST_URL}/api/v1/auth/sign-up`,
-        { nickname: nickname }
+        { nickname },
+        { withCredentials: true }
       );
-      console.log(response);
 
-      if (response.status === 200) {
-        const data = response.data;
+      const data = response.data;
 
-        Cookies.set("accessToken", data.accessToken, {
-          expires: 7,
-          path: "/",
-          secure: true,
-          sameSite: "Lax",
-        });
-        Cookies.set("refreshToken", data.refreshToken, {
-          expires: 7,
-          path: "/",
-          secure: true,
-          sameSite: "Lax",
-        });
-        console.log("회원가입 성공");
-        navigate("/");
-      }
+      Cookies.set("accessToken", data.accessToken, {
+        expires: 7,
+        path: "/",
+        secure: true,
+        sameSite: "Lax",
+      });
+      Cookies.set("refreshToken", data.refreshToken, {
+        expires: 7,
+        path: "/",
+        secure: true,
+        sameSite: "Lax",
+      });
+      console.log("회원가입 성공");
+      navigate("/");
     } catch (err) {
       if (err.response && err.response.data) {
         setError(
