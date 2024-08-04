@@ -99,10 +99,10 @@ const RecommendPage = () => {
       console.error('No token found');
       return;
     }
-
+    console.log(bookRecommendations[bookIndex].bookId);
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TEST_URL}/api/v1/reviews/${
+        `${import.meta.env.VITE_TEST_URL}/api/v2/reviews/${
           bookRecommendations[bookIndex].bookId
         }`,
         {
@@ -111,6 +111,7 @@ const RecommendPage = () => {
             size: 10,
             sortDirection: 'DESC',
             sortBy: 'createdAt',
+            isLiked: false,
           },
           headers: {
             Authorization: `Bearer ${token}`,
@@ -139,6 +140,7 @@ const RecommendPage = () => {
     }
 
     const reviewId = reviews[currentReviewIndex].reviewId;
+    console.log(reviewId);
     if (likedReviews[reviewId]) {
       alert('이미 좋아요를 누른 리뷰입니다.');
       return;

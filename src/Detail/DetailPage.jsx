@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'; // Import useEffect from React
+import { useEffect } from 'react'; // Import useEffect from React
 import './DetailPage.css';
 import BookSection from './Booksection';
 import Review from './Review';
