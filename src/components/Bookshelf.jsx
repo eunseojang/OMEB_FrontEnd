@@ -4,29 +4,26 @@ import './Bookshelf.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-import shelfImage from '../assets/선반.png';
-import potImage from '../assets/화분.png';
-
-import 우울Image from '../assets/emotion/우울.png';
-import 분노Image from '../assets/emotion/분노.png';
-import 불안Image from '../assets/emotion/불안.png';
-import 외로움Image from '../assets/emotion/외로움.png';
-import 질투Image from '../assets/emotion/질투.png';
-import 행복Image from '../assets/emotion/행복.png';
-import 무기력Image from '../assets/emotion/무기력.png';
-import 사랑Image from '../assets/emotion/사랑.png';
-import 성취감Image from '../assets/emotion/성취감.png';
+import t1 from '../assets/books/b_9.png';
+import t2 from '../assets/books/b_8.png';
+import t3 from '../assets/books/b_7.png';
+import t4 from '../assets/books/b_6.png';
+import t5 from '../assets/books/b_5.png';
+import t6 from '../assets/books/b_4.png';
+import t7 from '../assets/books/b_3.png';
+import t8 from '../assets/books/b_2.png';
+import t9 from '../assets/books/b_1.png';
 
 const books = [
-  { id: 'depression', image: 우울Image },
-  { id: 'anger', image: 분노Image },
-  { id: 'anxiety', image: 불안Image },
-  { id: 'loneliness', image: 외로움Image },
-  { id: 'jealousy', image: 질투Image },
-  { id: 'happiness', image: 행복Image },
-  { id: 'lethargy', image: 무기력Image },
-  { id: 'love', image: 사랑Image },
-  { id: 'accomplishment', image: 성취감Image },
+  { id: 'depression', image: t1 },
+  { id: 'anger', image: t2 },
+  { id: 'anxiety', image: t3 },
+  { id: 'loneliness', image: t4 },
+  { id: 'jealousy', image: t5 },
+  { id: 'happiness', image: t6 },
+  { id: 'lethargy', image: t7 },
+  { id: 'love', image: t8 },
+  { id: 'accomplishment', image: t9 },
 ];
 
 function Bookshelf() {
@@ -49,17 +46,16 @@ function Bookshelf() {
     >
       <div className="bookshelf">
         {books.map((book) => (
-          <img
-            key={book.id}
-            src={book.image}
-            alt={book.id}
-            className="book"
-            onClick={() => handleBookClick(book.id)}
-          />
+          <div key={book.id} className="book-container">
+            <img
+              src={book.image}
+              alt={book.id}
+              className="book"
+              onClick={() => handleBookClick(book.id)}
+            />
+          </div>
         ))}
-        <img src={potImage} alt="pot" className="pot" />
       </div>
-      <img src={shelfImage} alt="shelf" className="shelf-img" />
     </div>
   );
 }

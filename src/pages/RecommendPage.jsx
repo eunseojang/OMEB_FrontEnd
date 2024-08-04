@@ -26,6 +26,17 @@ const labels = {
   jealousy: 질투_label,
 };
 
+const p_emotion = {
+  lethargy: '무기력',
+  anger: '분노',
+  anxiety: '불안',
+  love: '사랑',
+  accomplishment: '성취감',
+  loneliness: '외로움',
+  depression: '우울',
+  jealousy: '질투',
+};
+
 const RecommendPage = () => {
   const { emotion } = useParams();
   // 창 닫기
@@ -173,7 +184,7 @@ const RecommendPage = () => {
         <div className="recommend_book">
           <div className="book_label">
             <img src={labels[emotion]} alt={emotion} />
-            <p>{emotion}</p>
+            <p>{p_emotion[emotion]}</p>
             {/* 선택한 책의 감정이 들어감
             <p>{id}</p> */}
           </div>
