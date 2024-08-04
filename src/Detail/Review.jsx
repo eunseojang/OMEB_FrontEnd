@@ -77,12 +77,21 @@ const Review = () => {
 
   const handleLike = async (id) => {
     const token = Cookies.get("accessToken");
+    4;
 
-    await axios.post(`/api/v1/review/${id}/like`, null, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_TEST_URL}/api/v1/review/${id}/like`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch {
+      alert("이미 좋아요를 누른 리뷰입니다.");
+    }
 
     fetchReviews();
   };
@@ -110,12 +119,22 @@ const Review = () => {
             <div key={review.reviewId} className="review-item">
               <div className="review-header">
                 <div className="review-flex">
-                  <p className="user-nickname">{review.userNickname}</p>
+                  <div className="review-profile">
+                    <img
+                      src={review.userProfileImage}
+                      alt={`${review.userNickname}'s profile`}
+                      className="user-img"
+                    />
+                    <p className="user-nickname">{review.userNickname}</p>
+                    <p className="user-level">(LV.{review.level})</p>
+                  </div>
+
                   <p className="review-tag">태그: {review.tag}</p>
                 </div>
                 <div className="review-actions">
                   <button onClick={() => handleLike(review.reviewId)}>
-                    좋아요 ({review.likeCount})
+                    {" "}
+                    ♡ ({review.likeCount})
                   </button>
                 </div>
               </div>

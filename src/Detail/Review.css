@@ -109,6 +109,7 @@
 }
 
 .review-tag {
+  width: 130px;
   background-color: #eee;
   border-radius: 12px;
   padding: 2px 8px;
@@ -123,6 +124,14 @@
 
 .review-actions {
   margin-top: 10px;
+}
+
+.review-actions button {
+  border: none;
+  border-radius: 30px;
+  padding: 5px;
+  background-color: #ec5050;
+  color: white;
 }
 
 .edit-input {
@@ -144,4 +153,27 @@
 
 .edit-input button:hover {
   background-color: #218838;
+}
+
+.review-list .user-img {
+  width: 50px;
+  border-radius: 50%;
+  /* object-fit: contain; */
+  height: 50px;
+}
+
+.review-profile {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.user-nickname {
+  margin: 0 5px;
+}
+
+.user-level {
+  line-height: 1em;
+  font-size: 0.6em;
 }
