@@ -6,6 +6,7 @@ import RankingPage from './Rank/RankingPage';
 import DetailPage from './Detail/DetailPage';
 import AuthCallback from './pages/AuthCallback.jsx';
 import LoginPage from './pages/LoginPage.jsx';
+import BookFinder from './pages/BookFinder.jsx';
 
 import RecommendPage from './pages/RecommendPage.jsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -21,6 +22,7 @@ function App() {
           <Route path="Ranking" element={<RankingPage />} />
           <Route path="recommend/:emotion" element={<RecommendPage />} />
           <Route path="Detail/:bookId" element={<DetailPage />} />
+          <Route path="BookFinder" element={<BookFinder />} />
         </Route>
         {/* 로그인 창은 헤더 제거 함 */}
         <Route path="/login" element={<LoginPage />} />
