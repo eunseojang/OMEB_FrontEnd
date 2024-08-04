@@ -5,6 +5,7 @@ import './Mainpage.css';
 import AOS from 'aos'; // 애니메이션
 import 'aos/dist/aos.css';
 import { getJwtToken } from './getJwtToken'; // 임시 토큰 얻기
+import { useNavigate } from 'react-router-dom';
 
 // 로딩창 만들어야 할 듯?
 // 잘못된 라우팅 : 오류 페이지 제작...
@@ -15,6 +16,7 @@ function Mainpage() {
   // 북마크 책
   const [bookmarkedBooks, setBookmarkedBooks] = useState([]);
   const [topReviewedBooks, setTopReviewedBooks] = useState([]);
+  const navigate = useNavigate();
   // const [token, setToken] = useState(null);
 
   // 임시 나중에 수정해야 함, 북마크 책을 가져올 수 가 없음... 리뷰가 많은 책도 마찬가지
@@ -227,7 +229,13 @@ function Mainpage() {
         <div className="book-list">
           {topReviewedBooks.length ? (
             topReviewedBooks.map((book, idx) => (
-              <div key={idx} className="book-item">
+              <div
+                key={idx}
+                className="book-item"
+                onClick={() => {
+                  navigate(`/detail/${book.bookId}`);
+                }}
+              >
                 <img
                   src={book.bookImage}
                   alt={book.title}
@@ -253,7 +261,13 @@ function Mainpage() {
         <div className="book-list">
           {bookmarkedBooks.length ? (
             bookmarkedBooks.map((book, idx) => (
-              <div key={idx} className="book-item">
+              <div
+                key={idx}
+                className="book-item"
+                onClick={() => {
+                  navigate(`/detail/${book.bookId}`);
+                }}
+              >
                 <img
                   src={book.bookImage}
                   alt={book.title}

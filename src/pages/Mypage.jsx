@@ -5,15 +5,13 @@ import profileImage from '../assets/profile_image.png'; // 프로필 이미지 �
 import bookCover from '../assets/book_cover.png'; // 책 커버 이미지 경로
 import no_search from '../assets/mypage/No_search.png'; // 리뷰 책 찾을 수 없음 이미지 경로
 import ProfileModal from './ProfileModal.jsx';
-import { getJwtToken } from './getJwtToken';
+import Cookies from 'js-cookie';
 
 const Mypages = () => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [token, setToken] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
   const [reviews, setReviews] = useState([]);
 
-  // 임시 리뷰
   const tempReview = {
     reviewId: 1,
     bookTitle: '노인과 바다',
@@ -24,59 +22,47 @@ const Mypages = () => {
     updatedAt: '2024-08-03T05:15:49.112Z',
   };
 
-  // 임시 토큰
+  const fetchUserInfo = async () => {
+    try {
+      const token = Cookies.get('accessToken');
+      const response = await axios.get(
+        `${import.meta.env.VITE_TEST_URL}/api/v1/user/my-page`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setUserInfo(response.data.data);
+    } catch (error) {
+      console.error('Error fetching user info:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchToken = async () => {
-      const fetchedToken = await getJwtToken();
-      setToken(fetchedToken);
-    };
-    fetchToken();
+    fetchUserInfo();
   }, []);
 
-  //  유저 정보 가져오기
-  const fetchUserInfo = async () => {
-    if (token) {
+  useEffect(() => {
+    const fetchReviews = async () => {
       try {
+        const token = Cookies.get('accessToken');
+
         const response = await axios.get(
-          `${import.meta.env.VITE_TEST_URL}/api/v1/user/my-page`,
+          `${import.meta.env.VITE_TEST_URL}/api/my-reviews`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        setUserInfo(response.data.data);
+        setReviews(response.data.data);
       } catch (error) {
-        console.error('Error fetching user info:', error);
+        console.error('Error fetching reviews:', error);
       }
-    }
-  };
-
-  useEffect(() => {
-    fetchUserInfo();
-  }, [token]);
-
-  // 유저 리뷰 가져오기
-  useEffect(() => {
-    if (token) {
-      const fetchReviews = async () => {
-        try {
-          const response = await axios.get(
-            `${import.meta.env.VITE_TEST_URL}/api/my-reviews`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          setReviews(response.data.data);
-        } catch (error) {
-          console.error('Error fetching reviews:', error);
-        }
-      };
-      fetchReviews();
-    }
-  }, [token]);
+    };
+    fetchReviews();
+  }, []);
 
   const openModal = () => {
     setModalOpen(true);
@@ -160,14 +146,9 @@ const Mypages = () => {
             </div>
           </div>
         </div>
-        {/* 임시 리뷰 여기까지 */}
       </div>
       {isModalOpen && (
-        <ProfileModal
-          closeModal={closeModal}
-          token={token}
-          userProfile={fetchUserInfo}
-        />
+        <ProfileModal closeModal={closeModal} userProfile={fetchUserInfo} />
       )}
     </div>
   );

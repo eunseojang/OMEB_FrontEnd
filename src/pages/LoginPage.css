@@ -1,6 +1,6 @@
 .back {
-  color: #3E3E3E;
-  background: linear-gradient(135deg, #1B8AF1, #B58DED);
+  color: #3e3e3e;
+  background: linear-gradient(135deg, #1b8af1, #b58ded);
   height: 100vh;
   width: 100%;
   text-align: center;
@@ -9,17 +9,16 @@
   align-items: center;
 }
 
-
 .login {
   display: inline-block;
-  background: #FFFFFF;
+  background: #ffffff;
   width: 444px;
   height: 650px;
   border-radius: 22px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.login h4{
+.login h4 {
   font-family: 'Segoe UI', bold;
   font-size: 35px;
   margin-top: 7rem;
@@ -52,12 +51,13 @@
   width: 350px;
   height: 45px;
   border-radius: 10px;
-  background: #B58DED;
+  background: #b58ded;
   border: none;
   font-family: 'Montserrat';
   font-size: 20px;
-  color: #FFFFFF;
-  box-shadow: 0 4px 8px 0 rgba(181, 141, 237, 0.7), 0 6px 20px 0 rgba(181, 141, 237, 0.9);
+  color: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(181, 141, 237, 0.7),
+    0 6px 20px 0 rgba(181, 141, 237, 0.9);
   cursor: pointer;
 }
 
@@ -116,4 +116,21 @@
   cursor: pointer;
   display: block;
   text-decoration: none;
+}
+
+.nicknameInput {
+  border-radius: 10px;
+  padding: 5px;
+  width: 250px;
+  border: 2px solid #b58ded;
+}
+
+.nicknameBtn {
+  margin-top: 50px;
+  border-radius: 10px;
+  padding: 5px;
+  border: none;
+  background-color: #b58ded;
+  color: white;
+  width: 100px;
 }

@@ -12,6 +12,7 @@ import 성취감_label from '../assets/recommend/성취감_label.png';
 import 외로움_label from '../assets/recommend/외로움_label.png';
 import 우울_label from '../assets/recommend/우울_label.png';
 import 질투_label from '../assets/recommend/질투_label.png';
+import 행복_label from '../assets/recommend/행복_label.png';
 
 import { getToken } from './getJwtToken';
 
@@ -26,6 +27,7 @@ const labels = {
   loneliness: 외로움_label,
   depression: 우울_label,
   jealousy: 질투_label,
+  happiness: 행복_label,
 };
 
 const p_emotion = {
@@ -37,6 +39,7 @@ const p_emotion = {
   loneliness: '외로움',
   depression: '우울',
   jealousy: '질투',
+  happiness: '행복',
 };
 
 const RecommendPage = () => {

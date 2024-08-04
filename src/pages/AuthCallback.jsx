@@ -7,12 +7,13 @@ const AuthCallback = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log('콜백 성공');
     const fetchAuthToken = () => {
       const urlParams = new URLSearchParams(location.search);
       const isLogin = urlParams.get('isLogin') === 'true';
       const accessToken = urlParams.get('accessToken');
       const refreshToken = urlParams.get('refreshToken');
+
+      console.log('Parameters:', isLogin, accessToken, refreshToken);
 
       if (isLogin && accessToken && refreshToken) {
         try {
@@ -28,6 +29,8 @@ const AuthCallback = () => {
             secure: true,
             sameSite: 'Lax',
           });
+
+          console.log('Access Token from Cookie:', Cookies.get('accessToken'));
 
           navigate('/');
         } catch (error) {
