@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import addBookmarkImage from "../assets/add-bookmarks.png";
-import Cookies from "js-cookie";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import addBookmarkImage from '../assets/add-bookmarks.png';
+import Cookies from 'js-cookie';
 
 const BookSection = () => {
   const [book, setBook] = useState(null);
@@ -13,14 +13,14 @@ const BookSection = () => {
     axios
       .get(`${import.meta.env.VITE_TEST_URL}/api/v2/book/${bookId}`, {
         headers: {
-          Accept: "application/json",
+          Accept: 'application/json',
         },
       })
       .then((response) => {
         setBook(response.data.data);
       })
       .catch((error) => {
-        console.error("Error fetching the book data:", error);
+        console.error('Error fetching the book data:', error);
         setError(error.message);
       });
   }, []);
@@ -52,7 +52,7 @@ const BookSection = () => {
         className="bookMark"
         onClick={async () => {
           try {
-            const token = Cookies.get("accessToken");
+            const token = Cookies.get('accessToken');
 
             await axios.post(
               `${import.meta.env.VITE_TEST_URL}/api/v1/bookmark/${bookId}`,
@@ -63,14 +63,14 @@ const BookSection = () => {
                 },
               }
             );
-            alert("이 책이 북마크에 추가되었습니다.");
+            alert('이 책이 북마크에 추가되었습니다.');
           } catch (error) {
-            if (error.response.data.code === "AUTH_0003") {
-              alert("로그인해야 북마크를 추가할 수 있습니다.");
-            } else if (error.response.data.code === "BOOK_0005") {
-              alert("이미 북마크된 책입니다.");
+            if (error.response.data.code === 'AUTH_0003') {
+              alert('로그인해야 북마크를 추가할 수 있습니다.');
+            } else if (error.response.data.code === 'BOOK_0005') {
+              alert('이미 북마크된 책입니다.');
             } else {
-              alert("북마크를 실패했습니다.");
+              alert('북마크를 실패했습니다.');
             }
           }
         }}

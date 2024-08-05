@@ -19,17 +19,20 @@ function Mainpage() {
       easing: 'ease-out-back',
     });
 
-    const fetchTokenAndData = async () => {
-      const fetchedToken = await Cookies.get('accessToken');
+    // 토큰 가져오기
+    const fetchToken = async () => {
+      return Cookies.get('accessToken');
+    };
 
-      if (fetchedToken) {
+    // 북마크 가져오기
+    const fetchBookmarkedBooks = async (token) => {
+      if (token) {
         try {
-          // 북마크 가져오기
           const response = await axios.get(
             `${import.meta.env.VITE_TEST_URL}/api/v1/bookmark`,
             {
               headers: {
-                Authorization: `Bearer ${fetchedToken}`,
+                Authorization: `Bearer ${token}`,
               },
             }
           );
@@ -39,22 +42,30 @@ function Mainpage() {
         } catch (error) {
           console.error('북마크 책을 가져올 수 없습니다.:', error);
         }
-
-        try {
-          // 리뷰 많은 책 가져오기
-          const response = await axios.get(
-            `${import.meta.env.VITE_TEST_URL}/api/v1/book/review-rank`
-          );
-          if (response.status === 200) {
-            setTopReviewedBooks(response.data.data.bookTitleInfoResponseList);
-          }
-        } catch (error) {
-          console.error('리뷰 많은 책을 가져올 수 없습니다.:', error);
-        }
       }
     };
 
-    fetchTokenAndData();
+    // 리뷰 가져오기
+    const fetchTopReviewedBooks = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_TEST_URL}/api/v1/book/review-rank`
+        );
+        if (response.status === 200) {
+          setTopReviewedBooks(response.data.data.bookTitleInfoResponseList);
+        }
+      } catch (error) {
+        console.error('리뷰 많은 책을 가져올 수 없습니다.:', error);
+      }
+    };
+
+    const initialize = async () => {
+      const token = await fetchToken();
+      fetchBookmarkedBooks(token);
+      fetchTopReviewedBooks();
+    };
+
+    initialize();
   }, []);
 
   // 검색창
@@ -103,7 +114,6 @@ function Mainpage() {
     }
   };
 
-  // 검색 다음 페이지
   const loadMoreResults = async (newPage) => {
     setPage(newPage);
 
@@ -286,6 +296,7 @@ function Mainpage() {
         </div>
       </div>
 
+      {/* 북마크 된 책 */}
       <div className="section-2">
         <h4>#북마크 된 책</h4>
         <div className="scroll-buttons">
