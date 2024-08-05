@@ -168,6 +168,27 @@
   text-align: center;
 }
 
+.point-flex {
+  display: flex;
+}
+
+.point-flex .points-button {
+  border: none;
+  background-color: white;
+  color: gray;
+}
+
+.mypages .bookMark {
+  top: 15%;
+  right: 5%;
+  position: absolute;
+  padding: 10px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  background-color: rgb(255, 194, 61);
+}
+
 /* 반응형 디자인 */
 @media (max-width: 768px) {
   .profile-section {

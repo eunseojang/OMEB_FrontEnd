@@ -109,7 +109,7 @@
 }
 
 .review-tag {
-  width: 130px;
+  width: 140px;
   background-color: #eee;
   border-radius: 12px;
   padding: 2px 8px;
@@ -176,4 +176,11 @@
 .user-level {
   line-height: 1em;
   font-size: 0.6em;
+}
+
+.bookMark {
+  position: absolute;
+  right: -5%;
+  border: none;
+  background-color: white;
 }

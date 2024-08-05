@@ -49,13 +49,13 @@ const SignupPage = () => {
       const data = response.data;
 
       Cookies.set("accessToken", data.accessToken, {
-        expires: 7,
+        expires: 1 / 48, // 30 minutes
         path: "/",
         secure: true,
         sameSite: "Lax",
       });
       Cookies.set("refreshToken", data.refreshToken, {
-        expires: 7,
+        expires: 1 / 48, // 30 minutes
         path: "/",
         secure: true,
         sameSite: "Lax",

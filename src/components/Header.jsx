@@ -15,7 +15,7 @@ function Header() {
   const handleLogout = () => {
     Cookies.remove('accessToken', { path: '/' });
     Cookies.remove('refreshToken', { path: '/' });
-    setIsLogin(false); // Update login state after logging out
+    setIsLogin(false);
   };
 
   return (
