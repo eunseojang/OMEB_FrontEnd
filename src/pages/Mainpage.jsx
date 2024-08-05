@@ -171,6 +171,7 @@ function Mainpage() {
     }
   };
 
+  
   return (
     <div className="main_page">
       
@@ -194,6 +195,7 @@ function Mainpage() {
         <div className="bookfinder-link">
           <Link to="/bookfinder">책을 찾을 수 없나요?</Link>
         </div>
+
 
         {/* 검색창 */}
         <div
