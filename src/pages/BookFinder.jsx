@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './BookFinder.css';
-import bookfinder_background from '../assets/bookfinder/bookfinder_background_image.jpg';
 
 function BookFinder() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -98,11 +97,16 @@ function BookFinder() {
     };
   }, []);
 
+
   return (
-    <div
-      className="bookfinder-container"
-      style={{ backgroundImage: `url(${bookfinder_background})` }}
-    >
+    <div className="bookfinder-container">
+
+      {/* 배경 */}
+      <div className="back">
+        <div className="box"></div>
+      </div>
+
+
       <div className="header-background">
         <div className="bookfinder-header">
           <h1>책 신청하기</h1>

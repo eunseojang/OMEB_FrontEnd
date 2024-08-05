@@ -2,6 +2,7 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import './SingupPage.css';
 
 const SignupPage = () => {
   const [nickname, setNickname] = useState("");
@@ -72,10 +73,13 @@ const SignupPage = () => {
     }
   };
 
+
   return (
-    <div className="back">
-      <div className="login">
-        <h4>일심동책</h4>
+    <div className="signup_back">
+
+      <div className="signup">
+        <h4>시작하기</h4>
+
         <div>
           <input
             className="nicknameInput"
@@ -95,6 +99,7 @@ const SignupPage = () => {
         </button>
         {error && <p style={{ color: "red" }}>{error}</p>}
       </div>
+
     </div>
   );
 };
