@@ -1,3 +1,5 @@
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
 * {
   color: #3e3e3e;
   font-size: 16px;
@@ -11,4 +13,10 @@
 a {
   font-style: normal;
   text-decoration: none;
+}
+@font-face {
+  font-family: 'establishRetrosansOTF';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/establishRetrosansOTF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
