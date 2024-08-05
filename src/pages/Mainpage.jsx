@@ -4,8 +4,8 @@ import Bookshelf from '../components/Bookshelf';
 import './Mainpage.css';
 import AOS from 'aos'; // 애니메이션
 import 'aos/dist/aos.css';
-import { getJwtToken } from './getJwtToken'; // 임시 토큰 얻기
 import { Link, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function Mainpage() {
   // 북마크 책
@@ -20,7 +20,7 @@ function Mainpage() {
     });
 
     const fetchTokenAndData = async () => {
-      const fetchedToken = await getJwtToken();
+      const fetchedToken = await Cookies.get('accessToken');
 
       if (fetchedToken) {
         try {

@@ -5,7 +5,7 @@ import "./LoginPage.css";
 
 const LoginPage = () => {
   const handleLogin = (provider) => {
-    const redirectUri = "https://omeb.vercel.app/auth/callback"; // Your app's redirect URI
+    const redirectUri = "http://localhost:3000//auth/callback"; // Your app's redirect URI
     const authUrl = `${
       import.meta.env.VITE_TEST_URL
     }/oauth2/authorization/${provider}?redirect_uri=${encodeURIComponent(
