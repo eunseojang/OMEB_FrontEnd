@@ -90,17 +90,25 @@ const ProfileModal = ({ closeModal, userProfile }) => {
           },
         }
       );
-      // console.log(response);
       if (response.status !== 200) {
         throw new Error('Failed to update profile');
       }
+      const response2 = await axios.patch(
+        `${import.meta.env.VITE_TEST_URL}/api/v1/user`,
+        { nickname },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       alert('Profile updated successfully');
       userProfile();
       closeModal(); // Close modal after successful save
     } catch (error) {
       console.error('Profile update error:', error);
-      alert('Profile update failed');
+      alert('중복된 닉네입입니다.');
       closeModal();
     }
   };
