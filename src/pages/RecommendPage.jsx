@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import "./RecommendPage.css";
-import axios from "axios";
-import open_book from "../assets/recommend/open_book.png";
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import './RecommendPage.css';
+import axios from 'axios';
+import open_book from '../assets/recommend/open_book.png';
+import Cookies from 'js-cookie';
 
 import 무기력_label from "../assets/recommend/무기력_label.png";
 import 분노_label from "../assets/recommend/분노_label.png";
@@ -14,9 +15,6 @@ import 우울_label from "../assets/recommend/우울_label.png";
 import 질투_label from "../assets/recommend/질투_label.png";
 import 행복_label from "../assets/recommend/행복_label.png";
 
-import Cookies from "js-cookie";
-
-// 행복 라벨 없음
 
 const labels = {
   lethargy: 무기력_label,
@@ -58,7 +56,7 @@ const RecommendPage = () => {
 
   useEffect(() => {
     const fetchRecommendations = async () => {
-      const token = Cookies.get("accessToken");
+      const token = Cookies.get('accessToken');
       if (!token) {
         console.error("토큰이 없습니다.");
         return;
@@ -94,7 +92,7 @@ const RecommendPage = () => {
   }, [bookRecommendations, currentBookIndex]);
 
   const fetchReviews = async (bookIndex) => {
-    const token = Cookies.get("accessToken");
+    const token = Cookies.get('accessToken');
     if (!token) {
       console.error("토큰이 없습니다.");
       return;
@@ -134,7 +132,7 @@ const RecommendPage = () => {
   };
 
   const handleLikeClick = async () => {
-    const token = Cookies.get("accessToken");
+    const token = Cookies.get('accessToken');
     if (!token) {
       console.error("토큰이 없습니다.");
       return;
