@@ -67,6 +67,8 @@ const BookSection = () => {
           } catch (error) {
             if (error.response.data.code === "AUTH_0003") {
               alert("로그인해야 북마크를 추가할 수 있습니다.");
+            } else if (error.response.data.code === "BOOK_0005") {
+              alert("이미 북마크된 책입니다.");
             } else {
               alert("북마크를 실패했습니다.");
             }
