@@ -1,5 +1,5 @@
 /* 배경 */
-.login_back {
+.signup_back {
   color: #3e3e3e;
   background: linear-gradient(135deg, #1b8af1, #b58ded);
   height: 100vh;
@@ -12,19 +12,44 @@
 
 
 /* 하얀 박스 */
-.login_back .login {
+.signup_back .signup {
   background: #f9f9f9;
   width: 40%;
-  height: 60%;
+  height: 50%;
   border-radius: 22px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.login_back .login h4 {
+.signup_back .signup h4 {
   font-family: 'establishRetrosansOTF', sans-serif;
   font-size: 350%;
   margin-top: 5rem;
-  margin-bottom: 5rem;
+  margin-bottom: 5.5rem;
 }
+.signup_back .signup div .nicknameInput {
+  font-size: 130%;
+  background-color: #DEE2E1;
+  box-shadow: inset 2px 2px 5px #5D5E61, inset -5px -5px 10px #f9f9f9;
+  border: none;
+  border-radius: 5px;
+  width: 60%;
+  padding: 2% 2%;
+}
+.signup_back .signup .nicknameBtn {
+  color: #f9f9f9;
+  font-weight: 700;
+  background-color: #5D5E61;
+  width: 60%;
+  height: 10%;
+  border: none;
+  border-radius: 5px;
+  margin-top: 2%;
+  cursor: pointer;
+}
+.signup_back .signup .nicknameBtn:hover {
+  background-color: #3e3e3e;
+}
+
+
 .login_back .login .social_login {
   /* border: 1px solid red; */
   width: 70%;
@@ -40,28 +65,4 @@
   border-radius: 5px;
   display: flex;
   margin-bottom: 5%;
-}
-/* 시작하기 텍스트 */
-.login .social_login div p {
-  font-weight: 600;
-  margin: auto 18%;
-}
-.login .social_login .naver p {
-  color: #f9f9f9;
-}
-/* 박스 색깔 */
-.login .social_login .google {
-  border: 1px solid  rgb(93,94,97, 0.4);
-}
-.login .social_login .naver {
-  background-color: #2DB400;
-}
-.login .social_login .kakao {
-  background-color: #F9E000;
-}
-/* 로고 크기 */
-.login .social_login img {
-  width: 8%;
-  height: 60%;
-  margin: auto 5%;
 }

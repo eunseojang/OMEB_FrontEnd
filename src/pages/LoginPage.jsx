@@ -16,23 +16,25 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="back">
+    <div className="login_back">
       <div className="login">
-        <h4>일심동책</h4>
+        <h4>로그인</h4>
 
         <div className="social_login">
-          <p>SNS 간편 로그인</p>
-          <div className="social" onClick={() => handleLogin("kakao")}>
-            <img src={kakao_logo} alt="kakao_logo" />
-          </div>
-          <div className="social" onClick={() => handleLogin("naver")}>
-            <img src={naver_logo} alt="naver_logo" />
-          </div>
-          <div className="social" onClick={() => handleLogin("google")}>
+          <div className="google" onClick={() => handleLogin("google")}>
             <img src={google_logo} alt="google_logo" />
-            <div className="circle"></div>
+            <p>구글로 시작하기</p>
+          </div>
+          <div className="naver" onClick={() => handleLogin("naver")}>
+            <img src={naver_logo} alt="naver_logo" />
+            <p>네이버로 시작하기</p>
+          </div>
+          <div className="kakao" onClick={() => handleLogin("kakao")}>
+            <img src={kakao_logo} alt="kakao_logo" />
+            <p>카카오로 시작하기</p>
           </div>
         </div>
+
       </div>
     </div>
   );
