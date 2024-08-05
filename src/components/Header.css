@@ -30,9 +30,8 @@
 }
 
 .menu {
-  display: flex;
   align-items: center;
-  width: 277px;
+  width: 30%;
 }
 
 .menu-item {

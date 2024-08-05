@@ -60,23 +60,6 @@
   margin-top: -2%;
 }
 
-/* Bookfinder 링크 */
-.bookfinder-link {
-  margin-left: 22%;
-  margin-top: 8.5%;
-  position: absolute;
-}
-.bookfinder-link a {
-  color: #f0ffff;
-  font-style: italic;
-  text-decoration: underline;
-  font-size: 65%;
-  font-weight: 100;
-}
-.bookfinder-link a:hover {
-  color: #00ffff;
-}
-
 /* 리뷰 많은 책 */
 .main_page .section-1 {
   padding-top: 5%;

@@ -4,7 +4,7 @@ import Bookshelf from '../components/Bookshelf';
 import './Mainpage.css';
 import AOS from 'aos'; // 애니메이션
 import 'aos/dist/aos.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 function Mainpage() {
@@ -139,11 +139,6 @@ function Mainpage() {
           <br />
           위로를 건네는 책 추천 서비스
         </p>
-
-        {/* 책을 찾을 수 없나요? */}
-        <div className="bookfinder-link">
-          <Link to="/bookfinder">책을 찾을 수 없나요?</Link>
-        </div>
 
         {/* 감정 입력창 */}
         <form onSubmit={handleEmotionSubmit} className="emotion-form">

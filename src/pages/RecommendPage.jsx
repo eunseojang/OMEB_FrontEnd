@@ -59,7 +59,7 @@ const RecommendPage = () => {
     const fetchRecommendations = async () => {
       const token = Cookies.get('accessToken');
       if (!token) {
-        console.error('토큰이 없습니다.');
+        navigate('/login');
         return;
       }
 
@@ -95,7 +95,7 @@ const RecommendPage = () => {
   const fetchReviews = async (bookIndex) => {
     const token = Cookies.get('accessToken');
     if (!token) {
-      console.error('토큰이 없습니다.');
+      navigate('/login');
       return;
     }
     // console.log(bookRecommendations[bookIndex]);
@@ -135,7 +135,7 @@ const RecommendPage = () => {
   const handleLikeClick = async () => {
     const token = Cookies.get('accessToken');
     if (!token) {
-      console.error('토큰이 없습니다.');
+      navigate('/login');
       return;
     }
 
