@@ -53,6 +53,7 @@ const BookmarksModal = ({ closeModal }) => {
 
   return (
     <div className="modal-overlay12">
+      
       <div className="modal-content12">
         <button className="close-button" onClick={closeModal}>
           &times;

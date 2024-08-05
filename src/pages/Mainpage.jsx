@@ -124,6 +124,7 @@ function Mainpage() {
     }
   };
 
+  
   return (
     <div className="main_page">
       {/* 배경 */}
