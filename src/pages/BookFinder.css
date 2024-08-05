@@ -2,56 +2,72 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   height: 100vh;
-  background-size: cover;
-  background-position: center;
-  color: white;
 }
 
-.header-background {
-  margin-top: 40px;
-  width: auto;
-  background: rgba(0, 0, 0, 0.5);
+
+/* 배경 */
+.bookfinder-container .back {
+  background-image: url('../assets/bookfinder/bookfinder_background_image.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+.bookfinder-container .back .box {
+  width: 90%;
+  height: 80%;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
+  border-radius: 2%;
+  box-shadow: 0 6px 20px -15px #000;
+  border: 1px solid rgb(249, 249, 249, 0.4);
+  background-color: rgb(249, 249, 249, 0.1);
+  top: 3%;
+  position: relative;
+  overflow: hidden;
+}
+
+
+/* 헤더 */
+.bookfinder-container .header-background {
+  margin-top: 8%;
   border-radius: 10px;
   text-align: center;
-  padding: 20px;
-  margin-bottom: 20px;
 }
-
-.bookfinder-header {
-  margin-bottom: 0;
+.bookfinder-container .header-background .bookfinder-header h1 {
+  color: #f9f9f9;
+  font-family: 'establishRetrosansOTF', sans-serif;
+  font-size: 400%;
+  font-weight: 700;
+  margin-bottom: 2%;
+  text-shadow: 8px 8px 15px #3e3e3e, -1px -1px 2px #f9f9f9;
 }
-
-.bookfinder-header h1 {
-  color: #f5f5f5; /* Ivory */
-  margin-left: 50px;
-  margin-right: 50px;
-  font-size: 52px;
-}
-
 .bookfinder-header p {
-  color: #f5f5f5; /* Ivory */
+  color: #DEE2E1; /* Ivory */
+  font-weight: 100;
+  font-style: italic;
 }
 
-.search-bar-wrapper {
+
+/* 검색창 */
+.bookfinder-container .search-bar-wrapper {
   width: 50%;
   display: flex;
   justify-content: center;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
-  margin-top: 20px;
+  margin-top: 5%;
 }
-
-.search-bar {
+.bookfinder-container .search-bar {
   width: 90%;
   position: relative;
   display: flex;
 }
-
-.search-bar input {
-  font-size: 16px;
+.bookfinder-container .search-bar input {
+  font-size: 130%;
   background-color: #f9f9f9;
   width: 100%;
   border: none;
@@ -60,42 +76,37 @@
   padding: 10px 20px;
   box-shadow: inset 5px 5px 10px #dee2e1, inset -5px -5px 10px #ffffff;
 }
-
-.search-bar .material-icons {
+.bookfinder-container .search-bar .material-icons {
   margin: auto 0;
-  margin-left: -12%;
+  margin-left: -8%;
 }
-
-.search-results {
+.bookfinder-container .search-results {
   position: absolute;
   top: 50px;
   left: 0;
   right: 0;
-  background-color: white;
+  background-color: #f9f9f9;
   border-radius: 4px;
-  max-height: 300px;
+  max-height: 800%;
   overflow-y: auto;
   overflow-x: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 10;
   padding: 10px;
 }
-
-.search-result-item {
+.bookfinder-container .search-result-item {
   display: flex;
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid #eee;
 }
-
-.search-result-item img {
+.bookfinder-container .search-result-item img {
   width: 49px;
   height: 73px;
   object-fit: cover;
   margin-right: 10px;
 }
-
-.no-image {
+.bookfinder-container .no-image {
   width: 49px;
   height: 73px;
   display: flex;
@@ -105,49 +116,43 @@
   color: #fff;
   margin-right: 10px;
 }
-
-.search-book-info {
+.bookfinder-container .search-book-info {
   flex-grow: 1;
-  overflow: hidden;
 }
-
-.search-book-info .search-book-title {
+.bookfinder-container .search-book-info .search-book-title {
   font-weight: bold;
-  font-size: 13px;
+  font-size: 75%;
   width: 90%;
+  margin-bottom: 1%;
 }
-
-.search-book-info .search-book-author,
-.search-book-info .search-book-price,
-.search-book-info .search-book-publisher {
-  font-size: 12px;
+.bookfinder-container .search-book-info .search-book-author,
+.bookfinder-container .search-book-info .search-book-price,
+.bookfinder-container .search-book-info .search-book-publisher {
+  font-size: 70%;
   color: #5d5e61;
 }
-
-.search-result-item .material-icons {
+.bookfinder-container .search-result-item .material-icons {
   font-size: 20px;
   margin-left: 10px;
   cursor: pointer;
 }
-
-.request-button {
+/* 신청하기 버튼 */
+.bookfinder-container .request-button {
   margin-left: 10px;
   padding: 5px 10px;
   width: 100px;
-  background-color: #007bff;
-  color: #fff;
+  background-color: #5D5E61;
+  color: #f9f9f9;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   white-space: nowrap;
 }
-
-.request-button:hover {
-  background-color: #0056b3;
+.bookfinder-container .request-button:hover {
+  background-color: #3e3e3e;
 }
-
-.error-message {
+.bookfinder-container .error-message {
   padding: 10px;
   color: #5d5e61;
 }
