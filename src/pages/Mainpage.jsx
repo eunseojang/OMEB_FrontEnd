@@ -8,8 +8,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 function Mainpage() {
+  // 감정 Openai
+  // 감정 글
+  const [emotion, setEmotion] = useState('');
+
   // 북마크 책
   const [bookmarkedBooks, setBookmarkedBooks] = useState([]);
+  // 리뷰 책
   const [topReviewedBooks, setTopReviewedBooks] = useState([]);
   const navigate = useNavigate();
 
@@ -68,92 +73,40 @@ function Mainpage() {
     initialize();
   }, []);
 
-  // 검색창
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [error, setError] = useState('');
-  const [isSearchActive, setIsSearchActive] = useState(false);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const searchRef = useRef();
+  // 감정 Openai 가져오기
 
-  const handleSearch = async (event) => {
-    const term = event.target.value;
-    setSearchTerm(term);
-    setPage(1);
-
-    if (term.length > 0) {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_TEST_URL}/api/v1/book/search`,
-          {
-            params: {
-              title: term,
-              page: 1,
-              size: 10,
-              sortDirection: 'DESC',
-              sortBy: 'createdAt',
-            },
-          }
-        );
-
-        if (response.status === 200 && response.data.success === 'true') {
-          setSearchResults(response.data.data.bookTitleInfoResponseLists);
-          setTotalPages(response.data.data.totalPage);
-          setError('');
-        }
-      } catch (error) {
-        if (error.response && error.response.data) {
-          setError('서버 에러입니다.');
-        }
-        setSearchResults([]);
-      }
-    } else {
-      setSearchResults([]);
-      setError('');
-    }
+  const handleEmotionChange = (event) => {
+    setEmotion(event.target.value);
   };
 
-  const loadMoreResults = async (newPage) => {
-    setPage(newPage);
+  const handleEmotionSubmit = async (event) => {
+    event.preventDefault();
+    const token = await Cookies.get('accessToken');
+
+    if (!token) {
+      console.error('토큰을 찾을 수 없습니다.');
+      return;
+    }
 
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_TEST_URL}/api/v1/book/search`,
+      const response = await axios.post(
+        'https://omeb.shop:8080/api/v1/ai',
+        { text: emotion },
         {
-          params: {
-            title: searchTerm,
-            page: newPage,
-            size: 10,
-            sortDirection: 'DESC',
-            sortBy: 'createdAt',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
         }
       );
 
       if (response.status === 200 && response.data.success === 'true') {
-        setSearchResults(response.data.data.bookTitleInfoResponseLists || []);
-        setError('');
+        navigate(`/recommend/${response.data.data.tag.toLowerCase()}`);
       }
     } catch (error) {
-      console.error('서버 에러입니다.', error);
+      console.error('태그 오류:', error);
     }
   };
-
-  // 검색 상자 밖에 누르면 비활성화 상자를 다시 누르면 활성화
-  const handleClickOutside = (event) => {
-    if (searchRef.current && !searchRef.current.contains(event.target)) {
-      setIsSearchActive(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   // 좌우 스크롤
   const topReviewedBooksRef = useRef(null);
@@ -171,19 +124,15 @@ function Mainpage() {
     }
   };
 
-  
   return (
     <div className="main_page">
-      
       {/* 배경 */}
       <div className="back">
         <div className="box"></div>
       </div>
 
-
       {/* 인트로 */}
       <div className="intro">
-
         <h2 className="title">일심동책</h2>
         <p>
           힘든 하루로 지친 당신의 감정에
@@ -196,60 +145,21 @@ function Mainpage() {
           <Link to="/bookfinder">책을 찾을 수 없나요?</Link>
         </div>
 
-
-        {/* 검색창 */}
-        <div
-          className="search-bar"
-          ref={searchRef}
-          onClick={() => setIsSearchActive(true)}
-        >
+        {/* 감정 입력창 */}
+        <form onSubmit={handleEmotionSubmit} className="emotion-form">
           <input
             type="text"
-            placeholder="Search…"
-            value={searchTerm}
-            onChange={handleSearch}
+            placeholder="당신의 감정을 입력하세요…"
+            value={emotion}
+            onChange={handleEmotionChange}
           />
-          <span className="material-icons">search</span>
-          {isSearchActive && searchTerm && (
-            <div className="search-results">
-              {error ? (
-                <div className="error-message">{error}</div>
-              ) : (
-                // 도서 정보 검색
-                <>
-                  {searchResults.map((book, index) => (
-                    <Link
-                      key={index}
-                      className="search-result-item"
-                      to={`/detail/${book.bookId}`}
-                    >
-                      <img src={book.bookImage} alt={book.title} />
-                      <div className="search-book-info">
-                        <p className="search-book-title">{book.title}</p>
-                        <p className="search-book-author">{book.author}</p>
-                        <p className="search-book-price">
-                          {book.price === '0' ? '재고 없음' : `${book.price}원`}
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
-                  <div className="pagination-buttons">
-                    {page > 1 && (
-                      <button onClick={() => loadMoreResults(page - 1)}>
-                        이전 페이지
-                      </button>
-                    )}
-                    {page < totalPages && (
-                      <button onClick={() => loadMoreResults(page + 1)}>
-                        다음 페이지
-                      </button>
-                    )}
-                  </div>
-                </>
-              )}
-            </div>
-          )}
-        </div>
+          <button type="submit">추천 받기</button>
+        </form>
+      </div>
+
+      {/* 감정 입력 창 위에 텍스트 */}
+      <div className="emotion-prompt">
+        <p>당신의 감정을 입력하고 싶으신가요?</p>
       </div>
 
       {/* 첵 */}
