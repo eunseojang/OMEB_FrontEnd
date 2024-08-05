@@ -72,7 +72,7 @@ function BookFinder() {
       );
 
       if (response.status === 200) {
-        alert('Book request successful!');
+        alert('신청되었습니다!');
       }
     } catch (error) {
       console.error('Error requesting book:', error);
@@ -80,12 +80,12 @@ function BookFinder() {
       if (error.response && error.response.data) {
         const errorCode = error.response.data.code;
         if (errorCode === 'BOOK_0004') {
-          alert('This book has already been requested.');
+          alert('이미 보낸 요청입니다.');
         } else {
-          alert('Server error. Please try again later.');
+          alert('서버에러 나중에 시도해주세요.');
         }
       } else {
-        alert('Server error. Please try again later.');
+        alert('서버에러 나중에 시도해주세요.');
       }
     }
   };
