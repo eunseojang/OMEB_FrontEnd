@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./BookmarksModal.css";
-import Cookies from "js-cookie";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './BookmarksModal.css';
+import Cookies from 'js-cookie';
 
 const BookmarksModal = ({ closeModal }) => {
   const [bookmarks, setBookmarks] = useState([]);
@@ -10,7 +10,7 @@ const BookmarksModal = ({ closeModal }) => {
   useEffect(() => {
     const fetchBookmarks = async () => {
       try {
-        const token = Cookies.get("accessToken");
+        const token = Cookies.get('accessToken');
         const response = await axios.get(
           `${import.meta.env.VITE_TEST_URL}/api/v1/bookmark`,
           {
@@ -19,10 +19,10 @@ const BookmarksModal = ({ closeModal }) => {
             },
           }
         );
-        setBookmarks(response.data.data);
+        setBookmarks(response.data.data.bookTitleInfoResponseList);
       } catch (error) {
-        console.error("Error fetching bookmarks data:", error);
-        setError("북마크 데이터를 가져오는 데 문제가 발생했습니다.");
+        console.error('Error fetching bookmarks data:', error);
+        setError('북마크 데이터를 가져오는 데 문제가 발생했습니다.');
       }
     };
 
@@ -30,11 +30,11 @@ const BookmarksModal = ({ closeModal }) => {
   }, []);
 
   const handleDeleteBookmark = async (bookId) => {
-    const confirmDelete = window.confirm("정말 이 북마크를 삭제하시겠습니까?");
+    const confirmDelete = window.confirm('정말 이 북마크를 삭제하시겠습니까?');
     if (!confirmDelete) return;
 
     try {
-      const token = Cookies.get("accessToken");
+      const token = Cookies.get('accessToken');
       await axios.delete(
         `${import.meta.env.VITE_TEST_URL}/api/v1/bookmark/${bookId}`,
         {
@@ -44,10 +44,10 @@ const BookmarksModal = ({ closeModal }) => {
         }
       );
       setBookmarks(bookmarks.filter((bookmark) => bookmark.bookId !== bookId));
-      alert("북마크가 삭제되었습니다.");
+      alert('북마크가 삭제되었습니다.');
     } catch (error) {
-      console.error("Error deleting bookmark:", error);
-      alert("북마크 삭제에 실패했습니다.");
+      console.error('Error deleting bookmark:', error);
+      alert('북마크 삭제에 실패했습니다.');
     }
   };
 
