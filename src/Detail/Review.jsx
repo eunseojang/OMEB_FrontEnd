@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import './Review.css';
-import { useParams } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import "./Review.css";
+import { useParams } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Review = () => {
   const [reviews, setReviews] = useState([]);
-  const [newReview, setNewReview] = useState('');
-  const [tag, setTag] = useState('');
+  const [newReview, setNewReview] = useState("");
+  const [tag, setTag] = useState("");
   const [editingReview, setEditingReview] = useState(null);
   const [showInput, setShowInput] = useState(true);
   const { bookId } = useParams();
@@ -25,26 +25,26 @@ const Review = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   const fetchReviews = async () => {
     const response = await axios.get(
-      `${import.meta.env.VITE_TEST_URL}/api/v1/reviews/${bookId}`
+      `${import.meta.env.VITE_TEST_URL}/api/v2/reviews/${bookId}`
     );
     setReviews(response.data.data.reviewInfoResponseList || []);
   };
 
   const handleCreate = async () => {
     if (!tag) {
-      alert('태그를 선택해 주세요.');
+      alert("태그를 선택해 주세요.");
       return;
     }
 
-    const token = Cookies.get('accessToken');
+    const token = Cookies.get("accessToken");
     try {
       await axios.post(
         `${import.meta.env.VITE_TEST_URL}/api/v1/review/${bookId}`,
@@ -55,18 +55,16 @@ const Review = () => {
           },
         }
       );
-      setNewReview('');
-      setTag('');
+      setNewReview("");
+      setTag("");
       fetchReviews();
     } catch (error) {
-      console.error('Error posting review:', error);
-      alert('리뷰 게시에 실패했습니다.');
+      if (error.response.data.code === "AUTH_0003") {
+        alert("로그인해야 리뷰를 작성할 수 있습니다.");
+      } else {
+        alert("리뷰 게시에 실패했습니다.");
+      }
     }
-  };
-
-  const handleDelete = async (id) => {
-    await axios.delete(`/api/reviews/${id}`);
-    fetchReviews();
   };
 
   const handleEdit = async (id) => {
@@ -76,21 +74,43 @@ const Review = () => {
   };
 
   const handleLike = async (id) => {
-    await axios.post(`/api/reviews/${id}/like`);
+    const token = Cookies.get("accessToken");
+
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_TEST_URL}/api/v1/review/${id}/like`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (error) {
+      if (error.response.data.code === "AUTH_0002") {
+        await getRefresh();
+        await handleLike();
+      } else if (error.response.data.code === "AUTH_0003") {
+        alert("로그인해야 좋아요를 누를 수 있습니다.");
+      } else {
+        alert("리뷰 게시에 실패했습니다.");
+      }
+    }
+
     fetchReviews();
   };
 
   const tagOptions = [
-    { value: '', label: '선택해주세요' },
-    { value: 'DEPRESSION', label: '우울' },
-    { value: 'ANGER', label: '분노' },
-    { value: 'ANXIETY', label: '불안' },
-    { value: 'LONELINESS', label: '외로움' },
-    { value: 'JEALOUSY', label: '질투' },
-    { value: 'HAPPINESS', label: '행복' },
-    { value: 'LETHARGY', label: '무기력' },
-    { value: 'LOVE', label: '사랑' },
-    { value: 'ACCOMPLISHMENT', label: '성취감' },
+    { value: "", label: "선택해주세요" },
+    { value: "DEPRESSION", label: "우울" },
+    { value: "ANGER", label: "분노" },
+    { value: "ANXIETY", label: "불안" },
+    { value: "LONELINESS", label: "외로움" },
+    { value: "JEALOUSY", label: "질투" },
+    { value: "HAPPINESS", label: "행복" },
+    { value: "LETHARGY", label: "무기력" },
+    { value: "LOVE", label: "사랑" },
+    { value: "ACCOMPLISHMENT", label: "성취감" },
   ];
 
   return (
@@ -100,22 +120,44 @@ const Review = () => {
       <div className="review-list">
         {reviews.length > 0 &&
           reviews.map((review) => (
-            <div key={review.id} className="review-item">
-              <p>{review.content}</p>
-              <p>태그: {review.tag}</p>
-              <button onClick={() => handleLike(review.id)}>좋아요</button>
-              <button onClick={() => handleDelete(review.id)}>삭제</button>
-              <button onClick={() => setEditingReview(review.content)}>
-                수정
-              </button>
-              {editingReview && (
+            <div key={review.reviewId} className="review-item">
+              <div className="review-header">
+                <div className="review-flex">
+                  <div className="review-profile">
+                    <img
+                      src={review.userProfileImage}
+                      alt={`${review.userNickname}'s profile`}
+                      className="user-img"
+                    />
+                    <p className="user-nickname">{review.userNickname}</p>
+                    <p className="user-level">(LV.{review.level})</p>
+                  </div>
+
+                  <p className="review-tag">태그: {review.tag}</p>
+                </div>
+                <div>
+                  <div className="points-date">
+                    {new Date(review.createdAt).toLocaleString()}
+                  </div>
+                  <div className="review-actions">
+                    <button onClick={() => handleLike(review.reviewId)}>
+                      ♡ ({review.likeCount})
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <p className="review-content">{review.content}</p>
+
+              {editingReview === review.content && (
                 <div className="edit-input">
                   <input
                     type="text"
                     value={editingReview}
                     onChange={(e) => setEditingReview(e.target.value)}
                   />
-                  <button onClick={() => handleEdit(review.id)}>확인</button>
+                  <button onClick={() => handleEdit(review.reviewId)}>
+                    확인
+                  </button>
                 </div>
               )}
             </div>

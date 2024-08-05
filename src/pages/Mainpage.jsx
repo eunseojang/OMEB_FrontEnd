@@ -4,40 +4,35 @@ import Bookshelf from '../components/Bookshelf';
 import './Mainpage.css';
 import AOS from 'aos'; // 애니메이션
 import 'aos/dist/aos.css';
-import { getJwtToken } from './getJwtToken'; // 임시 토큰 얻기
-import { useNavigate } from 'react-router-dom';
-
-// 로딩창 만들어야 할 듯?
-// 잘못된 라우팅 : 오류 페이지 제작...
-// 반응형
-// About us?
+import { Link, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function Mainpage() {
   // 북마크 책
   const [bookmarkedBooks, setBookmarkedBooks] = useState([]);
   const [topReviewedBooks, setTopReviewedBooks] = useState([]);
   const navigate = useNavigate();
-  // const [token, setToken] = useState(null);
 
-  // 임시 나중에 수정해야 함, 북마크 책을 가져올 수 가 없음... 리뷰가 많은 책도 마찬가지
   useEffect(() => {
     AOS.init({
       duration: 1000,
       easing: 'ease-out-back',
     });
 
-    const fetchTokenAndData = async () => {
-      const fetchedToken = await getJwtToken();
-      // setToken(fetchedToken);
+    // 토큰 가져오기
+    const fetchToken = async () => {
+      return Cookies.get('accessToken');
+    };
 
-      if (fetchedToken) {
+    // 북마크 가져오기
+    const fetchBookmarkedBooks = async (token) => {
+      if (token) {
         try {
-          // 북마크 가져오기
           const response = await axios.get(
             `${import.meta.env.VITE_TEST_URL}/api/v1/bookmark`,
             {
               headers: {
-                Authorization: `Bearer ${fetchedToken}`,
+                Authorization: `Bearer ${token}`,
               },
             }
           );
@@ -45,24 +40,32 @@ function Mainpage() {
             setBookmarkedBooks(response.data.data.bookTitleInfoResponseList);
           }
         } catch (error) {
-          console.error('Error fetching bookmarked books:', error);
-        }
-
-        try {
-          // 리뷰 많은 책 가져오기
-          const response = await axios.get(
-            `${import.meta.env.VITE_TEST_URL}/api/v1/book/review-rank`
-          );
-          if (response.status === 200) {
-            setTopReviewedBooks(response.data.data.bookTitleInfoResponseList);
-          }
-        } catch (error) {
-          console.error('Error fetching top reviewed books:', error);
+          console.error('북마크 책을 가져올 수 없습니다.:', error);
         }
       }
     };
 
-    fetchTokenAndData();
+    // 리뷰 가져오기
+    const fetchTopReviewedBooks = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_TEST_URL}/api/v1/book/review-rank`
+        );
+        if (response.status === 200) {
+          setTopReviewedBooks(response.data.data.bookTitleInfoResponseList);
+        }
+      } catch (error) {
+        console.error('리뷰 많은 책을 가져올 수 없습니다.:', error);
+      }
+    };
+
+    const initialize = async () => {
+      const token = await fetchToken();
+      fetchBookmarkedBooks(token);
+      fetchTopReviewedBooks();
+    };
+
+    initialize();
   }, []);
 
   // 검색창
@@ -74,7 +77,6 @@ function Mainpage() {
   const [totalPages, setTotalPages] = useState(1);
   const searchRef = useRef();
 
-  // 검색 기능 추가
   const handleSearch = async (event) => {
     const term = event.target.value;
     setSearchTerm(term);
@@ -153,6 +155,22 @@ function Mainpage() {
     };
   }, []);
 
+  // 좌우 스크롤
+  const topReviewedBooksRef = useRef(null);
+  const bookmarkedBooksRef = useRef(null);
+
+  const handleScrollLeft = (ref) => {
+    if (ref.current) {
+      ref.current.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+  };
+
+  const handleScrollRight = (ref) => {
+    if (ref.current) {
+      ref.current.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="main_page">
       
@@ -171,6 +189,11 @@ function Mainpage() {
           <br />
           위로를 건네는 책 추천 서비스
         </p>
+
+        {/* 책을 찾을 수 없나요? */}
+        <div className="bookfinder-link">
+          <Link to="/bookfinder">책을 찾을 수 없나요?</Link>
+        </div>
 
         {/* 검색창 */}
         <div
@@ -193,10 +216,10 @@ function Mainpage() {
                 // 도서 정보 검색
                 <>
                   {searchResults.map((book, index) => (
-                    <a
+                    <Link
                       key={index}
                       className="search-result-item"
-                      href={`/detail/${book.bookId}`}
+                      to={`/detail/${book.bookId}`}
                     >
                       <img src={book.bookImage} alt={book.title} />
                       <div className="search-book-info">
@@ -206,8 +229,7 @@ function Mainpage() {
                           {book.price === '0' ? '재고 없음' : `${book.price}원`}
                         </p>
                       </div>
-                      {/* <span className="material-icons">shopping_cart</span> */}
-                    </a>
+                    </Link>
                   ))}
                   <div className="pagination-buttons">
                     {page > 1 && (
@@ -234,64 +256,101 @@ function Mainpage() {
       {/* 리뷰 많은 책 */}
       <div className="section-1">
         <h4>#리뷰 많은 책</h4>
-        <div className="book-list">
-          {topReviewedBooks.length ? (
-            topReviewedBooks.map((book, idx) => (
-              <div
-                key={idx}
-                className="book-item"
-                onClick={() => {
-                  navigate(`/detail/${book.bookId}`);
-                }}
-              >
-                <img
-                  src={book.bookImage}
-                  alt={book.title}
-                  className="book-image"
-                />
-                <div className="book-info">
-                  <h5 className="book-title">{book.title}</h5>
-                  <p className="book-author">{book.author}</p>
-                  <p className="book-price">
-                    {book.price === '0' ? '재고 없음' : `${book.price}원`}
-                  </p>
+        <div className="scroll-buttons">
+          {topReviewedBooks.length > 0 && (
+            <span
+              className="material-icons scroll-button"
+              onClick={() => handleScrollLeft(topReviewedBooksRef)}
+            >
+              chevron_left
+            </span>
+          )}
+          <div className="book-list" ref={topReviewedBooksRef}>
+            {topReviewedBooks.length ? (
+              topReviewedBooks.map((book, idx) => (
+                <div
+                  key={idx}
+                  className="book-item"
+                  onClick={() => {
+                    navigate(`/detail/${book.bookId}`);
+                  }}
+                >
+                  <img
+                    src={book.bookImage}
+                    alt={book.title}
+                    className="book-image"
+                  />
+                  <div className="book-info">
+                    <h5 className="book-title">{book.title}</h5>
+                    <p className="book-author">{book.author}</p>
+                    <p className="book-price">
+                      {book.price === '0' ? '재고 없음' : `${book.price}원`}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))
-          ) : (
-            <div className="no-books">책이 없습니다.</div>
+              ))
+            ) : (
+              <div className="no-books">책이 없습니다.</div>
+            )}
+          </div>
+          {topReviewedBooks.length > 0 && (
+            <span
+              className="material-icons scroll-button"
+              onClick={() => handleScrollRight(topReviewedBooksRef)}
+            >
+              chevron_right
+            </span>
           )}
         </div>
       </div>
 
+      {/* 북마크 된 책 */}
       <div className="section-2">
-        <h4>#좋아요 많은 책</h4>
-        <div className="book-list">
-          {bookmarkedBooks.length ? (
-            bookmarkedBooks.map((book, idx) => (
-              <div
-                key={idx}
-                className="book-item"
-                onClick={() => {
-                  navigate(`/detail/${book.bookId}`);
-                }}
-              >
-                <img
-                  src={book.bookImage}
-                  alt={book.title}
-                  className="book-image"
-                />
-                <div className="book-info">
-                  <h5 className="book-title">{book.title}</h5>
-                  <p className="book-author">{book.author}</p>
-                  <p className="book-price">
-                    {book.price === '0' ? '재고 없음' : `${book.price}원`}
-                  </p>
+        <h4>#북마크 된 책</h4>
+        <div className="scroll-buttons">
+          {bookmarkedBooks.length > 0 && (
+            <span
+              className="material-icons scroll-button"
+              onClick={() => handleScrollLeft(bookmarkedBooksRef)}
+            >
+              chevron_left
+            </span>
+          )}
+          <div className="book-list" ref={bookmarkedBooksRef}>
+            {bookmarkedBooks.length ? (
+              bookmarkedBooks.map((book, idx) => (
+                <div
+                  key={idx}
+                  className="book-item"
+                  onClick={() => {
+                    navigate(`/detail/${book.bookId}`);
+                  }}
+                >
+                  <img
+                    src={book.bookImage}
+                    alt={book.title}
+                    className="book-image"
+                  />
+                  <div className="book-info">
+                    <h5 className="book-title">{book.title}</h5>
+                    <p className="book-author">{book.author}</p>
+                    <p className="book-price">
+                      {book.price === '0' ? '재고 없음' : `${book.price}원`}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))
-          ) : (
-            <div className="no-books">좋아요 받은 책이 없습니다.</div>
+              ))
+            ) : (
+              <div className="no-books">북마크된 책이 없습니다.</div>
+            )}
+          </div>
+          {bookmarkedBooks.length > 0 && (
+            <span
+              className="material-icons scroll-button"
+              onClick={() => handleScrollRight(bookmarkedBooksRef)}
+            >
+              chevron_right
+            </span>
           )}
         </div>
       </div>

@@ -60,7 +60,7 @@ const RecommendPage = () => {
     const fetchRecommendations = async () => {
       const token = getToken();
       if (!token) {
-        console.error('No token found');
+        console.error('토큰이 없습니다.');
         return;
       }
 
@@ -74,12 +74,12 @@ const RecommendPage = () => {
             },
           }
         );
-        console.log(response.data.data.bookTitleInfoList);
+        // console.log(response.data.data.bookTitleInfoList);
         if (response.status === 200) {
           setBookRecommendations(response.data.data.bookTitleInfoList);
         }
       } catch (error) {
-        console.error('Error fetching recommendations:', error);
+        console.error('추천을 가져오지 못했습니다.:', error);
       }
     };
 
@@ -96,10 +96,10 @@ const RecommendPage = () => {
   const fetchReviews = async (bookIndex) => {
     const token = getToken();
     if (!token) {
-      console.error('No token found');
+      console.error('토큰이 없습니다.');
       return;
     }
-    console.log(bookRecommendations[bookIndex].bookId);
+    // console.log(bookRecommendations[bookIndex]);
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_TEST_URL}/api/v2/reviews/${
@@ -118,12 +118,13 @@ const RecommendPage = () => {
           },
         }
       );
+      console.log(response.data.data.reviewInfoResponseList);
       if (response.status === 200) {
         setReviews(response.data.data.reviewInfoResponseList);
         setCurrentReviewIndex(0); // Reset to the first review
       }
     } catch (error) {
-      console.error('Error fetching reviews:', error);
+      console.error('리뷰를 가져오지 못했습니다.:', error);
     }
   };
 
@@ -135,12 +136,11 @@ const RecommendPage = () => {
   const handleLikeClick = async () => {
     const token = getToken();
     if (!token) {
-      console.error('No token found');
+      console.error('토큰이 없습니다.');
       return;
     }
 
     const reviewId = reviews[currentReviewIndex].reviewId;
-    console.log(reviewId);
     if (likedReviews[reviewId]) {
       alert('이미 좋아요를 누른 리뷰입니다.');
       return;
@@ -168,10 +168,10 @@ const RecommendPage = () => {
         );
       }
     } catch (error) {
-      if (error.response && error.response.data === 'REVIEW_0003') {
+      if (error.response && error.response.status === 409) {
         alert('이미 좋아요를 누른 리뷰입니다.');
       } else {
-        console.error('Error liking the review:', error);
+        console.error('좋아요 에러:', error);
       }
     }
   };

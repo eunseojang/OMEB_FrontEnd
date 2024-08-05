@@ -13,24 +13,21 @@ const AuthCallback = () => {
       const accessToken = urlParams.get('accessToken');
       const refreshToken = urlParams.get('refreshToken');
 
-      console.log('Parameters:', isLogin, accessToken, refreshToken);
 
       if (isLogin && accessToken && refreshToken) {
         try {
           Cookies.set('accessToken', accessToken, {
-            expires: 7,
+            expires: 1 / 48,  // 30 minutes
             path: '/',
             secure: true,
             sameSite: 'Lax',
           });
           Cookies.set('refreshToken', refreshToken, {
-            expires: 7,
+            expires: 1 / 48,  // 30 minutes
             path: '/',
             secure: true,
             sameSite: 'Lax',
           });
-
-          console.log('Access Token from Cookie:', Cookies.get('accessToken'));
 
           navigate('/');
         } catch (error) {
