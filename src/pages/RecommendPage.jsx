@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import './RecommendPage.css';
-import axios from 'axios';
-import open_book from '../assets/recommend/open_book.png';
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import "./RecommendPage.css";
+import axios from "axios";
+import open_book from "../assets/recommend/open_book.png";
 
-import 무기력_label from '../assets/recommend/무기력_label.png';
-import 분노_label from '../assets/recommend/분노_label.png';
-import 불안_label from '../assets/recommend/불안_label.png';
-import 사랑_label from '../assets/recommend/사랑_label.png';
-import 성취감_label from '../assets/recommend/성취감_label.png';
-import 외로움_label from '../assets/recommend/외로움_label.png';
-import 우울_label from '../assets/recommend/우울_label.png';
-import 질투_label from '../assets/recommend/질투_label.png';
-import 행복_label from '../assets/recommend/행복_label.png';
+import 무기력_label from "../assets/recommend/무기력_label.png";
+import 분노_label from "../assets/recommend/분노_label.png";
+import 불안_label from "../assets/recommend/불안_label.png";
+import 사랑_label from "../assets/recommend/사랑_label.png";
+import 성취감_label from "../assets/recommend/성취감_label.png";
+import 외로움_label from "../assets/recommend/외로움_label.png";
+import 우울_label from "../assets/recommend/우울_label.png";
+import 질투_label from "../assets/recommend/질투_label.png";
+import 행복_label from "../assets/recommend/행복_label.png";
 
-import { getToken } from './getJwtToken';
+import Cookies from "js-cookie";
 
 // 행복 라벨 없음
 
@@ -31,15 +31,15 @@ const labels = {
 };
 
 const p_emotion = {
-  lethargy: '무기력',
-  anger: '분노',
-  anxiety: '불안',
-  love: '사랑',
-  accomplishment: '성취감',
-  loneliness: '외로움',
-  depression: '우울',
-  jealousy: '질투',
-  happiness: '행복',
+  lethargy: "무기력",
+  anger: "분노",
+  anxiety: "불안",
+  love: "사랑",
+  accomplishment: "성취감",
+  loneliness: "외로움",
+  depression: "우울",
+  jealousy: "질투",
+  happiness: "행복",
 };
 
 const RecommendPage = () => {
@@ -58,9 +58,9 @@ const RecommendPage = () => {
 
   useEffect(() => {
     const fetchRecommendations = async () => {
-      const token = getToken();
+      const token = Cookies.get("accessToken");
       if (!token) {
-        console.error('토큰이 없습니다.');
+        console.error("토큰이 없습니다.");
         return;
       }
 
@@ -79,7 +79,7 @@ const RecommendPage = () => {
           setBookRecommendations(response.data.data.bookTitleInfoList);
         }
       } catch (error) {
-        console.error('추천을 가져오지 못했습니다.:', error);
+        console.error("추천을 가져오지 못했습니다.:", error);
       }
     };
 
@@ -94,9 +94,9 @@ const RecommendPage = () => {
   }, [bookRecommendations, currentBookIndex]);
 
   const fetchReviews = async (bookIndex) => {
-    const token = getToken();
+    const token = Cookies.get("accessToken");
     if (!token) {
-      console.error('토큰이 없습니다.');
+      console.error("토큰이 없습니다.");
       return;
     }
     // console.log(bookRecommendations[bookIndex]);
@@ -109,8 +109,8 @@ const RecommendPage = () => {
           params: {
             page: 1,
             size: 10,
-            sortDirection: 'DESC',
-            sortBy: 'createdAt',
+            sortDirection: "DESC",
+            sortBy: "createdAt",
             isLiked: false,
           },
           headers: {
@@ -124,25 +124,25 @@ const RecommendPage = () => {
         setCurrentReviewIndex(0); // Reset to the first review
       }
     } catch (error) {
-      console.error('리뷰를 가져오지 못했습니다.:', error);
+      console.error("리뷰를 가져오지 못했습니다.:", error);
     }
   };
 
   // 좋아요 버튼
   const handleClose = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const handleLikeClick = async () => {
-    const token = getToken();
+    const token = Cookies.get("accessToken");
     if (!token) {
-      console.error('토큰이 없습니다.');
+      console.error("토큰이 없습니다.");
       return;
     }
 
     const reviewId = reviews[currentReviewIndex].reviewId;
     if (likedReviews[reviewId]) {
-      alert('이미 좋아요를 누른 리뷰입니다.');
+      alert("이미 좋아요를 누른 리뷰입니다.");
       return;
     }
 
@@ -169,9 +169,9 @@ const RecommendPage = () => {
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
-        alert('이미 좋아요를 누른 리뷰입니다.');
+        alert("이미 좋아요를 누른 리뷰입니다.");
       } else {
-        console.error('좋아요 에러:', error);
+        console.error("좋아요 에러:", error);
       }
     }
   };
@@ -212,8 +212,8 @@ const RecommendPage = () => {
           key={i}
           className="particle"
           style={{
-            '--x': `${x}px`,
-            '--y': `${y}px`,
+            "--x": `${x}px`,
+            "--y": `${y}px`,
           }}
         ></div>
       );
@@ -293,7 +293,12 @@ const RecommendPage = () => {
             {reviews.length > 0 ? (
               <div>
                 <p>
-                  <strong>{reviews[currentReviewIndex].userNickname}</strong>:{' '}
+                  <strong>{reviews[currentReviewIndex].userProfileImg}</strong>:{" "}
+                  {reviews[currentReviewIndex].content}
+                </p>
+                <img src={reviews[currentReviewIndex].userProfileImg} alt="" />
+                <p>
+                  <strong>{reviews[currentReviewIndex].userNickname}</strong>:{" "}
                   {reviews[currentReviewIndex].content}
                 </p>
                 <p>Tag: {reviews[currentReviewIndex].tag}</p>
@@ -308,7 +313,7 @@ const RecommendPage = () => {
           <div className="btns">
             {/* 좋아요 버튼 */}
             <button
-              className={`like ${isLiked ? 'active' : ''}`}
+              className={`like ${isLiked ? "active" : ""}`}
               onClick={handleLikeClick}
               disabled={reviews.length === 0}
             >
