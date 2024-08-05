@@ -140,12 +140,16 @@ const ProfileModal = ({ closeModal, userProfile }) => {
     }
   };
 
+
   return (
-    <div className="modal-overlay">
+    // 프로필 수정
+    <div className="profile-modal">
+
       <div className="modal-content">
-        <button className="close-button" onClick={closeModal}>
-          X
-        </button>
+
+        {/* 닫기 */}
+        <span className='material-icons' onClick={closeModal}>close</span>
+        
         <div className="modal-body">
           <div className="profile-image-upload">
             <div className="profile-image-placeholder">
@@ -155,16 +159,18 @@ const ProfileModal = ({ closeModal, userProfile }) => {
                 <div>No Profile Image</div>
               )}
             </div>
-            <label className="upload-button">
-              사진 업로드
+            <span className="material-icons">
+              photo_camera
               <input
                 type="file"
                 accept="image/*"
                 onChange={handleFileUpload}
                 style={{ display: 'none' }}
               />
-            </label>
+            </span>
           </div>
+
+
           <div className="input-group">
             <label>닉네임</label>
             <input
@@ -173,6 +179,7 @@ const ProfileModal = ({ closeModal, userProfile }) => {
               onChange={(e) => setNickname(e.target.value)}
             />
           </div>
+          
           <div className="modal-actions">
             <button className="default-img" onClick={handleDefaultProfile}>
               기본 프로필
