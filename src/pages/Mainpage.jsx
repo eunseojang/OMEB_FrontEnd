@@ -155,13 +155,21 @@ function Mainpage() {
 
   return (
     <div className="main_page">
+      
+      {/* 배경 */}
+      <div className="back">
+        <div className="box"></div>
+      </div>
+
+
       {/* 인트로 */}
       <div className="intro">
+
         <h2 className="title">일심동책</h2>
         <p>
           힘든 하루로 지친 당신의 감정에
           <br />
-          위로를 건네는는 책 추천 서비스
+          위로를 건네는 책 추천 서비스
         </p>
 
         {/* 검색창 */}
