@@ -48,21 +48,3 @@
 .signup_back .signup .nicknameBtn:hover {
   background-color: #3e3e3e;
 }
-
-
-.login_back .login .social_login {
-  /* border: 1px solid red; */
-  width: 70%;
-  height: 10%;
-  margin-bottom: 20px;
-  align-items: center;
-  display: inline-block;
-}
-.login .social_login div {
-  cursor: pointer;
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-  display: flex;
-  margin-bottom: 5%;
-}
