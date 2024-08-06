@@ -138,9 +138,13 @@ const Review = () => {
                   <div className="points-date">
                     {new Date(review.createdAt).toLocaleString()}
                   </div>
+
                   <div className="review-actions">
                     <button onClick={() => handleLike(review.reviewId)}>
-                      Likes♡ ({review.likeCount})
+                      <p>
+                        <span className="material-icons">favorite</span> 좋아요
+                        ({review.likeCount})
+                      </p>
                     </button>
                   </div>
                 </div>
