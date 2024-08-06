@@ -6,7 +6,7 @@
   margin-top: 0;
 }
 .mypages .inner {
-  margin-top: 81px;
+  margin-top: 40px;
   width: 75%;
   height: 100%;
   position: relative;
@@ -54,7 +54,7 @@
   justify-content: center;
   width: 100%;
   padding-bottom: 20px;
-  margin-bottom: 8%;
+  margin-bottom: 2%;
 }
 /* 프사 */
 .mypages .inner .profile-section .profile-image {
@@ -68,7 +68,6 @@
 .mypages .inner .profile-section .info {
   width: 100%;
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
 }
 .mypages .inner .profile-section .info .nickname {
