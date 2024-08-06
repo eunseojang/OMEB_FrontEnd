@@ -124,7 +124,7 @@
 /* 반응형 설정 */
 @media (max-width: 768px) {
   .user-tables {
-    margin-top: 110px;
+    margin-top: 10px;
     padding: 40vh 0 10vh 0;
   }
   .user-tables .info-container {
