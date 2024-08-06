@@ -300,10 +300,11 @@ const RecommendPage = () => {
                       {reviews[currentReviewIndex].userNickname}
                     </p>
                     <p className="main-review-tag">
-                      Tag: {reviews[currentReviewIndex].tag}
+                      {reviews[currentReviewIndex].tag}
                     </p>
                     <p className="main-review-likes">
-                      Likes: {reviews[currentReviewIndex].likeCount}
+                      <span className="material-icons">favorite</span>
+                      : {reviews[currentReviewIndex].likeCount}
                     </p>
                   </div>
                 </div>
