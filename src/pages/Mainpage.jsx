@@ -1,16 +1,17 @@
-import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
-import Bookshelf from '../components/Bookshelf';
-import './Mainpage.css';
-import AOS from 'aos'; // 애니메이션
-import 'aos/dist/aos.css';
-import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import { useEffect, useState, useRef } from "react";
+import axios from "axios";
+import Bookshelf from "../components/Bookshelf";
+import "./Mainpage.css";
+import AOS from "aos"; // 애니메이션
+import "aos/dist/aos.css";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import Footer from "../Rank/Footer";
 
 function Mainpage() {
   // 감정 Openai
   // 감정 글
-  const [emotion, setEmotion] = useState('');
+  const [emotion, setEmotion] = useState("");
 
   // 북마크 책
   const [bookmarkedBooks, setBookmarkedBooks] = useState([]);
@@ -21,12 +22,12 @@ function Mainpage() {
   useEffect(() => {
     AOS.init({
       duration: 1000,
-      easing: 'ease-out-back',
+      easing: "ease-out-back",
     });
 
     // 토큰 가져오기
     const fetchToken = async () => {
-      return Cookies.get('accessToken');
+      return Cookies.get("accessToken");
     };
 
     // 북마크 가져오기
@@ -45,7 +46,7 @@ function Mainpage() {
             setBookmarkedBooks(response.data.data.bookTitleInfoResponseList);
           }
         } catch (error) {
-          console.error('북마크 책을 가져올 수 없습니다.:', error);
+          console.error("북마크 책을 가져올 수 없습니다.:", error);
         }
       }
     };
@@ -60,7 +61,7 @@ function Mainpage() {
           setTopReviewedBooks(response.data.data.bookTitleInfoResponseList);
         }
       } catch (error) {
-        console.error('리뷰 많은 책을 가져올 수 없습니다.:', error);
+        console.error("리뷰 많은 책을 가져올 수 없습니다.:", error);
       }
     };
 
@@ -81,30 +82,32 @@ function Mainpage() {
 
   const handleEmotionSubmit = async (event) => {
     event.preventDefault();
-    const token = await Cookies.get('accessToken');
+    const token = await Cookies.get("accessToken");
 
     if (!token) {
-      console.error('토큰을 찾을 수 없습니다.');
+      alert("로그인 후 이용가능합니다.");
+      navigate("/login");
+      console.error("토큰을 찾을 수 없습니다.");
       return;
     }
 
     try {
       const response = await axios.post(
-        'https://omeb.shop:8080/api/v1/ai',
+        "https://omeb.shop:8080/api/v1/ai",
         { text: emotion },
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
 
-      if (response.status === 200 && response.data.success === 'true') {
+      if (response.status === 200 && response.data.success === "true") {
         navigate(`/recommend/${response.data.data.tag.toLowerCase()}`);
       }
     } catch (error) {
-      console.error('태그 오류:', error);
+      console.error("태그 오류:", error);
     }
   };
 
@@ -114,13 +117,13 @@ function Mainpage() {
 
   const handleScrollLeft = (ref) => {
     if (ref.current) {
-      ref.current.scrollBy({ left: -200, behavior: 'smooth' });
+      ref.current.scrollBy({ left: -200, behavior: "smooth" });
     }
   };
 
   const handleScrollRight = (ref) => {
     if (ref.current) {
-      ref.current.scrollBy({ left: 200, behavior: 'smooth' });
+      ref.current.scrollBy({ left: 200, behavior: "smooth" });
     }
   };
 
@@ -189,7 +192,7 @@ function Mainpage() {
                     <h5 className="book-title">{book.title}</h5>
                     <p className="book-author">{book.author}</p>
                     <p className="book-price">
-                      {book.price === '0' ? '재고 없음' : `${book.price}원`}
+                      {book.price === "0" ? "재고 없음" : `${book.price}원`}
                     </p>
                   </div>
                 </div>
@@ -240,7 +243,7 @@ function Mainpage() {
                     <h5 className="book-title">{book.title}</h5>
                     <p className="book-author">{book.author}</p>
                     <p className="book-price">
-                      {book.price === '0' ? '재고 없음' : `${book.price}원`}
+                      {book.price === "0" ? "재고 없음" : `${book.price}원`}
                     </p>
                   </div>
                 </div>
@@ -259,6 +262,7 @@ function Mainpage() {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
