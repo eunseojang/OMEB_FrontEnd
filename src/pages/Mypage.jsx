@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Mypage.css';
-// import profileImage from '../assets/profile_image.png';
 import no_search from '../assets/mypage/No_search.png';
 import ProfileModal from './ProfileModal.jsx';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import PointsModal from './PointsModal.jsx';
-import addBookmarkImage from '../assets/add-bookmarks.png';
 import BookmarksModal from './BookMarkModal.jsx';
-import Footer from '../Rank/Footer.jsx';
 
 const Mypages = () => {
   const navigate = useNavigate();
@@ -188,6 +185,9 @@ const Mypages = () => {
           {/* 남은 경험치(nxp 글자 색이랑 크기 다르게 하기) */}
           <p>
             남은 레벨까지
+            <span onClick={openPointsModal} className="material-icons">
+              contact_support
+            </span>
             <br />
             {getLevelUpPoint(userInfo?.level) - userInfo?.exp}xp 남음
           </p>
@@ -212,11 +212,7 @@ const Mypages = () => {
 
           {/* 경험치 바 */}
           <div className="level-bar">
-            <div className="example">
-              <span onClick={openPointsModal} className="material-icons">
-                contact_support
-              </span>
-            </div>
+            <div className="example"></div>
             <div
               className="example-bar"
               style={{ width: `${calculateProgress()}%` }}
