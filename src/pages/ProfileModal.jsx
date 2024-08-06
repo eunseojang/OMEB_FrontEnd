@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './ProfileModal.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 const ProfileModal = ({ closeModal, userProfile }) => {
   const [nickname, setNickname] = useState('김oo');
   const [imageUrl, setImageUrl] = useState('');
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -46,13 +47,11 @@ const ProfileModal = ({ closeModal, userProfile }) => {
 
         const presignedUrl = presignedUrlResponse.data.data.url;
 
-        // 바이너리 파일로
         const reader = new FileReader();
         reader.readAsArrayBuffer(file);
         reader.onload = async () => {
           const binary = reader.result;
 
-          // presigned url을 이용해서 s3에 이미지 업로드
           const uploadResponse = await axios.put(presignedUrl, binary, {
             headers: {
               'Content-Type': file.type,
@@ -63,16 +62,14 @@ const ProfileModal = ({ closeModal, userProfile }) => {
             throw new Error('Failed to upload file to S3');
           }
 
-          // S3 URL을 추출하고 state 업데이트
           const s3Url = presignedUrl.split('?')[0];
           setImageUrl(s3Url);
 
-          // 성공적으로 업로드된 경우, 사용자에게 알림
-          alert('File uploaded successfully');
+          // alert('File uploaded successfully');
         };
       } catch (error) {
         console.error('Error uploading file:', error);
-        alert('Failed to upload file');
+        alert('파일 업로드 실패');
       }
     }
   };
@@ -103,12 +100,12 @@ const ProfileModal = ({ closeModal, userProfile }) => {
         }
       );
 
-      alert('Profile updated successfully');
+      alert('프로필을 저장했습니다.');
       userProfile();
-      closeModal(); // Close modal after successful save
+      closeModal();
     } catch (error) {
       console.error('Profile update error:', error);
-      alert('중복된 닉네입입니다.');
+      alert('중복된 닉네임입니다.');
       closeModal();
     }
   };
@@ -130,18 +127,21 @@ const ProfileModal = ({ closeModal, userProfile }) => {
         throw new Error('Failed to set default profile image');
       }
 
-      alert('Profile updated successfully');
+      alert('프로필을 저장했습니다.');
       userProfile();
       closeModal();
     } catch (error) {
       console.error('Error resetting profile image to default:', error);
-      alert('Failed to reset profile image to default');
+      alert('프로필 업로드에 실패 했습니다.');
       closeModal();
     }
   };
 
+  const triggerFileInput = () => {
+    fileInputRef.current.click();
+  };
+
   return (
-    // 프로필 수정
     <div className="profile-modal">
       <div className="modal-content">
         {/* 닫기 */}
@@ -158,15 +158,16 @@ const ProfileModal = ({ closeModal, userProfile }) => {
                 <div>No Profile Image</div>
               )}
             </div>
-            <span className="material-icons">
+            <span className="material-icons" onClick={triggerFileInput}>
               photo_camera
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileUpload}
-                style={{ display: 'none' }}
-              />
             </span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileUpload}
+              style={{ display: 'none' }}
+              ref={fileInputRef}
+            />
           </div>
 
           <div className="input-group">
