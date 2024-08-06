@@ -141,10 +141,6 @@ function Mainpage() {
           위로를 건네는 책 추천 서비스
         </p>
 
-        {/* 책을 찾을 수 없나요? */}
-        <div className="bookfinder-link">
-          <Link to="/bookfinder">책을 찾을 수 없나요?</Link>
-        </div>
 
         {/* 감정 입력창 */}
         <form onSubmit={handleEmotionSubmit} className="emotion-form">
@@ -154,14 +150,13 @@ function Mainpage() {
             value={emotion}
             onChange={handleEmotionChange}
           />
-          <button type="submit">추천 받기</button>
+          <div className="dot"></div>
+          <button type="submit">
+            <span className='material-icons'>add_reaction</span>
+          </button>
         </form>
       </div>
 
-      {/* 감정 입력 창 위에 텍스트 */}
-      <div className="emotion-prompt">
-        <p>당신의 감정을 입력하고 싶으신가요?</p>
-      </div>
 
       {/* 첵 */}
       <Bookshelf />

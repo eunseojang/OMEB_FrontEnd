@@ -45,11 +45,11 @@
 }
 .intro > h2 {
   font-family: 'establishRetrosansOTF', sans-serif;
-  font-size: 500%;
+  font-size: 450%;
   font-weight: 800;
   color: #dee2e1;
   text-shadow: 8px 8px 15px #3e3e3e, -1px -1px 2px #f9f9f9;
-  margin-left: -75%;
+  margin-left: -77%;
 }
 .intro > p {
   color: #dee2e1;
@@ -167,52 +167,166 @@
   color: #3e3e3e;
 }
 
-.emotion-prompt {
-  cursor: pointer;
-  margin: 20px 0;
-  text-align: center;
-}
-
-.emotion-prompt p {
-  font-size: 18px;
-  color: #333;
-  margin: 0;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  transition: background-color 0.3s ease;
-}
-
-.emotion-prompt p:hover {
-  background-color: #e9e9e9;
-}
 
 /* 감정 입력창 */
 .emotion-form {
+  margin-top: 4%;
+  float: left;
+  position: relative;
+  width: 33%; /* .emotion-form의 너비 설정 */
+  height: auto; /* 높이를 자동으로 설정 */
   display: flex;
-  margin-top: 40px;
 }
-
 .emotion-form input {
-  font-size: 16px;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  width: 28%;
-  margin-right: 10px;
+  padding: 5%;
+  border-radius: 9px;
+  border: none;
+  width: 85%;
+  height: 100%;
+  font-size: 100%;
+  color: #f9f9f9;
+  background-color: #3e3e3e;
+  z-index: 1; /* z-index 설정으로 점이 input 아래에 위치하지 않도록 */
+}
+.emotion-form .dot {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -2%; /* 왼쪽 상단에서 시작 */
+  width: 1%; /* 점의 너비 */
+  height: 1%; /* 점의 높이 */
+  border-radius: 50%; /* 점을 둥글게 */
+  transition: all 300ms ease;
+  display: block;
+  animation: moveAroundInput 4s infinite linear; /* 애니메이션 추가 */
+  z-index: 2; /* 점을 input 위에 위치하도록 설정 */
+}
+@keyframes moveAroundInput {
+  0% { top: 0; left: 0; }
+  25% { top: 0; left: 85%; } /* 상단 오른쪽 */
+  50% { top: 100%; left: 85%; } /* 하단 오른쪽 */
+  75% { top: 100%; left: 0; } /* 하단 왼쪽 */
+  100% { top: 0; left: 0; } /* 상단 왼쪽 */
+}
+.emotion-form .dot:after {
+  content: '';
+  position: absolute;
+  left: calc(50% - .4em);
+  top: -.4em;
+  height: 1%;
+  width: 1%;
+  background: #4959A6;
+  border-radius: 1em;
+  border: .25em solid #f9f9f9;
+  box-shadow: 0 0 .7em #f9f9f9,
+        0 0 2em #4959A6;
 }
 
+
+/* 추천받기 */
 .emotion-form button {
-  font-size: 16px;
-  padding: 10px 20px;
+  width: 13%;
+  height: 100%;
   border-radius: 10px;
   border: none;
   background-color: #007bff;
-  color: white;
   cursor: pointer;
+  position: absolute;
+  right: 0;
 }
-
 .emotion-form button:hover {
   background-color: #0056b3;
+}
+.emotion-form button .material-icons {
+  color: #f9f9f9;
+}
+
+
+
+/* 반응형 디자인 */
+/* 노트북 & 테블릿 가로 (해상도 1024px ~ 1279px)*/ 
+@media all and (min-width:1024px) and (max-width:1279px) {
+  .main_page .back .box {
+    height: 53%;
+  }
+  .main_page .intro .title {
+    font-size: 60px;
+    margin-left: -79%;
+  }
+  .main_page .intro > p {
+    font-size: 12px;
+  }
+  .emotion-form {
+    margin-left: -15px;
+  }
+  .emotion-form button span {
+    font-size: 24px;
+  }
+}
+/* 테블릿 가로 (해상도 768px ~ 1023px)*/ 
+@media all and (min-width:768px) and (max-width:1023px) { 
+  .main_page .back .box {
+    height: 40%;
+  }
+  .main_page .intro .title {
+    font-size: 50px;
+    margin-left: -79%;
+  }
+  .main_page .intro > p {
+    font-size: 10px;
+  }
+  .emotion-form {
+    margin-left: -15px;
+  }
+  .emotion-form input {
+    font-size: 10px;
+  }
+  .emotion-form button span {
+    font-size: 12px;
+  }
+} 
+/* 모바일 가로 & 테블릿 세로 (해상도 480px ~ 767px)*/ 
+@media all and (min-width:480px) and (max-width:767px) {
+  .main_page .back .box {
+    height: 40%;
+  }
+  .main_page .intro .title {
+    font-size: 40px;
+    margin-left: -75%;
+  }
+  .main_page .intro > p {
+    font-size: 8px;
+  }
+  .emotion-form {
+    margin-left: -15px;
+  }
+  .emotion-form input {
+    font-size: 8px;
+  }
+  .emotion-form button span {
+    font-size: 10px;
+  }
+} 
+
+/* 모바일 세로 (해상도 ~ 479px)*/ 
+@media all and (max-width:479px) {
+  .main_page .back .box {
+    height: 40%;
+  }
+  .main_page .intro .title {
+    font-size: 30px;
+    margin-left: -75%;
+  }
+  .main_page .intro > p {
+    font-size: 8px;
+  }
+  .emotion-form {
+    margin-left: -15px;
+  }
+  .emotion-form input {
+    font-size: 8px;
+  }
+  .emotion-form button span {
+    font-size: 10px;
+  }
 }
