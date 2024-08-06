@@ -93,7 +93,7 @@ const Review = () => {
       } else if (error.response.data.code === "AUTH_0003") {
         alert("로그인해야 좋아요를 누를 수 있습니다.");
       } else {
-        alert("리뷰 게시에 실패했습니다.");
+        alert("이미 좋아요를 누른 리뷰입니다.");
       }
     }
 
@@ -141,7 +141,7 @@ const Review = () => {
                   </div>
                   <div className="review-actions">
                     <button onClick={() => handleLike(review.reviewId)}>
-                      ♡ ({review.likeCount})
+                      Likes♡ ({review.likeCount})
                     </button>
                   </div>
                 </div>
