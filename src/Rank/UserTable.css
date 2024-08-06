@@ -29,52 +29,6 @@
 .user-tables .info-container .material-icons {
   cursor: pointer;
 }
-/* 말풍선 */
-.user-tables
-  .info-container
-  .material-icons[data-tooltip]:not([data-tooltip=""])::before {
-  content: attr(data-tooltip);
-  font-size: 15px;
-  line-height: 130%;
-  white-space: pre-line;
-  color: #f9f9f9;
-  background-color: rgba(93, 94, 97, 0.9);
-  width: 200px;
-  max-width: 300px;
-  padding: 15px 0 20px 30px;
-  float: right;
-  margin-top: -110px;
-  margin-left: -30px;
-  border-radius: 10px;
-  opacity: 0;
-  transition: all 0.2s linear;
-}
-/* 말풍선 촉 */
-.user-tables
-  .info-container
-  .material-icons[data-tooltip]:not([data-tooltip=""])::after {
-  content: "";
-  border-width: 6px;
-  border-style: solid;
-  border-color: transparent;
-  border-top-color: rgb(93, 94, 97);
-  width: 0;
-  height: 0;
-  display: inline-block;
-  margin-left: -18px;
-  margin-bottom: 30px;
-  opacity: 0;
-  transition: all 0.2s linear;
-}
-/* 마우스 가져다댔을 때 말풍선 생성 */
-.user-tables
-  .info-container:hover
-  .material-icons[data-tooltip]:not([data-tooltip=""])::before,
-.user-tables
-  .info-container:hover
-  .material-icons[data-tooltip]:not([data-tooltip=""])::after {
-  opacity: 1;
-}
 
 /* 순위 별 박스 */
 .user-tables .user-table {
@@ -88,7 +42,7 @@
   box-shadow: 0 10px 10px -5px #5d5e61;
 }
 .user-tables .user-table:first-child {
-  margin-top: 100px;
+  margin-top: 30px;
 }
 /* 랭크 */
 .user-tables .user-table .user-rank {
@@ -124,7 +78,7 @@
 /* 반응형 설정 */
 @media (max-width: 768px) {
   .user-tables {
-    margin-top: 10px;
+    margin-top: 80px;
     padding: 40vh 0 10vh 0;
   }
   .user-tables .info-container {

@@ -108,11 +108,14 @@
   color: #333;
 }
 
-.review-tag {
-  width: 140px;
+.user-review-tag {
+  width: fit-content;
   background-color: #eee;
   border-radius: 12px;
   padding: 2px 8px;
+}
+
+.user-review-tag p {
   font-size: 0.9rem;
 }
 
@@ -132,6 +135,10 @@
   padding: 5px;
   background-color: #ec5050;
   color: white;
+}
+
+.review-actions button:hover {
+  cursor: pointer;
 }
 
 .edit-input {

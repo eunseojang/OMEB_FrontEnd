@@ -191,24 +191,7 @@ const Mypages = () => {
             <br />
             {getLevelUpPoint(userInfo?.level) - userInfo?.exp}xp 남음
           </p>
-
-          {/* 경험치 바 */}
-          {/* <div className="level-bar">
-            <div className="example">
-              <span onClick={openPointsModal} className="material-icons">
-                contact_support
-              </span>
-            </div>
-            <div
-              className="example-bar"
-              style={{ width: `${calculateProgress()}%` }}
-            ></div>
-            <div className="example-2">
-              <p className="start">0</p>
-              <p className="xp">{userInfo?.exp || "0"}xp</p>{" "}
-              <p className="end">{getLevelUpPoint(userInfo?.level)}</p>
-            </div>
-          </div> */}
+      
 
           {/* 경험치 바 */}
           <div className="level-bar">

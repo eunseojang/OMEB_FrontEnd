@@ -132,8 +132,7 @@ const Review = () => {
                     <p className="user-nickname">{review.userNickname}</p>
                     <p className="user-level">(LV.{review.level})</p>
                   </div>
-
-                  <p className="review-tag">태그: {review.tag}</p>
+                  <p className="user-review-tag">태그: {review.tag}</p>
                 </div>
                 <div>
                   <div className="points-date">
