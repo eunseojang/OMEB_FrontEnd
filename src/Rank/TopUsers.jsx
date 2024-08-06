@@ -38,7 +38,7 @@ const TopUsers = ({ users }) => {
             {/* 사용자 정보 (이름, 레벨) */}
             <div className="user-info">
               <div className="user-name">{user.nickname}</div>
-              <div className="user-level">LV.{user.level}</div>
+              <div className="user-level1">LV.{user.level}</div>
             </div>
           </div>
         );

@@ -6,7 +6,9 @@ import Cookies from "js-cookie";
 const ProfileModal = ({ closeModal, userProfile }) => {
   const [nickname, setNickname] = useState("김oo");
   const [imageUrl, setImageUrl] = useState("");
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef(null); // Create a reference for the file input
+  const [profileEdit, setProfileEdit] = useState(false);
+  const [nicknameEdit, setNicknameEdit] = useState(false);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -64,26 +66,11 @@ const ProfileModal = ({ closeModal, userProfile }) => {
 
           const s3Url = presignedUrl.split("?")[0];
           setImageUrl(s3Url);
-
-          const response = await axios.patch(
-            `${import.meta.env.VITE_TEST_URL}/api/v1/profile`,
-            {},
-            {
-              params: { url: imageUrl },
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          if (response.status !== 200) {
-            throw new Error("Failed to update profile");
-          }
-
-          // alert('File uploaded successfully');
+          setProfileEdit(true);
         };
       } catch (error) {
         console.error("Error uploading file:", error);
-        alert("파일 업로드 실패");
+        alert("파일 업로드되지 않았습니다.");
       }
     }
   };
@@ -91,15 +78,33 @@ const ProfileModal = ({ closeModal, userProfile }) => {
   const handleSave = async () => {
     const token = Cookies.get("accessToken");
     try {
-      const response2 = await axios.patch(
-        `${import.meta.env.VITE_TEST_URL}/api/v1/user`,
-        { nickname },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      if (profileEdit) {
+        const response = await axios.patch(
+          `${import.meta.env.VITE_TEST_URL}/api/v1/profile`,
+          {},
+          {
+            params: { url: imageUrl },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.status !== 200) {
+          throw new Error("Failed to update profile");
         }
-      );
+      }
+
+      if (nicknameEdit) {
+        await axios.patch(
+          `${import.meta.env.VITE_TEST_URL}/api/v1/user`,
+          { nickname },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      }
 
       alert("프로필을 저장했습니다.");
       userProfile();
@@ -176,7 +181,10 @@ const ProfileModal = ({ closeModal, userProfile }) => {
             <input
               type="text"
               value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
+              onChange={(e) => {
+                setNickname(e.target.value);
+                setNicknameEdit(true);
+              }}
             />
           </div>
 

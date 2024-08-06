@@ -13,11 +13,11 @@
   z-index: 10;
 }
 .top-users::before {
-  content: '';
+  content: "";
   width: 100%;
   height: 100%;
   border-radius: 0 0 40px 40px;
-  background-image: url('../assets/rangking/background.png');
+  background-image: url("../assets/rangking/background.png");
   background-size: cover;
   background-repeat: no-repeat;
   opacity: 0.6;
@@ -100,7 +100,7 @@
 .top-users .user-info {
   display: flex;
   position: absolute;
-  bottom: 10%;
+  bottom: 8%;
   left: 50%;
   transform: translate(-50%);
 }
@@ -112,10 +112,10 @@
   font-weight: 700;
 }
 /* 사용자 레벨 */
-.top-users .user-level {
-  font-size: 14px;
+.top-users .user-level1 {
+  font-size: 10px;
   color: #9e9e9e;
-  margin: 10px 0 0 15px;
+  margin: 2px 0 0 5px;
 }
 
 /* 4위 ~ 10위 */
@@ -147,7 +147,7 @@
 /* 말풍선 */
 .user-tables
   .info-container
-  .material-icons[data-tooltip]:not([data-tooltip=''])::before {
+  .material-icons[data-tooltip]:not([data-tooltip=""])::before {
   content: attr(data-tooltip);
   font-size: 15px;
   line-height: 130%;
@@ -167,8 +167,8 @@
 /* 말풍선 촉 */
 .user-tables
   .info-container
-  .material-icons[data-tooltip]:not([data-tooltip=''])::after {
-  content: '';
+  .material-icons[data-tooltip]:not([data-tooltip=""])::after {
+  content: "";
   border-width: 6px;
   border-style: solid;
   border-color: transparent;
@@ -184,10 +184,10 @@
 /* 마우스 가져다댔을 때 말풍선 생성 */
 .user-tables
   .info-container:hover
-  .material-icons[data-tooltip]:not([data-tooltip=''])::before,
+  .material-icons[data-tooltip]:not([data-tooltip=""])::before,
 .user-tables
   .info-container:hover
-  .material-icons[data-tooltip]:not([data-tooltip=''])::after {
+  .material-icons[data-tooltip]:not([data-tooltip=""])::after {
   opacity: 1;
 }
 
@@ -265,7 +265,7 @@
 /* 말풍선 */
 .user-tables
   .info-container
-  .material-icons[data-tooltip]:not([data-tooltip=''])::before {
+  .material-icons[data-tooltip]:not([data-tooltip=""])::before {
   content: attr(data-tooltip);
   font-size: 15px;
   line-height: 130%;
@@ -285,8 +285,8 @@
 /* 말풍선 촉 */
 .user-tables
   .info-container
-  .material-icons[data-tooltip]:not([data-tooltip=''])::after {
-  content: '';
+  .material-icons[data-tooltip]:not([data-tooltip=""])::after {
+  content: "";
   border-width: 6px;
   border-style: solid;
   border-color: transparent;
@@ -302,10 +302,10 @@
 /* 마우스 가져다댔을 때 말풍선 생성 */
 .user-tables
   .info-container:hover
-  .material-icons[data-tooltip]:not([data-tooltip=''])::before,
+  .material-icons[data-tooltip]:not([data-tooltip=""])::before,
 .user-tables
   .info-container:hover
-  .material-icons[data-tooltip]:not([data-tooltip=''])::after {
+  .material-icons[data-tooltip]:not([data-tooltip=""])::after {
   opacity: 1;
 }
 

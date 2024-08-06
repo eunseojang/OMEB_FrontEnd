@@ -7,6 +7,7 @@ const PointsModal = ({ closeModal }) => {
   const [points, setPoints] = useState([]);
   const [error, setError] = useState(null);
 
+
   useEffect(() => {
     const fetchPoints = async () => {
       try {
