@@ -73,6 +73,7 @@ const RecommendPage = () => {
         );
         // console.log(response.data.data.bookTitleInfoList);
         if (response.status === 200) {
+          console.log(response.data.data);
           setBookRecommendations(response.data.data.bookTitleInfoList);
         }
       } catch (error) {

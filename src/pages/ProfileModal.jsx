@@ -140,16 +140,15 @@ const ProfileModal = ({ closeModal, userProfile }) => {
     }
   };
 
-
   return (
     // 프로필 수정
     <div className="profile-modal">
-
       <div className="modal-content">
-
         {/* 닫기 */}
-        <span className='material-icons' onClick={closeModal}>close</span>
-        
+        <span className="material-icons" onClick={closeModal}>
+          close
+        </span>
+
         <div className="modal-body">
           <div className="profile-image-upload">
             <div className="profile-image-placeholder">
@@ -170,7 +169,6 @@ const ProfileModal = ({ closeModal, userProfile }) => {
             </span>
           </div>
 
-
           <div className="input-group">
             <label>닉네임</label>
             <input
@@ -179,7 +177,7 @@ const ProfileModal = ({ closeModal, userProfile }) => {
               onChange={(e) => setNickname(e.target.value)}
             />
           </div>
-          
+
           <div className="modal-actions">
             <button className="default-img" onClick={handleDefaultProfile}>
               기본 프로필

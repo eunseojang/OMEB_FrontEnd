@@ -18,7 +18,7 @@ const Mypages = () => {
   const [editingReviewId, setEditingReviewId] = useState(null);
   const [editingContent, setEditingContent] = useState('');
   const [isPointsModalOpen, setPointsModalOpen] = useState(false);
-  const [isBookmarksModalOpen, setBookmarksModalOpen] = useState(false); // State for BookmarksModal
+  const [isBookmarksModalOpen, setBookmarksModalOpen] = useState(false);
 
   useEffect(() => {
     const token = Cookies.get('accessToken');
@@ -279,15 +279,18 @@ const Mypages = () => {
             </div>
           )}
         </div>
-
-        {isPointsModalOpen && <PointsModal closeModal={closePointsModal} />}
-        {isModalOpen && (
-          <ProfileModal closeModal={closeModal} userProfile={fetchUserInfo} />
-        )}
-        {isBookmarksModalOpen && (
-          <BookmarksModal closeModal={closeBookmarksModal} />
-        )}
       </div>
+      {isPointsModalOpen && <PointsModal closeModal={closePointsModal} />}
+      {isModalOpen && (
+        <div className="Modal-black-background">
+          <ProfileModal closeModal={closeModal} userProfile={fetchUserInfo} />
+        </div>
+      )}
+      {isBookmarksModalOpen && (
+        <div className="Modal-black-background">
+          <BookmarksModal closeModal={closeBookmarksModal} />
+        </div>
+      )}
     </div>
   );
 };
