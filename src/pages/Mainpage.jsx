@@ -4,7 +4,7 @@ import Bookshelf from '../components/Bookshelf';
 import './Mainpage.css';
 import AOS from 'aos'; // 애니메이션
 import 'aos/dist/aos.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 function Mainpage() {
@@ -124,7 +124,6 @@ function Mainpage() {
     }
   };
 
-  
   return (
     <div className="main_page">
       {/* 배경 */}
@@ -141,7 +140,6 @@ function Mainpage() {
           위로를 건네는 책 추천 서비스
         </p>
 
-
         {/* 감정 입력창 */}
         <form onSubmit={handleEmotionSubmit} className="emotion-form">
           <input
@@ -152,11 +150,10 @@ function Mainpage() {
           />
           <div className="dot"></div>
           <button type="submit">
-            <span className='material-icons'>add_reaction</span>
+            <span className="material-icons">add_reaction</span>
           </button>
         </form>
       </div>
-
 
       {/* 첵 */}
       <Bookshelf />

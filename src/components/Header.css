@@ -32,7 +32,7 @@
 .menu {
   display: flex;
   align-items: center;
-  width: 277px;
+  width: 30%;
 }
 
 .menu-item {
@@ -144,30 +144,47 @@
 /* 반응형 설정 */
 @media (max-width: 768px) {
   .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* 수직 정렬 추가 */
-    padding: 20px 20px;
-    width: 100%;
-    border-bottom: 1px solid #cdcdcd;
+    flex-direction: column;
+    padding: 10px;
   }
 
   .logo {
-    font-size: 18px;
+    font-size: 24px;
+    margin-bottom: 10px;
   }
 
-  .search-book-title {
+  .menu {
+    width: 100%;
+    justify-content: space-around;
+    margin-bottom: 10px;
+  }
+
+  .menu-item {
+    font-size: 14px;
+    margin-right: 10px;
+  }
+
+  .header-search-bar {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .header-search-bar input {
+    font-size: 14px;
+  }
+
+  .header-search-book-title {
     font-size: 12px;
   }
 
-  .search-book-author,
-  .search-book-price,
-  .search-book-publisher {
+  .header-search-book-author,
+  .header-search-book-price,
+  .header-search-book-publisher {
     font-size: 10px;
   }
 
-  .buy-button {
-    width: 25px;
-    height: 25px;
+  .pagination-buttons button {
+    padding: 8px 16px;
+    font-size: 14px;
   }
 }

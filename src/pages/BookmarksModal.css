@@ -20,7 +20,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow-y: auto;
-  max-height: 80%;
+  max-height: 400px;
 }
 
 .modal-content12 .close-button {

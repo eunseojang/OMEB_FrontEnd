@@ -88,3 +88,52 @@
     opacity: 0.5;
   }
 }
+
+@media (max-width: 768px) {
+  .bookshelf-section .bookshelf .book-container:nth-child(1) .book {
+    width: 135%;
+    /* margin-right: -286%; */
+    margin-right: 286%;
+    transition: opacity 1s ease-in-out;
+  }
+  .bookshelf-section .bookshelf .book-container:nth-child(2) .book {
+    width: 69%;
+    /* margin-right: -250%; */
+    margin-right: 322%;
+  }
+  .bookshelf-section .bookshelf .book-container:nth-child(3) .book {
+    width: 51%;
+    /* margin-right: -197%; */
+    margin-right: 375%;
+  }
+  .bookshelf-section .bookshelf .book-container:nth-child(4) .book {
+    width: 49%;
+    /* margin-right: -143%; */
+    margin-right: 429%;
+  }
+  .bookshelf-section .bookshelf .book-container:nth-child(5) .book {
+    width: 77%;
+    /* margin-right: -116%; */
+    margin-right: 456%;
+  }
+  .bookshelf-section .bookshelf .book-container:nth-child(6) .book {
+    width: 57%;
+    /* margin-right: -70%; */
+    margin-right: 502%;
+  }
+  .bookshelf-section .bookshelf .book-container:nth-child(7) .book {
+    width: 110%;
+    /* margin-right: -70%; */
+    margin-right: 502%;
+  }
+  .bookshelf-section .bookshelf .book-container:nth-child(8) .book {
+    width: 37%;
+    /* margin-right: -64%; */
+    margin-right: 508%;
+  }
+  .bookshelf-section .bookshelf .book-container:nth-child(9) .book {
+    width: 40%;
+    /* margin-left: -0.5%; */
+    margin-right: 571.5%;
+  }
+}

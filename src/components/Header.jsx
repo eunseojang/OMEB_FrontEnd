@@ -170,6 +170,9 @@ function Header() {
         </div>
 
         <div className="menu">
+          <NavLink to="/BookFinder">
+            <span className="menu-item">책 신청</span>
+          </NavLink>
           <NavLink to="/Ranking" style={{ textDecoration: 'none' }}>
             <span className="menu-item">랭킹</span>
           </NavLink>

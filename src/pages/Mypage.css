@@ -15,7 +15,6 @@
   /* border: 1px solid red; */
 }
 
-
 /* 여기는 마이페이지 */
 .mypages .inner .uppers {
   margin-top: 2%;
@@ -24,7 +23,7 @@
 }
 .mypages .inner .uppers .MY {
   font-family: 'establishRetrosansOTF', sans-serif;
-  font-size: 120%;
+  font-size: 20px;
   margin: 0 auto;
 }
 /* 프로필 수정 */
@@ -34,7 +33,6 @@
   position: absolute;
   right: 0;
 }
-
 
 /* 프로필이 있을 곳 */
 .mypages .inner .profile-section {
@@ -74,7 +72,7 @@
 .mypages .inner .profile-section .bookMark {
   color: #9e9e9e;
   font-weight: 700;
-  background-color: rgb(158,158,158, 0.15);
+  background-color: rgb(158, 158, 158, 0.15);
   width: 11%;
   padding: 10px;
   border-radius: 25px;
@@ -82,7 +80,6 @@
   position: absolute;
   right: 0;
 }
-
 
 /* 레벨 */
 .mypages .inner .profile-level {
@@ -93,7 +90,7 @@
 }
 .mypages .inner .profile-level p {
   font-size: 120%;
-  color: #5D5E61;
+  color: #5d5e61;
   margin-bottom: 2%;
 }
 
@@ -101,7 +98,7 @@
 .mypages .inner .profile-level .level-bar .example {
   width: 60%;
   height: 3%;
-  background-color: rgb(158,158,158, 0.15);
+  background-color: rgb(158, 158, 158, 0.15);
   border-radius: 10px;
   position: absolute;
   /* border: 1px solid blue; */
@@ -115,7 +112,7 @@
 .mypages .inner .profile-level .level-bar .example-bar {
   width: 15%;
   height: 3%;
-  background-color: #0892D0;
+  background-color: #0892d0;
   border-radius: 10px;
   position: absolute;
 }
@@ -125,7 +122,7 @@
   position: absolute;
 }
 .mypages .inner .profile-level .level-bar .example-2 p {
-  color: rgb(158,158,158, 0.8);
+  color: rgb(158, 158, 158, 0.8);
   font-size: 90%;
 }
 .mypages .inner .profile-level .level-bar .example-2 .xp {
@@ -135,17 +132,14 @@
   margin-left: 600%;
 }
 
-
-
 /* 구간 나누기 */
 .mypages .block-box {
   width: 100%;
   height: 3%;
-  background-color: rgb(158,158,158, 0.15);
+  background-color: rgb(158, 158, 158, 0.15);
   position: absolute;
   left: 0;
 }
-
 
 /* 리뷰 두는 곳 */
 .mypages .inner .reviews-section {
@@ -154,11 +148,10 @@
   position: absolute;
   /* border: 1px solid green; */
 }
-.mypages .inner .reviews-section > h3{
+.mypages .inner .reviews-section > h3 {
   font-size: 140%;
   font-weight: 700;
 }
-
 
 .review-card {
   display: flex;
@@ -212,7 +205,7 @@
   font-size: 90%;
   padding: 5px 10px;
   border: none;
-  background-color: #5D5E61;
+  background-color: #5d5e61;
   cursor: pointer;
   width: 6%;
   margin-top: 2%;
@@ -254,8 +247,6 @@
   color: #777;
   text-align: center;
 }
-
-
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
