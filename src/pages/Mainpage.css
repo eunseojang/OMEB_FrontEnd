@@ -249,7 +249,7 @@
     font-size: 80%;
   }
   .emotion-form {
-    width: 90%; /* Adjusted width for smaller screens */
+    width: 90%;
     margin-left: 5%;
     margin-right: 5%;
     flex-direction: column;
@@ -350,17 +350,17 @@
     font-size: 70%;
   }
   .emotion-form {
-    width: 95%; /* Further adjust width for extra small screens */
+    width: 95%;
     margin-left: 2.5%;
     margin-right: 2.5%;
   }
   .emotion-form input {
     width: 100%;
     margin-bottom: 10px;
-    padding: 10px; /* Adjust padding */
+    padding: 10px;
   }
   .emotion-form .dot {
-    display: none; /* Hide dot on small screens for better UX */
+    display: none;
   }
   .emotion-form button {
     width: 100%;

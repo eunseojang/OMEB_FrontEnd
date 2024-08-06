@@ -3,13 +3,17 @@
   width: 100%;
   height: 44vh;
   border-radius: 0 0 40px 40px;
-  background-color: #5D5E61;
+  background-color: #5d5e61;
   display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 70px;
+  overflow: hidden;
+  z-index: 10;
 }
 .top-users::before {
-  content: "";
+  content: '';
   width: 100%;
   height: 100%;
   border-radius: 0 0 40px 40px;
@@ -27,8 +31,7 @@
   border-radius: 10px 10px 0 0;
   position: absolute;
   top: 0;
-  background-color: #DEE2E1;
-   /* rgba(0,0,0, 0.2); */
+  background-color: #dee2e1;
 }
 
 /* 1, 2, 3등 */
@@ -36,11 +39,6 @@
   background-color: #f9f9f9;
   width: 100%;
   height: 300px;
-  /* display: flex; */
-  -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  -moz-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  -ms-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  -o-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 .top-users .top-user.rank-1,
@@ -118,4 +116,291 @@
   font-size: 14px;
   color: #9e9e9e;
   margin: 10px 0 0 15px;
+}
+
+/* 4위 ~ 10위 */
+.user-tables {
+  width: 100%;
+  height: fit-content;
+  background-color: #dee2e1;
+  margin-top: -70px;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  padding: 55vh 0 10vh 0;
+}
+
+/* material-icons info */
+.user-tables .info-container {
+  width: 50px;
+  height: 50px;
+  z-index: 0;
+  margin-top: -30px;
+  margin-right: -950px;
+  margin-bottom: -10px;
+}
+.user-tables .info-container .material-icons {
+  cursor: pointer;
+}
+/* 말풍선 */
+.user-tables
+  .info-container
+  .material-icons[data-tooltip]:not([data-tooltip=''])::before {
+  content: attr(data-tooltip);
+  font-size: 15px;
+  line-height: 130%;
+  white-space: pre-line;
+  color: #f9f9f9;
+  background-color: rgba(93, 94, 97, 0.9);
+  width: 200px;
+  max-width: 300px;
+  padding: 15px 0 20px 30px;
+  float: right;
+  margin-top: -110px;
+  margin-left: -30px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: all 0.2s linear;
+}
+/* 말풍선 촉 */
+.user-tables
+  .info-container
+  .material-icons[data-tooltip]:not([data-tooltip=''])::after {
+  content: '';
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent;
+  border-top-color: rgb(93, 94, 97);
+  width: 0;
+  height: 0;
+  display: inline-block;
+  margin-left: -18px;
+  margin-bottom: 30px;
+  opacity: 0;
+  transition: all 0.2s linear;
+}
+/* 마우스 가져다댔을 때 말풍선 생성 */
+.user-tables
+  .info-container:hover
+  .material-icons[data-tooltip]:not([data-tooltip=''])::before,
+.user-tables
+  .info-container:hover
+  .material-icons[data-tooltip]:not([data-tooltip=''])::after {
+  opacity: 1;
+}
+
+/* 순위 별 박스 */
+.user-tables .user-table {
+  width: 70%;
+  background-color: #f9f9f9;
+  border-radius: 50px;
+  padding: 14px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 10px 10px -5px #5d5e61;
+}
+.user-tables .user-table:first-child {
+  margin-top: 100px;
+}
+/* 랭크 */
+.user-tables .user-table .user-rank {
+  font-weight: 600;
+  width: 30px;
+  margin: 0 5%;
+  text-align: center;
+}
+/* 프로필 이미지 */
+.user-tables .user-table .user-info {
+  width: 15%;
+  text-align: center;
+  margin-right: 16px;
+}
+.user-tables .user-table .user-info img {
+  width: 50px;
+  height: 50px;
+  border-radius: 20%;
+}
+/* 이름 */
+.user-tables .user-table .user-name {
+  font-weight: 600;
+  width: 40%;
+  text-align: center;
+}
+/* 레벨 */
+.user-tables .user-table .user-level {
+  color: #9e9e9e;
+  width: 30%;
+  text-align: center;
+}
+
+/* 4위 ~ 10위 */
+.user-tables {
+  width: 100%;
+  height: fit-content;
+  background-color: #dee2e1;
+  margin-top: -70px;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  padding: 55vh 0 10vh 0;
+}
+
+/* material-icons info */
+.user-tables .info-container {
+  width: 50px;
+  height: 50px;
+  z-index: 0;
+  margin-top: -30px;
+  margin-right: -950px;
+  margin-bottom: -10px;
+}
+.user-tables .info-container .material-icons {
+  cursor: pointer;
+}
+/* 말풍선 */
+.user-tables
+  .info-container
+  .material-icons[data-tooltip]:not([data-tooltip=''])::before {
+  content: attr(data-tooltip);
+  font-size: 15px;
+  line-height: 130%;
+  white-space: pre-line;
+  color: #f9f9f9;
+  background-color: rgba(93, 94, 97, 0.9);
+  width: 200px;
+  max-width: 300px;
+  padding: 15px 0 20px 30px;
+  float: right;
+  margin-top: -110px;
+  margin-left: -30px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: all 0.2s linear;
+}
+/* 말풍선 촉 */
+.user-tables
+  .info-container
+  .material-icons[data-tooltip]:not([data-tooltip=''])::after {
+  content: '';
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent;
+  border-top-color: rgb(93, 94, 97);
+  width: 0;
+  height: 0;
+  display: inline-block;
+  margin-left: -18px;
+  margin-bottom: 30px;
+  opacity: 0;
+  transition: all 0.2s linear;
+}
+/* 마우스 가져다댔을 때 말풍선 생성 */
+.user-tables
+  .info-container:hover
+  .material-icons[data-tooltip]:not([data-tooltip=''])::before,
+.user-tables
+  .info-container:hover
+  .material-icons[data-tooltip]:not([data-tooltip=''])::after {
+  opacity: 1;
+}
+
+/* 순위 별 박스 */
+.user-tables .user-table {
+  width: 70%;
+  background-color: #f9f9f9;
+  border-radius: 50px;
+  padding: 14px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 10px 10px -5px #5d5e61;
+}
+.user-tables .user-table:first-child {
+  margin-top: 100px;
+}
+/* 랭크 */
+.user-tables .user-table .user-rank {
+  font-weight: 600;
+  width: 30px;
+  margin: 0 5%;
+  text-align: center;
+}
+/* 프로필 이미지 */
+.user-tables .user-table .user-info {
+  width: 15%;
+  text-align: center;
+  margin-right: 16px;
+}
+.user-tables .user-table .user-info img {
+  width: 50px;
+  height: 50px;
+  border-radius: 20%;
+}
+/* 이름 */
+.user-tables .user-table .user-name {
+  font-weight: 600;
+  width: 40%;
+  text-align: center;
+}
+/* 레벨 */
+.user-tables .user-table .user-level {
+  color: #9e9e9e;
+  width: 30%;
+  text-align: center;
+}
+
+/* 반응형 설정 */
+@media (max-width: 768px) {
+  .top-users {
+    margin-top: 70px;
+  }
+
+  .user-tables {
+    padding: 40vh 0 10vh 0;
+  }
+  .user-tables .info-container {
+    margin-right: -500px;
+  }
+  .user-tables .user-table {
+    width: 90%;
+    padding: 12px;
+  }
+  .user-tables .user-rank {
+    font-size: 14px;
+    width: 25px;
+  }
+  .user-tables .user-info {
+    width: 20%;
+  }
+  /* 사용자 이름 */
+  .top-users .rank-1 .user-name,
+  .top-users .rank-2 .user-name,
+  .top-users .rank-3 .user-name {
+    font-size: 12px;
+    font-weight: 700;
+  }
+  /* 사용자 레벨 */
+  .top-users .user-level {
+    font-size: 10px;
+    color: #9e9e9e;
+    margin: 10px 0 0 15px;
+  }
+
+  .user-tables .user-info img {
+    width: 40px;
+    height: 40px;
+  }
+  .user-tables .user-name {
+    font-size: 14px;
+    width: 35%;
+  }
+  .user-tables .user-level {
+    font-size: 12px;
+    width: 25%;
+  }
 }

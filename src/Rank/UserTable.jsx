@@ -1,5 +1,5 @@
-import React from "react";
-import "./UserTable.css";
+import React from 'react';
+import './UserTable.css';
 
 const UserTable = ({ users }) => {
   return (
