@@ -1,73 +1,162 @@
 .mypages {
+  background-color: #f9f9f9;
+  width: 100%;
+  height: 100%;
   padding: 20px;
   margin-top: 0;
 }
+.mypages .inner {
+  width: 75%;
+  height: 100%;
+  position: relative;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  /* border: 1px solid red; */
+}
+
+/* 여기는 마이페이지 */
+.mypages .inner .uppers {
+  margin-top: 2%;
+  margin-bottom: 12%;
+  display: flex;
+}
+.mypages .inner .uppers .MY {
+  font-family: 'establishRetrosansOTF', sans-serif;
+  font-size: 20px;
+  margin: 0 auto;
+}
+/* 프로필 수정 */
+.mypages .inner .uppers .material-icons {
+  font-size: 220%;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+}
 
 /* 프로필이 있을 곳 */
-.profile-section {
+.mypages .inner .profile-section {
   display: flex;
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #cdcdcd;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
   width: 100%;
+  padding-bottom: 20px;
+  margin-bottom: 8%;
 }
-
-.profile-image {
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
+/* 프사 */
+.mypages .inner .profile-section .profile-image {
+  border-radius: 20%;
+  width: 9%;
   margin-right: 40px;
+  position: absolute;
+  left: 0;
 }
-
-.profile-details {
+/* 닉네임, 레벨 */
+.mypages .inner .profile-section .info {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  position: absolute;
+  margin-left: 23%;
 }
-
-.profile-details h2 {
-  font-size: 48px;
-  margin: 0 30px 0 0;
+.mypages .inner .profile-section .info .nickname {
+  font-size: 190%;
+  font-weight: 700;
 }
-
-.level-xp {
-  display: flex;
-  align-items: center;
+.mypages .inner .profile-section .info .level {
+  font-size: 100%;
+  margin-top: 2%;
+  margin-left: 1%;
 }
-
-.level {
-  font-size: 24px;
-  padding: 5px 10px;
-  border: 2px solid black;
-  border-radius: 15px;
-}
-
-.xp {
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: #777;
-}
-
-.edit-profile {
-  padding: 10px 20px;
-  border: 2px solid black;
-  border-radius: 10px;
-  background-color: white;
+/* 북마크 */
+.mypages .inner .profile-section .bookMark {
+  color: #9e9e9e;
+  font-weight: 700;
+  background-color: rgb(158, 158, 158, 0.15);
+  width: 11%;
+  padding: 10px;
+  border-radius: 25px;
   cursor: pointer;
-  font-size: 20px;
+  position: absolute;
+  right: 0;
+}
+
+/* 레벨 */
+.mypages .inner .profile-level {
+  width: 100%;
+  height: 320%;
+  margin-bottom: 10%;
+  /* border: 1px solid red; */
+}
+.mypages .inner .profile-level p {
+  font-size: 120%;
+  color: #5d5e61;
+  margin-bottom: 2%;
+}
+
+/* 경험치 바 */
+.mypages .inner .profile-level .level-bar .example {
+  width: 60%;
+  height: 3%;
+  background-color: rgb(158, 158, 158, 0.15);
+  border-radius: 10px;
+  position: absolute;
+  /* border: 1px solid blue; */
+}
+.mypages .inner .profile-level .level-bar .example .material-icons {
+  cursor: pointer;
+  margin-top: -1%;
+  position: absolute;
+  right: -5%;
+}
+.mypages .inner .profile-level .level-bar .example-bar {
+  width: 15%;
+  height: 3%;
+  background-color: #0892d0;
+  border-radius: 10px;
+  position: absolute;
+}
+.mypages .inner .profile-level .level-bar .example-2 {
+  margin-top: 1%;
+  display: flex;
+  position: absolute;
+}
+.mypages .inner .profile-level .level-bar .example-2 p {
+  color: rgb(158, 158, 158, 0.8);
+  font-size: 90%;
+}
+.mypages .inner .profile-level .level-bar .example-2 .xp {
+  margin-left: 240%;
+}
+.mypages .inner .profile-level .level-bar .example-2 .end {
+  margin-left: 600%;
+}
+
+/* 구간 나누기 */
+.mypages .block-box {
+  width: 100%;
+  height: 3%;
+  background-color: rgb(158, 158, 158, 0.15);
+  position: absolute;
+  left: 0;
 }
 
 /* 리뷰 두는 곳 */
-.reviews-section {
-  margin-top: 40px;
+.mypages .inner .reviews-section {
+  width: 100%;
+  margin-top: 6%;
+  position: absolute;
+  /* border: 1px solid green; */
+}
+.mypages .inner .reviews-section > h3 {
+  font-size: 140%;
+  font-weight: 700;
 }
 
 .review-card {
   display: flex;
   align-items: center;
-  border: 2px solid #cdcdcd;
+  /* border: 2px solid #cdcdcd; */
   border-radius: 15px;
   padding: 20px;
   margin-bottom: 20px;
@@ -95,41 +184,32 @@
 }
 
 .review-title {
-  font-size: 24px;
+  font-size: 100%;
   font-weight: bold;
 }
 
 .review-rating {
-  font-size: 20px;
+  font-size: 100%;
   color: #777;
 }
-
 .review-content {
-  margin-top: 10px;
-  font-size: 18px;
+  margin-top: 1%;
 }
-
 .review-actions {
   display: flex;
   align-items: center;
-  margin-top: 10px;
 }
 
 .edit-button,
 .delete-button {
-  font-size: 12px;
+  font-size: 90%;
   padding: 5px 10px;
   border: none;
-  background-color: transparent;
+  background-color: #5d5e61;
   cursor: pointer;
-}
-
-.edit-button {
-  color: #4caf50;
-}
-
-.delete-button {
-  color: #f44336;
+  width: 6%;
+  margin-top: 2%;
+  margin-right: 1%;
 }
 
 .like-count {
@@ -151,7 +231,7 @@
   align-items: center;
   margin-top: 40px;
   padding: 20px;
-  border: 2px dashed #cdcdcd;
+  /* border: 2px dashed #cdcdcd; */
   border-radius: 15px;
   background-color: #f9f9f9;
 }
@@ -166,27 +246,6 @@
   font-size: 20px;
   color: #777;
   text-align: center;
-}
-
-.point-flex {
-  display: flex;
-}
-
-.point-flex .points-button {
-  border: none;
-  background-color: white;
-  color: gray;
-}
-
-.mypages .bookMark {
-  top: 15%;
-  right: 5%;
-  position: absolute;
-  padding: 10px;
-  border-radius: 20px;
-  color: white;
-  font-weight: bold;
-  background-color: rgb(255, 194, 61);
 }
 
 /* 반응형 디자인 */

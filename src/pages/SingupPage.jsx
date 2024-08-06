@@ -52,13 +52,13 @@ const SignupPage = () => {
       Cookies.set("accessToken", data.accessToken, {
         expires: 1 / 48, // 30 minutes
         path: "/",
-        secure: true,
+        // secure: true,
         sameSite: "Lax",
       });
       Cookies.set("refreshToken", data.refreshToken, {
         expires: 1 / 48, // 30 minutes
         path: "/",
-        secure: true,
+        // secure: true,
         sameSite: "Lax",
       });
       navigate("/");

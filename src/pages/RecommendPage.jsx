@@ -15,8 +15,6 @@ import 우울_label from '../assets/recommend/우울_label.png';
 import 질투_label from '../assets/recommend/질투_label.png';
 import 행복_label from '../assets/recommend/행복_label.png';
 
-// 행복 라벨 없음
-
 const labels = {
   lethargy: 무기력_label,
   anger: 분노_label,
@@ -288,15 +286,30 @@ const RecommendPage = () => {
 
           {/* 리뷰 */}
           {/* 나중에 꾸미기 */}
-          <div className="review">
+          <div className="main-review">
             {reviews.length > 0 ? (
               <div>
-                <p>
-                  <strong>{reviews[currentReviewIndex].userNickname}</strong>:{' '}
+                <div className="main-review-header">
+                  <img
+                    src={reviews[currentReviewIndex].userProfileImage}
+                    alt="profileImage"
+                    className="main-review-profile-img"
+                  />
+                  <div>
+                    <p className="main-review-nickname">
+                      {reviews[currentReviewIndex].userNickname}
+                    </p>
+                    <p className="main-review-tag">
+                      Tag: {reviews[currentReviewIndex].tag}
+                    </p>
+                    <p className="main-review-likes">
+                      Likes: {reviews[currentReviewIndex].likeCount}
+                    </p>
+                  </div>
+                </div>
+                <p className="review-content">
                   {reviews[currentReviewIndex].content}
                 </p>
-                <p>Tag: {reviews[currentReviewIndex].tag}</p>
-                <p>Likes: {reviews[currentReviewIndex].likeCount}</p>
               </div>
             ) : (
               <p>리뷰가 없습니다.</p>

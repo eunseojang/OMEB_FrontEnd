@@ -152,11 +152,6 @@ function Mainpage() {
         </form>
       </div>
 
-      {/* 감정 입력 창 위에 텍스트 */}
-      <div className="emotion-prompt">
-        <p>당신의 감정을 입력하고 싶으신가요?</p>
-      </div>
-
       {/* 첵 */}
       <Bookshelf />
 

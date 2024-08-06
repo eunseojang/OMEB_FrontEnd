@@ -34,15 +34,19 @@ const BookSection = () => {
   }
 
   return (
-    <div className="book-section">
-      <img className="book-image" src={book.bookImage} alt={book.title} />
-      <div className="book-info">
-        <h1 className="book-title">{book.title}</h1>
-        <p className="book-author">
+    <div className="Detail-book-section">
+      <img
+        className="Detail-book-image"
+        src={book.bookImage}
+        alt={book.title}
+      />
+      <div className="Detail-book-info">
+        <h1 className="Detail-book-title">{book.title}</h1>
+        <p className="Detail-book-author">
           {book.author} | {book.publisher} | {book.publicationDate}
         </p>
         <p className="price">판매가 {book.price}원</p>
-        <p className="book-decription">{book.description}</p>
+        <p className="Detail-book-decription">{book.description}</p>
         <a href={book.sellLink} className="buy-button">
           구매하러가기
         </a>

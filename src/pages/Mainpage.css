@@ -16,6 +16,7 @@
   position: absolute;
   top: 0;
 }
+
 /* 흐림 박스 */
 .main_page .back .box {
   width: 38.5%;
@@ -65,7 +66,6 @@
   padding-top: 5%;
   margin-top: 2%;
 }
-/* 좋아요 많은 많은 책 */
 .main_page .section-1,
 .main_page .section-2 {
   width: 100%;
@@ -117,7 +117,6 @@
   height: 50%;
   margin-bottom: 5%;
   overflow: hidden;
-  /* ... 효과 */
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -198,4 +197,79 @@
 
 .emotion-form button:hover {
   background-color: #0056b3;
+}
+
+/* 반응형 설정 */
+@media (max-width: 768px) {
+  .intro {
+    padding-top: 2%;
+    text-align: center;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  .intro > h2 {
+    margin-top: 50px;
+    font-size: 250%;
+    margin-left: 0;
+  }
+  .intro > p {
+    font-size: 80%;
+  }
+  .emotion-form {
+    flex-direction: column;
+    align-items: center;
+  }
+  .emotion-form input {
+    width: 80%;
+    margin-bottom: 10px;
+    margin-right: 0px;
+  }
+  .emotion-form button {
+    width: 80%;
+  }
+  .section-1 h4,
+  .section-2 h4 {
+    font-size: 110%;
+    text-align: center;
+    margin-left: 0;
+  }
+  .book-list {
+    gap: 2%;
+  }
+  .book-item {
+    width: 120px;
+  }
+  .book-image {
+    width: 80px;
+    height: 120px;
+  }
+  .book-title {
+    font-size: 75%;
+  }
+  .book-author,
+  .book-price {
+    font-size: 60%;
+  }
+  .scroll-buttons {
+    justify-content: space-between;
+    margin: 0 2%;
+  }
+  .scroll-buttons .scroll-button {
+    font-size: 30px;
+  }
+
+  /* 흐림 박스 */
+  .main_page .back .box {
+    width: 90%;
+    height: 60%;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-radius: 10%;
+    box-shadow: 0 6px 20px -15px #000;
+    border-width: 1px 1px 0 0;
+    margin-top: 5%;
+    margin-left: 4.5%;
+    position: relative;
+    overflow: hidden;
+  }
 }
