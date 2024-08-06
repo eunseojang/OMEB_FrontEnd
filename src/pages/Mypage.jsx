@@ -1,15 +1,12 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import "./Mypage.css";
-import profileImage from "../assets/profile_image.png";
-import no_search from "../assets/mypage/No_search.png";
-import ProfileModal from "./ProfileModal.jsx";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
-import PointsModal from "./PointsModal.jsx";
-import addBookmarkImage from "../assets/add-bookmarks.png";
-import BookmarksModal from "./BookMarkModal.jsx";
-import Footer from "../Rank/Footer.jsx";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import './Mypage.css';
+import no_search from '../assets/mypage/No_search.png';
+import ProfileModal from './ProfileModal.jsx';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import PointsModal from './PointsModal.jsx';
+import BookmarksModal from './BookMarkModal.jsx';
 
 const Mypages = () => {
   const navigate = useNavigate();
@@ -17,14 +14,14 @@ const Mypages = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [editingReviewId, setEditingReviewId] = useState(null);
-  const [editingContent, setEditingContent] = useState("");
+  const [editingContent, setEditingContent] = useState('');
   const [isPointsModalOpen, setPointsModalOpen] = useState(false);
   const [isBookmarksModalOpen, setBookmarksModalOpen] = useState(false);
 
   useEffect(() => {
-    const token = Cookies.get("accessToken");
+    const token = Cookies.get('accessToken');
     if (!token) {
-      navigate("/login");
+      navigate('/login');
     }
   }, []);
 
@@ -46,7 +43,7 @@ const Mypages = () => {
 
   const fetchUserInfo = async () => {
     try {
-      const token = Cookies.get("accessToken");
+      const token = Cookies.get('accessToken');
       const response = await axios.get(
         `${import.meta.env.VITE_TEST_URL}/api/v1/user/my-page`,
         {
@@ -57,13 +54,13 @@ const Mypages = () => {
       );
       setUserInfo(response.data.data);
     } catch (error) {
-      console.error("Error fetching user info:", error);
+      console.error('Error fetching user info:', error);
     }
   };
 
   const fetchReviews = async () => {
     try {
-      const token = Cookies.get("accessToken");
+      const token = Cookies.get('accessToken');
 
       const response = await axios.get(
         `${import.meta.env.VITE_TEST_URL}/api/v1/my-reviews`,
@@ -75,7 +72,7 @@ const Mypages = () => {
       );
       setReviews(response.data.data.userReviewPageResponseList);
     } catch (error) {
-      console.error("Error fetching reviews:", error);
+      console.error('Error fetching reviews:', error);
     }
   };
 
@@ -109,32 +106,32 @@ const Mypages = () => {
 
   const handleSaveEdit = async (reviewId, tag) => {
     try {
-      const token = Cookies.get("accessToken");
+      const token = Cookies.get('accessToken');
       await axios.patch(
         `${import.meta.env.VITE_TEST_URL}/api/v1/review/${reviewId}`,
         { content: editingContent, tag },
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       );
       fetchReviews();
       setEditingReviewId(null);
-      alert("리뷰가 수정되었습니다.");
+      alert('리뷰가 수정되었습니다.');
     } catch (error) {
-      console.error("Error updating review:", error);
-      alert("리뷰 수정에 실패했습니다.");
+      console.error('Error updating review:', error);
+      alert('리뷰 수정에 실패했습니다.');
     }
   };
 
   const handleDelete = async (reviewId) => {
-    const confirmDelete = window.confirm("정말 이 리뷰를 삭제하시겠습니까?");
+    const confirmDelete = window.confirm('정말 이 리뷰를 삭제하시겠습니까?');
     if (!confirmDelete) return;
 
     try {
-      const token = Cookies.get("accessToken");
+      const token = Cookies.get('accessToken');
       await axios.delete(
         `${import.meta.env.VITE_TEST_URL}/api/v1/review/${reviewId}`,
         {
@@ -144,10 +141,10 @@ const Mypages = () => {
         }
       );
       setReviews(reviews.filter((review) => review.reviewId !== reviewId));
-      alert("리뷰가 삭제되었습니다.");
+      alert('리뷰가 삭제되었습니다.');
     } catch (error) {
-      console.error("Error deleting review:", error);
-      alert("리뷰 삭제에 실패했습니다.");
+      console.error('Error deleting review:', error);
+      alert('리뷰 삭제에 실패했습니다.');
     }
   };
 
@@ -167,11 +164,11 @@ const Mypages = () => {
           <div className="info">
             <img
               className="profile-image"
-              src={userInfo?.profileImageUrl || profileImage}
+              src={userInfo?.profileImageUrl || <div>No Profile Image</div>}
               alt="Profile"
             />
-            <p className="nickname">{userInfo?.nickname || "unknown"}</p>
-            <p className="level">LV{userInfo?.level || "unknown"}</p>
+            <p className="nickname">{userInfo?.nickname || 'unknown'}</p>
+            <p className="level">LV{userInfo?.level || 'unknown'}</p>
             <div className="icon-container12" onClick={openModal}>
               <span className="material-icons">edit_note</span>
             </div>
@@ -192,7 +189,7 @@ const Mypages = () => {
               contact_support
             </span>
             <br />
-            {getLevelUpPoint(userInfo?.level) - userInfo?.exp} 남음
+            {getLevelUpPoint(userInfo?.level) - userInfo?.exp}xp 남음
           </p>
 
           {/* 경험치 바 */}
@@ -220,11 +217,6 @@ const Mypages = () => {
               className="example-bar"
               style={{ width: `${calculateProgress()}%` }}
             ></div>
-            <div className="example-2">
-              <p className="start">0</p>
-              <p className="xp">{userInfo?.exp || "0"}xp</p>{" "}
-              <p className="end">{getLevelUpPoint(userInfo?.level)}</p>
-            </div>
           </div>
         </div>
       </div>
@@ -307,12 +299,16 @@ const Mypages = () => {
           )}
         </div>
       </div>
-
-      {/* 프로필 모달 */}
-      {isModalOpen && <ProfileModal closeModal={closeModal} />}
       {isPointsModalOpen && <PointsModal closeModal={closePointsModal} />}
+      {isModalOpen && (
+        <div className="Modal-black-background">
+          <ProfileModal closeModal={closeModal} userProfile={fetchUserInfo} />
+        </div>
+      )}
       {isBookmarksModalOpen && (
-        <BookmarksModal closeModal={closeBookmarksModal} />
+        <div className="Modal-black-background">
+          <BookmarksModal closeModal={closeBookmarksModal} />
+        </div>
       )}
     </div>
   );

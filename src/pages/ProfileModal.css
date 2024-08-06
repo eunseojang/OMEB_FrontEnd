@@ -16,12 +16,10 @@
   position: relative;
 }
 
-
 /* 닫기 */
 .profile-modal .modal-content .material-icons {
   cursor: pointer;
 }
-
 
 .profile-modal .modal-content .modal-body {
   display: flex;
@@ -51,7 +49,7 @@
 /* 사진 업로드 */
 .profile-modal .modal-content .modal-body .material-icons {
   color: #f9f9f9;
-  background-color: #5D5E61;
+  background-color: #5d5e61;
   text-align: center;
   border-radius: 50px;
   padding: 2% 2%;
@@ -60,7 +58,6 @@
   top: 25%;
   right: 22%;
 }
-
 
 /* 닉네임 */
 .profile-modal .input-group {
@@ -83,7 +80,6 @@
   box-shadow: inset 5px 5px 10px #dee2e1, inset -5px -5px 10px #ffffff;
 }
 
-
 .profile-modal .modal-actions {
   display: flex;
   justify-content: space-between;
@@ -97,6 +93,6 @@
   color: #f9f9f9;
   padding: 10px 10px;
   border-radius: 10px;
-  background: #5D5E61;
+  background: #5d5e61;
   cursor: pointer;
 }

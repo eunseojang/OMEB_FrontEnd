@@ -9,7 +9,7 @@
   text-align: center;
   margin: 0;
   padding: 0;
-  z-index: 10; /*제일 뒤로 가야함*/
+  z-index: 20; /*제일 뒤로 가야함*/
   background-color: white;
 }
 

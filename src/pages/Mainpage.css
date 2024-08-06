@@ -337,6 +337,10 @@
   }
 }
 
+.book-item:hover {
+  cursor: pointer;
+}
+
 @media (max-width: 480px) {
   .intro {
     padding-top: 1%;
