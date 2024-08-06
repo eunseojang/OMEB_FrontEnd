@@ -305,3 +305,83 @@
   position: relative;
   display: inline-block;
 }
+
+@media (max-width: 768px) {
+  .recommend_back {
+    overflow: hidden;
+  }
+
+  .recommend .image img {
+    width: 80%;
+  }
+
+  .recommend .recommend_book {
+    position: absolute;
+    top: 8%;
+    right: -4%;
+  }
+
+  .recommend .recommend_book .book_label img {
+    width: 80%;
+    height: 80%;
+    transform: rotate(5deg);
+  }
+
+  .recommend .recommend_book .book_label p {
+    top: 32%;
+    left: 34%;
+  }
+
+  .recommend .right .close .material-icons {
+    top: 6%;
+    right: 30%;
+  }
+
+  .recommend .left .book_cover {
+    width: 180px;
+    height: 260px;
+    position: absolute;
+    top: 10%;
+    left: 32%;
+  }
+
+  .recommend .left button {
+    width: 180px;
+    height: 40px;
+    bottom: 35%;
+    left: 32%;
+  }
+
+  .recommend .right .main-review {
+    width: 200px;
+    height: 260px;
+    top: 10%;
+    right: 34%;
+  }
+
+  .recommend .right .btns {
+    width: 60%;
+    height: 7%;
+    display: flex;
+    position: absolute;
+    left: 9%;
+    bottom: 34%;
+  }
+
+  .btns button {
+    font-size: 10px;
+  }
+
+  .recommend .right .chevron_right .material-icons {
+    top: 30%;
+    right: 21%;
+  }
+
+  .recommend .left .material-icons {
+    color: #3e3e3e;
+    cursor: pointer;
+    position: absolute;
+    top: 30%;
+    left: 21%;
+  }
+}

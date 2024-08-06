@@ -156,3 +156,30 @@
   padding: 10px;
   color: #5d5e61;
 }
+
+@media (max-width: 768px) {
+  .bookfinder-container .back .box {
+    width: 90%;
+    height: 82%;
+    top: 0%;
+    left: 50%;
+  }
+
+  .bookfinder-container .search-bar input {
+    font-size: 100%;
+    background-color: #f9f9f9;
+    width: 100%;
+    border: none;
+    margin-right: 0px;
+    border-radius: 50px;
+    padding: 10px 20px;
+    box-shadow: inset 5px 5px 10px #dee2e1, inset -5px -5px 10px #ffffff;
+  }
+
+  .bookfinder-container .request-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    width: 60px;
+    font-size: 10px;
+  }
+}
