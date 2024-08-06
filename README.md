@@ -1,4 +1,4 @@
-![localhost_3000_detail_1232 (2)](https://github.com/user-attachments/assets/305be36b-2ac0-44e1-8b42-568665327d58)# Team. 일심동체
+# Team. 일심동체
 #### 프로젝트 상세 문서 링크
 <a href="https://silk-vanilla-48e.notion.site/27cb718191314bc7a9b09a6de0d7554a?pvs=25"><img src="https://img.shields.io/badge/Project Notion-000000?style=flat&logo=Notion&logoColor=ffffff"/></a>
 #### 피그마 링크
@@ -73,11 +73,6 @@
 
 ## 🎨 Screenshots
 ![localhost_3000_ (1)](https://github.com/user-attachments/assets/0cf1d09b-1a35-4622-a999-5d16e761908a)
-![localhost_3000_detail_1232 (1)](https://github.com/user-attachments/assets/6c059834-cddd-40d7-abca-49c0885ec0c8)
-![localhost_3000_detail_1232 (2)](https://github.com/user-attachments/assets/75df82c9-d165-4cc1-9696-7f7f7050e88f)
-![localhost_3000_detail_1232 (3)](https://github.com/user-attachments/assets/ec889574-4050-4d08-918e-0a5b3b5d147f)
-![localhost_3000_detail_1232 (4)](https://github.com/user-attachments/assets/c191c613-edf7-454d-95ac-549ff86dd5c7)
-
 
 <br>
 
