@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Mypage.css';
-import profileImage from '../assets/profile_image.png';
+// import profileImage from '../assets/profile_image.png';
 import no_search from '../assets/mypage/No_search.png';
 import ProfileModal from './ProfileModal.jsx';
 import Cookies from 'js-cookie';
@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import PointsModal from './PointsModal.jsx';
 import addBookmarkImage from '../assets/add-bookmarks.png';
 import BookmarksModal from './BookMarkModal.jsx';
+import Footer from '../Rank/Footer.jsx';
 
 const Mypages = () => {
   const navigate = useNavigate();
@@ -96,6 +97,16 @@ const Mypages = () => {
     setEditingContent(content);
   };
 
+  const getLevelUpPoint = (level) => {
+    let point = 100;
+
+    for (let i = 1; i < level; i++) {
+      point *= 2;
+    }
+
+    return point;
+  };
+
   const handleSaveEdit = async (reviewId, tag) => {
     try {
       const token = Cookies.get('accessToken');
@@ -140,32 +151,30 @@ const Mypages = () => {
     }
   };
 
+  // Calculate progress for the experience bar
+  const calculateProgress = () => {
+    if (!userInfo) return 0;
+    const nextLevelExp = getLevelUpPoint(userInfo.level);
+    return (userInfo.exp / nextLevelExp) * 100;
+  };
+
   return (
     <div className="mypages">
       <div className="inner">
-        {/* 여기는 마이페이지 */}
-        <div className="uppers">
-          <p className="MY">MY</p>
-
-          {/* 프로필 수정 */}
-          <span className="material-icons" onClick={openModal}>
-            edit_note
-          </span>
-        </div>
-
         {/* 프로필 */}
         <div className="profile-section">
-          {/* 프사 */}
-          <img
-            className="profile-image"
-            src={userInfo?.profileImageUrl || profileImage}
-            alt="Profile"
-          />
-
           {/* 닉네임, 레벨 */}
           <div className="info">
+            <img
+              className="profile-image"
+              src={userInfo?.profileImageUrl || <div>No Profile Image</div>}
+              alt="Profile"
+            />
             <p className="nickname">{userInfo?.nickname || 'unknown'}</p>
             <p className="level">LV{userInfo?.level || 'unknown'}</p>
+            <div className="icon-container12" onClick={openModal}>
+              <span className="material-icons">edit_note</span>
+            </div>
           </div>
 
           {/* 북마크 */}
@@ -180,8 +189,26 @@ const Mypages = () => {
           <p>
             남은 레벨까지
             <br />
-            "nxp" 남음
+            {getLevelUpPoint(userInfo?.level) - userInfo?.exp}xp 남음
           </p>
+
+          {/* 경험치 바 */}
+          {/* <div className="level-bar">
+            <div className="example">
+              <span onClick={openPointsModal} className="material-icons">
+                contact_support
+              </span>
+            </div>
+            <div
+              className="example-bar"
+              style={{ width: `${calculateProgress()}%` }}
+            ></div>
+            <div className="example-2">
+              <p className="start">0</p>
+              <p className="xp">{userInfo?.exp || "0"}xp</p>{" "}
+              <p className="end">{getLevelUpPoint(userInfo?.level)}</p>
+            </div>
+          </div> */}
 
           {/* 경험치 바 */}
           <div className="level-bar">
@@ -190,12 +217,10 @@ const Mypages = () => {
                 contact_support
               </span>
             </div>
-            <div className="example-bar"></div>
-            <div className="example-2">
-              <p className="start">0</p>
-              <p className="xp">{userInfo?.exp || '0'}xp</p>{' '}
-              <p className="end">끝</p>
-            </div>
+            <div
+              className="example-bar"
+              style={{ width: `${calculateProgress()}%` }}
+            ></div>
           </div>
         </div>
       </div>
@@ -269,13 +294,11 @@ const Mypages = () => {
           ) : (
             <div className="no-reviews">
               <img
-                src={no_search}
-                alt="No reviews"
                 className="no-reviews-image"
+                src={no_search}
+                alt="No Reviews"
               />
-              <p className="no-reviews-text">
-                리뷰가 없어요. 첫 번째 리뷰 작성 해보세요!
-              </p>
+              <p>리뷰가 없습니다.</p>
             </div>
           )}
         </div>

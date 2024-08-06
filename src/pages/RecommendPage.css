@@ -1,5 +1,6 @@
 /* 기존 인터페이스 어두운 색으로 가림 */
 .recommend_back {
+  margin-top: -81px;
   background: rgb(62, 62, 62, 0.9);
   height: 100vh;
   width: 100%;

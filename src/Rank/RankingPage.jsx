@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import TopUsers from './TopUsers';
-import UserTable from './UserTable';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import TopUsers from "./TopUsers";
+import UserTable from "./UserTable";
+import Footer from "./Footer";
 
 const RankingPage = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -22,7 +23,7 @@ const RankingPage = () => {
         );
         setUsers(response.data.data.userRankInfoResponseList || []);
       } catch (err) {
-        setError('Failed to fetch user rankings.');
+        setError("Failed to fetch user rankings.");
         setUsers([]);
       } finally {
         setLoading(false);
@@ -46,6 +47,7 @@ const RankingPage = () => {
     <div className="rank">
       <TopUsers users={topUsers} />
       <UserTable users={restOfUsers} />
+      <Footer />
     </div>
   );
 };
