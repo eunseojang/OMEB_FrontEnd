@@ -179,6 +179,7 @@ const RecommendPage = () => {
   const handleNextBook = () => {
     if (currentBookIndex < bookRecommendations.length - 1) {
       setCurrentBookIndex(currentBookIndex + 1);
+      setIsLiked(false);
     }
   };
 
@@ -186,6 +187,7 @@ const RecommendPage = () => {
   const handlePreviousBook = () => {
     if (currentBookIndex > 0) {
       setCurrentBookIndex(currentBookIndex - 1);
+      setIsLiked(false);
     }
   };
 
@@ -193,6 +195,7 @@ const RecommendPage = () => {
   const handleNextReview = () => {
     if (currentReviewIndex < reviews.length - 1) {
       setCurrentReviewIndex(currentReviewIndex + 1);
+      setIsLiked(false);
     }
   };
 
@@ -303,8 +306,8 @@ const RecommendPage = () => {
                       {reviews[currentReviewIndex].tag}
                     </p>
                     <p className="main-review-likes">
-                      <span className="material-icons">favorite</span>
-                      : {reviews[currentReviewIndex].likeCount}
+                      <span className="material-icons">favorite</span>:{" "}
+                      {reviews[currentReviewIndex].likeCount}
                     </p>
                   </div>
                 </div>
