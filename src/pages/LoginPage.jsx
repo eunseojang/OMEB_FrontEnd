@@ -25,7 +25,13 @@ const LoginPage = () => {
             <img src={google_logo} alt="google_logo" />
             <p>구글로 시작하기</p>
           </div>
-          <div className="naver" onClick={() => handleLogin("naver")}>
+          <div
+            className="naver"
+            onClick={() => {
+              alert("네이버 로그인은 심사 문제로 08-07 부터 가능합니다.");
+              // handleLogin("naver");
+            }}
+          >
             <img src={naver_logo} alt="naver_logo" />
             <p>네이버로 시작하기</p>
           </div>
@@ -34,7 +40,6 @@ const LoginPage = () => {
             <p>카카오로 시작하기</p>
           </div>
         </div>
-
       </div>
     </div>
   );
