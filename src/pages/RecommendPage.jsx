@@ -234,8 +234,6 @@ const RecommendPage = () => {
           <div className="book_label">
             <img src={labels[emotion]} alt={emotion} />
             <p>{p_emotion[emotion]}</p>
-            {/* 선택한 책의 감정이 들어감
-            <p>{id}</p> */}
           </div>
         </div>
 
