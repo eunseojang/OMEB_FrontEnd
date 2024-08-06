@@ -172,8 +172,6 @@
 }
 
 .recommend .right .main-review p {
-  font-size: 14px;
-  font-weight: 200;
   word-wrap: break-word;
 }
 
@@ -200,10 +198,15 @@
 }
 
 .main-review-tag,
-.main-review-likes {
+.main-review-likes,
+.main-review .main-review-header .material-icons {
   margin: 3px 0;
-  font-size: 14px;
+  font-size: 10px;
   color: #888;
+  font-style: italic;
+}
+.main-review .main-review-header .material-icons {
+  margin-top: -1%;
 }
 
 .main-review-content {
