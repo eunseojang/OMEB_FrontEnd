@@ -16,7 +16,7 @@
 }
 
 .Detail-book-section .Detail-book-image {
-  width: 350px;
+  width: 400px;
   height: auto;
   margin-right: 40px;
 }
@@ -33,14 +33,14 @@
 
 .Detail-book-section .Detail-book-author {
   font-size: 16px;
-  margin: 30px 0;
+  margin: 15px 0;
   color: #8d8d8d;
 }
 
 .Detail-book-section .Detail-book-decription {
   text-align: left;
   padding: 5px;
-  height: 30vh;
+  height: 28vh;
   overflow-y: scroll;
   font-size: 16px;
   margin: 30px 0;
