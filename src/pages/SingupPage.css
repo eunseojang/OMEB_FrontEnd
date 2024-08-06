@@ -10,7 +10,6 @@
   align-items: center;
 }
 
-
 /* 하얀 박스 */
 .signup_back .signup {
   background: #f9f9f9;
@@ -20,15 +19,15 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .signup_back .signup h4 {
-  font-family: 'establishRetrosansOTF', sans-serif;
+  font-family: "establishRetrosansOTF", sans-serif;
   font-size: 350%;
   margin-top: 5rem;
-  margin-bottom: 5.5rem;
+  margin-bottom: 2rem;
 }
 .signup_back .signup div .nicknameInput {
   font-size: 130%;
-  background-color: #DEE2E1;
-  box-shadow: inset 2px 2px 5px #5D5E61, inset -5px -5px 10px #f9f9f9;
+  background-color: #dee2e1;
+  box-shadow: inset 2px 2px 5px #5d5e61, inset -5px -5px 10px #f9f9f9;
   border: none;
   border-radius: 5px;
   width: 60%;
@@ -37,7 +36,7 @@
 .signup_back .signup .nicknameBtn {
   color: #f9f9f9;
   font-weight: 700;
-  background-color: #5D5E61;
+  background-color: #5d5e61;
   width: 60%;
   height: 10%;
   border: none;
