@@ -46,11 +46,11 @@
 }
 .intro > h2 {
   font-family: 'establishRetrosansOTF', sans-serif;
-  font-size: 500%;
+  font-size: 450%;
   font-weight: 800;
   color: #dee2e1;
   text-shadow: 8px 8px 15px #3e3e3e, -1px -1px 2px #f9f9f9;
-  margin-left: -75%;
+  margin-left: -77%;
 }
 .intro > p {
   color: #dee2e1;
@@ -149,52 +149,85 @@
   color: #3e3e3e;
 }
 
-.emotion-prompt {
-  cursor: pointer;
-  margin: 20px 0;
-  text-align: center;
-}
-
-.emotion-prompt p {
-  font-size: 18px;
-  color: #333;
-  margin: 0;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  transition: background-color 0.3s ease;
-}
-
-.emotion-prompt p:hover {
-  background-color: #e9e9e9;
-}
-
 /* 감정 입력창 */
 .emotion-form {
+  margin-top: 4%;
+  float: left;
+  position: relative;
+  width: 33%; /* .emotion-form의 너비 설정 */
+  height: auto; /* 높이를 자동으로 설정 */
   display: flex;
-  margin-top: 40px;
 }
-
 .emotion-form input {
-  font-size: 16px;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  width: 28%;
-  margin-right: 10px;
+  padding: 5%;
+  border-radius: 9px;
+  border: none;
+  width: 85%;
+  height: 100%;
+  font-size: 100%;
+  color: #f9f9f9;
+  background-color: #3e3e3e;
+  z-index: 1; /* z-index 설정으로 점이 input 아래에 위치하지 않도록 */
+}
+.emotion-form .dot {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -2%; /* 왼쪽 상단에서 시작 */
+  width: 1%; /* 점의 너비 */
+  height: 1%; /* 점의 높이 */
+  border-radius: 50%; /* 점을 둥글게 */
+  transition: all 300ms ease;
+  display: block;
+  animation: moveAroundInput 4s infinite linear; /* 애니메이션 추가 */
+  z-index: 2; /* 점을 input 위에 위치하도록 설정 */
+}
+@keyframes moveAroundInput {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  25% {
+    top: 0;
+    left: 85%;
+  } /* 상단 오른쪽 */
+  50% {
+    top: 100%;
+    left: 85%;
+  } /* 하단 오른쪽 */
+  75% {
+    top: 100%;
+    left: 0;
+  } /* 하단 왼쪽 */
+  100% {
+    top: 0;
+    left: 0;
+  } /* 상단 왼쪽 */
+}
+.emotion-form .dot:after {
+  content: '';
+  position: absolute;
+  left: calc(50% - 0.4em);
+  top: -0.4em;
+  height: 1%;
+  width: 1%;
+  background: #4959a6;
+  border-radius: 1em;
+  border: 0.25em solid #f9f9f9;
+  box-shadow: 0 0 0.7em #f9f9f9, 0 0 2em #4959a6;
 }
 
+/* 추천받기 */
 .emotion-form button {
-  font-size: 16px;
-  padding: 10px 20px;
+  width: 13%;
+  height: 100%;
   border-radius: 10px;
   border: none;
   background-color: #007bff;
-  color: white;
   cursor: pointer;
+  position: absolute;
+  right: 0;
 }
-
 .emotion-form button:hover {
   background-color: #0056b3;
 }
@@ -216,17 +249,25 @@
     font-size: 80%;
   }
   .emotion-form {
+    width: 90%; /* Adjusted width for smaller screens */
+    margin-left: 5%;
+    margin-right: 5%;
     flex-direction: column;
     align-items: center;
   }
   .emotion-form input {
-    width: 80%;
+    width: 100%;
     margin-bottom: 10px;
-    margin-right: 0px;
+    padding: 10px;
   }
+
   .emotion-form button {
-    width: 80%;
+    padding: 4px;
+    margin-top: 43px;
+    width: 100%;
+    height: 32px;
   }
+
   .section-1 h4,
   .section-2 h4 {
     font-size: 110%;
@@ -272,4 +313,96 @@
     position: relative;
     overflow: hidden;
   }
+  @keyframes moveAroundInput {
+    0% {
+      top: 0;
+      left: 0;
+    }
+    25% {
+      top: 0;
+      left: 100%;
+    } /* 상단 오른쪽 */
+    50% {
+      top: 100%;
+      left: 100%;
+    } /* 하단 오른쪽 */
+    75% {
+      top: 100%;
+      left: 0;
+    } /* 하단 왼쪽 */
+    100% {
+      top: 0;
+      left: 0;
+    } /* 상단 왼쪽 */
+  }
+}
+
+@media (max-width: 480px) {
+  .intro {
+    padding-top: 1%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  .intro > h2 {
+    font-size: 200%;
+  }
+  .intro > p {
+    font-size: 70%;
+  }
+  .emotion-form {
+    width: 95%; /* Further adjust width for extra small screens */
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+  }
+  .emotion-form input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px; /* Adjust padding */
+  }
+  .emotion-form .dot {
+    display: none; /* Hide dot on small screens for better UX */
+  }
+  .emotion-form button {
+    width: 100%;
+  }
+  .section-1 h4,
+  .section-2 h4 {
+    font-size: 100%;
+  }
+  .book-item {
+    width: 100px;
+  }
+  .book-image {
+    width: 70px;
+    height: 100px;
+  }
+  .book-title {
+    font-size: 65%;
+  }
+  .book-author,
+  .book-price {
+    font-size: 55%;
+  }
+  .scroll-buttons .scroll-button {
+    font-size: 25px;
+  }
+
+  /* 흐림 박스 */
+  .main_page .back .box {
+    width: 95%;
+    height: 60%;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-radius: 10%;
+    box-shadow: 0 6px 20px -15px #000;
+    border-width: 1px 1px 0 0;
+    margin-top: 5%;
+    margin-left: 2.5%;
+    position: relative;
+    overflow: hidden;
+  }
+}
+
+.emotion-form button .material-icons {
+  color: #f9f9f9;
 }

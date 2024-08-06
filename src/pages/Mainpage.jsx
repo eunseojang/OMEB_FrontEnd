@@ -148,7 +148,10 @@ function Mainpage() {
             value={emotion}
             onChange={handleEmotionChange}
           />
-          <button type="submit">추천 받기</button>
+          <div className="dot"></div>
+          <button type="submit">
+            <span className="material-icons">add_reaction</span>
+          </button>
         </form>
       </div>
 
