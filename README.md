@@ -16,27 +16,38 @@
     </tr>
     <tr>
       <td align="center">
-        <a href="https://github.com/kang20">
+        <a href="https://github.com/dsky03">
           <img src="https://avatars.githubusercontent.com/u/75325326?v=4" width="100" height="80" alt=""/>
           <br/>
-          <sub><b>강민기</b></sub>
+          <sub><b>김동천</b></sub>
         </a>
       </td>
-      <td align="center">BE Developer</td>
+      <td align="center">FE Developer</td>
       <td>
-        CI/CD, Infra 구성, API 구현 (review, Book, BookMark, Book신청, Profile),<br> 추천 데이터 batch 시스템 구축
+        피그마 디자인, api 연결, Mainpage, header, mypage logic, 반응형 디자인, 검색 기능
       </td>
     </tr>
     <tr>
       <td align="center">
-        <a href="https://github.com/siwan9">
+        <a href="https://github.com/ttatjwi">
           <img src="https://avatars.githubusercontent.com/u/128140195?v=4" width="100" height="80" alt=""/>
           <br/>
-          <sub><b>김시완</b></sub>
+          <sub><b>이수영</b></sub>
         </a>
       </td>
-      <td align="center" width="150">BE Developer</td>
-      <td></td>
+      <td align="center" width="150">FE Developer</td>
+      <td>피그마 디자인, Mainpage, 리뷰 추천 페이지, 각 페이지 디자인 개선</td>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/eunseojang">
+          <img src="https://avatars.githubusercontent.com/u/128140195?v=4" width="100" height="80" alt=""/>
+          <br/>
+          <sub><b>장은서</b></sub>
+        </a>
+      </td>
+      <td align="center" width="150">FE Developer</td>
+      <td>피그마 디자인, 로그인 oauth 연결, 책 상세 페이지, 랭킹 페이지, 리뷰 작성 페이지</td>
     </tr>
   </table>
 </div>
@@ -62,21 +73,6 @@
 
 ## 🎨 Screenshots
 [업데이트중]
-
-<br>
-
-## 📐infra Architecture
-![image](https://github.com/user-attachments/assets/b1024a53-4dd5-49ae-9d19-53a12bdda2cf)
-
-<br>
-
-## ✨ E-R Diagram
-![image](https://github.com/user-attachments/assets/083a07c7-38b3-4a3b-8a70-167cc33dabe9)
-
-<br>
-
-## 🧑‍💻 CI/CD Pipeline
-![image](https://github.com/user-attachments/assets/69246e73-63b8-4860-909e-5c4d5b1e31e1)
 
 <br>
 
