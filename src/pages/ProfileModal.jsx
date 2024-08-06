@@ -1,17 +1,19 @@
-import { useState, useEffect, useRef } from 'react';
-import './ProfileModal.css';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import { useState, useEffect, useRef } from "react";
+import "./ProfileModal.css";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const ProfileModal = ({ closeModal, userProfile }) => {
-  const [nickname, setNickname] = useState('김oo');
-  const [imageUrl, setImageUrl] = useState('');
+  const [nickname, setNickname] = useState("김oo");
+  const [imageUrl, setImageUrl] = useState("");
   const fileInputRef = useRef(null); // Create a reference for the file input
+  const [profileEdit, setProfileEdit] = useState(false);
+  const [nicknameEdit, setNicknameEdit] = useState(false);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const token = Cookies.get('accessToken');
+        const token = Cookies.get("accessToken");
 
         const response = await axios.get(
           `${import.meta.env.VITE_TEST_URL}/api/v1/user/my-page`,
@@ -24,7 +26,7 @@ const ProfileModal = ({ closeModal, userProfile }) => {
         setNickname(response.data.data.nickname);
         setImageUrl(response.data.data.profileImageUrl);
       } catch (error) {
-        console.error('Error fetching user info:', error);
+        console.error("Error fetching user info:", error);
       }
     };
 
@@ -32,7 +34,7 @@ const ProfileModal = ({ closeModal, userProfile }) => {
   }, []);
 
   const handleFileUpload = async (event) => {
-    const token = Cookies.get('accessToken');
+    const token = Cookies.get("accessToken");
     const file = event.target.files[0];
 
     if (file) {
@@ -54,62 +56,68 @@ const ProfileModal = ({ closeModal, userProfile }) => {
 
           const uploadResponse = await axios.put(presignedUrl, binary, {
             headers: {
-              'Content-Type': file.type,
+              "Content-Type": file.type,
             },
           });
 
           if (uploadResponse.status !== 200) {
-            throw new Error('Failed to upload file to S3');
+            throw new Error("Failed to upload file to S3");
           }
 
-          const s3Url = presignedUrl.split('?')[0];
+          const s3Url = presignedUrl.split("?")[0];
           setImageUrl(s3Url);
+          setProfileEdit(true);
         };
       } catch (error) {
-        console.error('Error uploading file:', error);
-        alert('파일 업로드되지 않았습니다.');
+        console.error("Error uploading file:", error);
+        alert("파일 업로드되지 않았습니다.");
       }
     }
   };
 
   const handleSave = async () => {
-    const token = Cookies.get('accessToken');
+    const token = Cookies.get("accessToken");
     try {
-      const response = await axios.patch(
-        `${import.meta.env.VITE_TEST_URL}/api/v1/profile`,
-        {},
-        {
-          params: { url: imageUrl },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      if (profileEdit) {
+        const response = await axios.patch(
+          `${import.meta.env.VITE_TEST_URL}/api/v1/profile`,
+          {},
+          {
+            params: { url: imageUrl },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.status !== 200) {
+          throw new Error("Failed to update profile");
         }
-      );
-      if (response.status !== 200) {
-        throw new Error('Failed to update profile');
       }
-      const response2 = await axios.patch(
-        `${import.meta.env.VITE_TEST_URL}/api/v1/user`,
-        { nickname },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
 
-      alert('프로필을 저장했습니다.');
+      if (nicknameEdit) {
+        await axios.patch(
+          `${import.meta.env.VITE_TEST_URL}/api/v1/user`,
+          { nickname },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      }
+
+      alert("프로필을 저장했습니다.");
       userProfile();
       closeModal();
     } catch (error) {
-      console.error('Profile update error:', error);
-      alert('중복된 닉네임입니다.');
+      console.error("Profile update error:", error);
+      alert("중복된 닉네임입니다.");
       closeModal();
     }
   };
 
   const handleDefaultProfile = async () => {
-    const token = Cookies.get('accessToken');
+    const token = Cookies.get("accessToken");
     try {
       const response = await axios.patch(
         `${import.meta.env.VITE_TEST_URL}/api/v1/profile/default`,
@@ -122,15 +130,15 @@ const ProfileModal = ({ closeModal, userProfile }) => {
       );
 
       if (response.status !== 200) {
-        throw new Error('Failed to set default profile image');
+        throw new Error("Failed to set default profile image");
       }
 
-      alert('프로필을 저장했습니다.');
+      alert("프로필을 저장했습니다.");
       userProfile();
       closeModal();
     } catch (error) {
-      console.error('Error resetting profile image to default:', error);
-      alert('프로필 업로드에 실패 했습니다.');
+      console.error("Error resetting profile image to default:", error);
+      alert("프로필 업로드에 실패 했습니다.");
       closeModal();
     }
   };
@@ -163,7 +171,7 @@ const ProfileModal = ({ closeModal, userProfile }) => {
               type="file"
               accept="image/*"
               onChange={handleFileUpload}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               ref={fileInputRef}
             />
           </div>
@@ -173,7 +181,10 @@ const ProfileModal = ({ closeModal, userProfile }) => {
             <input
               type="text"
               value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
+              onChange={(e) => {
+                setNickname(e.target.value);
+                setNicknameEdit(true);
+              }}
             />
           </div>
 

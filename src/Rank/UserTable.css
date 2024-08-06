@@ -32,7 +32,7 @@
 /* 말풍선 */
 .user-tables
   .info-container
-  .material-icons[data-tooltip]:not([data-tooltip=''])::before {
+  .material-icons[data-tooltip]:not([data-tooltip=""])::before {
   content: attr(data-tooltip);
   font-size: 15px;
   line-height: 130%;
@@ -52,8 +52,8 @@
 /* 말풍선 촉 */
 .user-tables
   .info-container
-  .material-icons[data-tooltip]:not([data-tooltip=''])::after {
-  content: '';
+  .material-icons[data-tooltip]:not([data-tooltip=""])::after {
+  content: "";
   border-width: 6px;
   border-style: solid;
   border-color: transparent;
@@ -69,10 +69,10 @@
 /* 마우스 가져다댔을 때 말풍선 생성 */
 .user-tables
   .info-container:hover
-  .material-icons[data-tooltip]:not([data-tooltip=''])::before,
+  .material-icons[data-tooltip]:not([data-tooltip=""])::before,
 .user-tables
   .info-container:hover
-  .material-icons[data-tooltip]:not([data-tooltip=''])::after {
+  .material-icons[data-tooltip]:not([data-tooltip=""])::after {
   opacity: 1;
 }
 
@@ -124,7 +124,7 @@
 /* 반응형 설정 */
 @media (max-width: 768px) {
   .user-tables {
-    margin-top: 40px;
+    margin-top: 110px;
     padding: 40vh 0 10vh 0;
   }
   .user-tables .info-container {
